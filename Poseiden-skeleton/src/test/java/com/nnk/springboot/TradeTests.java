@@ -1,7 +1,8 @@
 package com.nnk.springboot;
 
 import com.nnk.springboot.domain.Trade;
-import com.nnk.springboot.repositories.TradeRepository;
+import com.nnk.springboot.repositories.contract.TradeRepository;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +22,7 @@ public class TradeTests {
 
 	@Test
 	public void tradeTest() {
-		Trade trade = new Trade("Trade Account", "Type");
+		Trade trade = new Trade(0, "Trade Account", "Type", 0, 0, 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 
 		// Save
 		trade = tradeRepository.save(trade);

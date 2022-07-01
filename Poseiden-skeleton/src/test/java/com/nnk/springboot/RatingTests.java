@@ -1,7 +1,8 @@
 package com.nnk.springboot;
 
 import com.nnk.springboot.domain.Rating;
-import com.nnk.springboot.repositories.RatingRepository;
+import com.nnk.springboot.repositories.contract.RatingRepository;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +22,7 @@ public class RatingTests {
 
 	@Test
 	public void ratingTest() {
-		Rating rating = new Rating("Moodys Rating", "Sand PRating", "Fitch Rating", 10);
+		Rating rating = new Rating(0, "Moodys Rating", "Sand PRating", "Fitch Rating", 10);
 
 		// Save
 		rating = ratingRepository.save(rating);

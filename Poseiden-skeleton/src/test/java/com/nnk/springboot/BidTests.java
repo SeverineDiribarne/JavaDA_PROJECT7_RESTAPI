@@ -1,7 +1,8 @@
 package com.nnk.springboot;
 
 import com.nnk.springboot.domain.BidList;
-import com.nnk.springboot.repositories.BidListRepository;
+import com.nnk.springboot.repositories.contract.BidListRepository;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +22,7 @@ public class BidTests {
 
 	@Test
 	public void bidListTest() {
-		BidList bid = new BidList("Account Test", "Type Test", 10d);
+		BidList bid = new BidList(0, "Account Test", "Type Test", 10d, 0, 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 
 		// Save
 		bid = bidListRepository.save(bid);

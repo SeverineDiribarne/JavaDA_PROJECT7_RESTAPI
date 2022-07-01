@@ -1,7 +1,8 @@
 package com.nnk.springboot;
 
 import com.nnk.springboot.domain.RuleName;
-import com.nnk.springboot.repositories.RuleNameRepository;
+import com.nnk.springboot.repositories.contract.RuleNameRepository;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +22,7 @@ public class RuleTests {
 
 	@Test
 	public void ruleTest() {
-		RuleName rule = new RuleName("Rule Name", "Description", "Json", "Template", "SQL", "SQL Part");
+		RuleName rule = new RuleName(0, "Rule Name", "Description", "Json", "Template", "SQL", "SQL Part");
 
 		// Save
 		rule = ruleNameRepository.save(rule);
