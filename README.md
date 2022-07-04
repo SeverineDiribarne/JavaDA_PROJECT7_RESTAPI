@@ -2,7 +2,7 @@
 #
 # Application.properties
 #
-Create a folder that you will name "config" at the root of the project then create this file that you will call "application.properties".
+Create this file that you will call "application.properties" and put it in your config folder at the root of the project.
 This allows you to externalize login credentials to your database.
 Here is the contain example :
 #
