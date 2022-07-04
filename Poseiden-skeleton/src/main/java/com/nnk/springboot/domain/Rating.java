@@ -24,14 +24,19 @@ public class Rating {
 
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
+	@Column(name="Id")
 	private int id ;
 
+	@Column(name="moodys_rating")
 	private String moodysRating ;
 
+	@Column(name="sandprating")
 	private String sandPRating ;
 
+	@Column(name="fitch_rating")
 	private String fitchRating ;
 
+	@Column(name="order_number")
 	private int orderNumber ;
 
 	/**

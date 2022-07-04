@@ -17,8 +17,8 @@ import lombok.ToString;
 
 //@NoArgsConstructor
 //@AllArgsConstructor
-@ToString(of = {"bidListId", "account", "type", "bidQuantity", "askQuantity", "bid", "ask", "benchmark", "bidListDate", "commentary", "security", 
-		"status","trader", "book", "creationName", "creationDate","revisionName", "revisionDate", "dealName", "dealType", "sourceListId", "side" })
+//@ToString(of = {"bidListId", "account", "type", "bidQuantity", "askQuantity", "bid", "ask", "benchmark", "bidListDate", "commentary", "security", 
+//		"status","trader", "book", "creationName", "creationDate","revisionName", "revisionDate", "dealName", "dealType", "sourceListId", "side" })
 //@Getter @Setter
 @Entity
 @Table(name = "bidlist")
@@ -29,48 +29,70 @@ public class BidList {
 
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
+	@Column(name="bid_list_Id")
 	private int bidListId;
 
+	@Column(name="account")
 	private String account ;
-
+	
+	@Column(name="type")
 	private String type ;
 
+	@Column(name="bid_quantity")
 	private double bidQuantity ;
 
+	@Column(name="ask_quantity")
 	private double askQuantity ;
 
+	@Column(name="bid")
 	private double bid ;
 
+	@Column(name="ask")
 	private double ask ;
 
+	@Column(name="benchmark")
 	private String  benchmark ;
 
+	@Column(name="bid_list_date")
 	private Date bidListDate ;
 
+	@Column(name="commentary")
 	private String commentary ;
 
+	@Column(name="security")
 	private String security ;
 
+	@Column(name="status")
 	private String status ;
 
+	@Column(name="trader")
 	private String trader ;
 
+	@Column(name="book")
 	private String book ;
 
+	@Column(name="creation_name")
 	private String creationName ;
 
+	@Column(name="creation_date")
 	private Date creationDate ;
 
+	@Column(name="revision_name")
 	private String revisionName ;
 
+	@Column(name="revision_date")
 	private Date revisionDate ;
 
+	@Column(name="deal_name")
 	private String dealName ;
 
+	@Column(name="deal_type")
 	private String dealType ;
 
+	@Column(name="source_list_id")
 	private String sourceListId ;
 
+	@Column(name="side")
 	private String side ;
 
 	/**

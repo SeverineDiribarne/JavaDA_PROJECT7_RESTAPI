@@ -25,16 +25,22 @@ public class CurvePoint {
 	//Attributes
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
+	@Column(name="Id")
 	private int id;
 
+	@Column(name="curve_id")
 	private int CurveId;
 
+	@Column(name="as_of_date")
 	private Date asOfDate;
 
+	@Column(name="term")
 	private double term ;
 
+	@Column(name="value")
 	private double value ;
 
+	@Column(name="creation_date")
 	private Date creationDate ;
 
 	/**
