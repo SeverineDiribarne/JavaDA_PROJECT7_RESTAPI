@@ -1,7 +1,7 @@
 package com.nnk.springboot;
 
 import com.nnk.springboot.domain.CurvePoint;
-import com.nnk.springboot.repositories.contract.CurvePointRepository;
+import com.nnk.springboot.repositories.CurvePointRepository;
 
 import org.junit.Assert;
 import org.junit.Test;
