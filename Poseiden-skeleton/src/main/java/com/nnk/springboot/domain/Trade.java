@@ -25,7 +25,12 @@ public class Trade {
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	private int tradeId;
+<<<<<<< Updated upstream
 
+=======
+	
+	@Column(name="account")
+>>>>>>> Stashed changes
 	private String account;
 
 	private String type;

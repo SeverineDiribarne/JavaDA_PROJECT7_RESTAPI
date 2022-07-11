@@ -1,7 +1,7 @@
 package com.nnk.springboot;
 
 import com.nnk.springboot.domain.Trade;
-import com.nnk.springboot.repositories.contract.TradeRepository;
+import com.nnk.springboot.repositories.TradeRepository;
 
 import org.junit.Assert;
 import org.junit.Test;
