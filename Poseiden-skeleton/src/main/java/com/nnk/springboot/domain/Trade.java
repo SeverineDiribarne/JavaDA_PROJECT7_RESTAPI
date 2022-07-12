@@ -33,18 +33,6 @@ public class Trade {
 	@Column(name="type")
 	private String type;
 
-<<<<<<< HEAD
-	@Column(name="buyQuantity")
-	private double buyQuantity;
-
-	@Column(name="sellQuantity")
-	private double sellQuantity;
-
-	@Column(name="buyPrice")
-	private double buyPrice;
-
-	@Column(name="sellPrice")
-=======
 	@Column(name="buy_quantity")
 	private double buyQuantity;
 
@@ -55,13 +43,8 @@ public class Trade {
 	private double buyPrice;
 
 	@Column(name="sell_price")
->>>>>>> feature/domain
 	private double sellPrice;
 	
-	@Column(name="benchmark")
-	private String benchmark;
-
-<<<<<<< HEAD
 	@Column(name="tradeDate")
 	private Date tradeDate;
 
@@ -80,67 +63,28 @@ public class Trade {
 	@Column(name="book")	
 	private String book;
 
-	@Column(name="creationName")	
+	@Column(name="creation_name")	
 	private String creationName;
 
-	@Column(name="creationDate")	
+	@Column(name="creationçdate")	
 	private Date creationDate;
 
-	@Column(name="revisionName")	
+	@Column(name="revision_name")	
 	private String revisionName;
 
-	@Column(name="revisionDate")	
+	@Column(name="revision_date")	
 	private Date revisionDate;
 
-	@Column(name="dealName")	
+	@Column(name="deal_name")	
 	private String dealName;
 
-	@Column(name="dealType")	
+	@Column(name="deal_type")	
 	private String dealType;
 
-	@Column(name="sourceListId")	
+	@Column(name="source_list_id")	
 	private String sourceListId;
 
 	@Column(name="side")	
-=======
-	@Column(name="trade_date")
-	private Date tradeDate;
-
-	@Column(name="security")
-	private String security;
-
-	@Column(name="status")
-	private String status;
-
-	@Column(name="trader")
-	private String trader;
-
-	@Column(name="book")
-	private String book;
-
-	@Column(name="creation_name")
-	private String creationName;
-
-	@Column(name="creation_date")
-	private Date creationDate;
-
-	@Column(name="revision_name")
-	private String revisionName;
-
-	@Column(name="revision_date")
-	private Date revisionDate;
-
-	@Column(name="deal_name")
-	private String dealName;
-
-	@Column(name="deal_type")
-	private String dealType;
-
-	@Column(name="source_list_id")
-	private String sourceListId;
-
-	@Column(name="side")
->>>>>>> feature/domain
 	private String side;
 
 	
