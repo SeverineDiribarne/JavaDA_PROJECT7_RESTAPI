@@ -29,7 +29,7 @@ public class CurvePoint {
 	private int id;
 
 	@Column(name="curve_id")
-	private int CurveId;
+	private int curveId;
 
 	@Column(name="as_of_date")
 	private Date asOfDate;
@@ -55,7 +55,7 @@ public class CurvePoint {
 	public CurvePoint(int id, int curveId, Date asOfDate, double term, double value, Date creationDate) {
 		super();
 		this.id = id;
-		CurveId = curveId;
+		curveId = curveId;
 		this.asOfDate = asOfDate;
 		this.term = term;
 		this.value = value;
@@ -87,14 +87,14 @@ public class CurvePoint {
 	 * @return the curveId
 	 */
 	public int getCurveId() {
-		return CurveId;
+		return curveId;
 	}
 
 	/**
 	 * @param curveId the curveId to set
 	 */
 	public void setCurveId(int curveId) {
-		CurveId = curveId;
+		curveId = curveId;
 	}
 
 	/**
@@ -155,7 +155,7 @@ public class CurvePoint {
 
 	@Override
 	public String toString() {
-		return "CurvePoint [id=" + id + ", CurveId=" + CurveId + ", asOfDate=" + asOfDate + ", term=" + term
+		return "CurvePoint [id=" + id + ", CurveId=" + curveId + ", asOfDate=" + asOfDate + ", term=" + term
 				+ ", value=" + value + ", creationDate=" + creationDate + "]";
 	}
 }

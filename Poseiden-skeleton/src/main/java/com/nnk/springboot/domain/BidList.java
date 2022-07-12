@@ -17,8 +17,8 @@ import lombok.ToString;
 
 //@NoArgsConstructor
 //@AllArgsConstructor
-//@ToString(of = {"bidListId", "account", "type", "bidQuantity", "askQuantity", "bid", "ask", "benchmark", "bidListDate", "commentary", "security", 
-//		"status","trader", "book", "creationName", "creationDate","revisionName", "revisionDate", "dealName", "dealType", "sourceListId", "side" })
+@ToString(of = {"bidListId", "account", "type", "bidQuantity", "askQuantity", "bid", "ask", "benchmark", "bidListDate", "commentary", "security", 
+		"status","trader", "book", "creationName", "creationDate","revisionName", "revisionDate", "dealName", "dealType", "sourceListId", "side" })
 //@Getter @Setter
 @Entity
 @Table(name = "bidlist")
@@ -29,12 +29,12 @@ public class BidList {
 
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
-	@Column(name="bid_list_Id")
+	@Column(name="bid_list_id")
 	private int bidListId;
 
 	@Column(name="account")
 	private String account ;
-	
+
 	@Column(name="type")
 	private String type ;
 
@@ -95,6 +95,7 @@ public class BidList {
 	@Column(name="side")
 	private String side ;
 
+	
 	/**
 	 * Complete constructor
 	 * @param bidListId

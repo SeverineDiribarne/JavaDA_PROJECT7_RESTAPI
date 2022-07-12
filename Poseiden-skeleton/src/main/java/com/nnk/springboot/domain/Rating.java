@@ -39,6 +39,7 @@ public class Rating {
 	@Column(name="order_number")
 	private int orderNumber ;
 
+	
 	/**
 	 * Complete constructor
 	 * @param id

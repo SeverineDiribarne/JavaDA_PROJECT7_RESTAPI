@@ -44,6 +44,7 @@ public class RuleName {
 	@Column(name="sql_part")
 	private String sqlPart;
 
+	
 	/**
 	 * Complete constructor
 	 * @param id
