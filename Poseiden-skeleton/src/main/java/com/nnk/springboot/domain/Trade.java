@@ -24,6 +24,7 @@ public class Trade {
 
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
+	@Column(name="trade_id")
 	private int tradeId;
 
 	@Column(name="account")
@@ -32,6 +33,7 @@ public class Trade {
 	@Column(name="type")
 	private String type;
 
+<<<<<<< HEAD
 	@Column(name="buyQuantity")
 	private double buyQuantity;
 
@@ -42,8 +44,24 @@ public class Trade {
 	private double buyPrice;
 
 	@Column(name="sellPrice")
-	private double sellPrice;
+=======
+	@Column(name="buy_quantity")
+	private double buyQuantity;
 
+	@Column(name="sell_quantity")
+	private double sellQuantity;
+
+	@Column(name="buy_price")
+	private double buyPrice;
+
+	@Column(name="sell_price")
+>>>>>>> feature/domain
+	private double sellPrice;
+	
+	@Column(name="benchmark")
+	private String benchmark;
+
+<<<<<<< HEAD
 	@Column(name="tradeDate")
 	private Date tradeDate;
 
@@ -84,6 +102,45 @@ public class Trade {
 	private String sourceListId;
 
 	@Column(name="side")	
+=======
+	@Column(name="trade_date")
+	private Date tradeDate;
+
+	@Column(name="security")
+	private String security;
+
+	@Column(name="status")
+	private String status;
+
+	@Column(name="trader")
+	private String trader;
+
+	@Column(name="book")
+	private String book;
+
+	@Column(name="creation_name")
+	private String creationName;
+
+	@Column(name="creation_date")
+	private Date creationDate;
+
+	@Column(name="revision_name")
+	private String revisionName;
+
+	@Column(name="revision_date")
+	private Date revisionDate;
+
+	@Column(name="deal_name")
+	private String dealName;
+
+	@Column(name="deal_type")
+	private String dealType;
+
+	@Column(name="source_list_id")
+	private String sourceListId;
+
+	@Column(name="side")
+>>>>>>> feature/domain
 	private String side;
 
 	
