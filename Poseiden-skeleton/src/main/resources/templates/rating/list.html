@@ -10,9 +10,10 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-6">
-				<a href="/bidList/list">Bid List</a>&nbsp;|&nbsp; <a
-					href="/curvePoint/list">Curve Points</a>&nbsp;|&nbsp; <a
-					href="/rating/list">Ratings</a>&nbsp;|&nbsp; <a href="/trade/list">Trade</a>&nbsp;|&nbsp;
+				<a href="/bidList/list">Bid List</a>&nbsp;|&nbsp; 
+				<a href="/curvePoint/list">Curve Points</a>&nbsp;|&nbsp; 
+				<a href="/rating/list">Ratings</a>&nbsp;|&nbsp; 
+				<a href="/trade/list">Trade</a>&nbsp;|&nbsp;
 				<a href="/ruleName/list">Rule</a>
 			</div>
 			<div class="col-6 text-right" align="right">
@@ -40,18 +41,18 @@
 					</tr>
 				</thead>
 				<tbody>
-					<!-- TODO: Show all Rating to the table, the Action column will have Edit & Delete buttons -->
+					<!-- Show all Rating to the table, the Action column will have Edit & Delete buttons -->
+					
 					<tr th:each="rating:${ratings}">
 						<td th:text="${rating.id}"></td>
 						<td th:text="${rating.moodysRating}"></td>
 						<td th:text="${rating.sandPRating}"></td>
 						<td th:text="${rating.fitchRating}"></td>
 						<td th:text="${rating.orderNumber}"></td>
-						<td align="center"><a onclick="return confirm('Etes vous sûr de vouloir modifier?')"
-											th:href="@{'update/'+${rating.id}}">Edit</a> | <a
-											onclick="return confirm('Etes vous sûr de vouloir supprimer?')"
-											th:href="@{'/rating/delete/'+${rating.id}}">Delete</a></td>
+						<td align="center"><a th:href="@{'update/'+${rating.id}}">Edit</a>&nbsp;|&nbsp;
+										   <a th:href="@{'/rating/delete/'+${rating.id}}">Delete</a></td>
 					</tr>
+					
 				</tbody>
 			</table>
 		</div>
