@@ -1,20 +1,16 @@
 package com.nnk.springboot.domain;
 
-
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.Date;
-
 
 @DynamicUpdate
 @Entity
 @Table(name = "bidlist")
 public class BidList {
 
-
-	//Attributes
-
+	//Attribute
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	@Column(name="bid_list_id")
