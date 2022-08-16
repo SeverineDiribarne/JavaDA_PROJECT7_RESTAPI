@@ -2,11 +2,6 @@ package com.nnk.springboot.domain;
 
 import javax.persistence.*;
 
-
-
-
-
-
 @Entity
 @Table(name = "rating")
 public class Rating {
@@ -29,7 +24,6 @@ public class Rating {
 
 	@Column(name="order_number")
 	private int orderNumber ;
-
 	
 	/**
 	 * Complete constructor
