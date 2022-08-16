@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.repositories.BidListRepository;
-
+@Service
 public class BidListService {
 
 	@Autowired
@@ -35,6 +37,7 @@ public class BidListService {
 	 * @param bidList
 	 * @return save or update bidList in BDD
 	 */
+	@Transactional(rollbackFor = Exception.class)
 	public BidList saveBidList(BidList bidList) {
 		return bidListRepository.save(bidList);
 	}
@@ -43,6 +46,7 @@ public class BidListService {
 	 * @param bidLists
 	 * @return save all bidLists
 	 */
+	@Transactional(rollbackFor = Exception.class)
 	public List<BidList> saveAllBidList(Iterable<BidList> bidLists) {
 		return bidListRepository.saveAll(bidLists);
 	}
@@ -51,6 +55,7 @@ public class BidListService {
 	 * delete bidList by id
 	 * @param id
 	 */
+	@Transactional(rollbackFor = Exception.class)
 	public void deleteBidListById(Integer id) {
 		bidListRepository.deleteById(id);
 	}
@@ -59,6 +64,7 @@ public class BidListService {
 	 * delete bidList
 	 * @param bidList
 	 */
+	@Transactional(rollbackFor = Exception.class)
 	public void deleteBidList(BidList bidList) {
 		bidListRepository.delete(bidList);
 	}

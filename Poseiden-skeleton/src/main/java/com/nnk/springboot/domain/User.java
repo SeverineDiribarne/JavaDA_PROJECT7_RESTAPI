@@ -3,16 +3,7 @@ package com.nnk.springboot.domain;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
-//@NoArgsConstructor
-//@AllArgsConstructor
-//@ToString(of = {"id", "username", "password", "fullname", "role" })
-//@Getter @Setter
 @Entity
 @Table(name = "users")
 public class User {

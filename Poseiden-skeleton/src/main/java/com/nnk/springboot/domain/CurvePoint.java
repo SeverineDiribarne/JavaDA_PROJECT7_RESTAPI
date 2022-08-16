@@ -1,23 +1,10 @@
 package com.nnk.springboot.domain;
 
-import org.hibernate.validator.constraints.Length;
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.sql.Timestamp;
+
 import java.util.Date;
 
-//@NoArgsConstructor
-//@AllArgsConstructor
-//@ToString(of= {"id", "CurveId", "asOfDate", "term", "value", "creationDate"})
-//@Getter @Setter
+
 @Entity
 @Table(name = "curvepoint")
 public class CurvePoint {
@@ -55,7 +42,7 @@ public class CurvePoint {
 	public CurvePoint(int id, int curveId, Date asOfDate, double term, double value, Date creationDate) {
 		super();
 		this.id = id;
-		curveId = curveId;
+		this.curveId = curveId;
 		this.asOfDate = asOfDate;
 		this.term = term;
 		this.value = value;
@@ -94,7 +81,7 @@ public class CurvePoint {
 	 * @param curveId the curveId to set
 	 */
 	public void setCurveId(int curveId) {
-		curveId = curveId;
+		this.curveId = curveId;
 	}
 
 	/**

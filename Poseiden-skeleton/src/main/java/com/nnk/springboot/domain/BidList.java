@@ -1,25 +1,13 @@
 package com.nnk.springboot.domain;
 
 
-import org.hibernate.validator.constraints.Length;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.sql.Timestamp;
 import java.util.Date;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
-//@NoArgsConstructor
-//@AllArgsConstructor
-@ToString(of = {"bidListId", "account", "type", "bidQuantity", "askQuantity", "bid", "ask", "benchmark", "bidListDate", "commentary", "security", 
-		"status","trader", "book", "creationName", "creationDate","revisionName", "revisionDate", "dealName", "dealType", "sourceListId", "side" })
-//@Getter @Setter
+@DynamicUpdate
 @Entity
 @Table(name = "bidlist")
 public class BidList {
@@ -42,13 +30,13 @@ public class BidList {
 	private double bidQuantity ;
 
 	@Column(name="ask_quantity")
-	private double askQuantity ;
+	private Double askQuantity ;
 
 	@Column(name="bid")
-	private double bid ;
+	private Double bid ;
 
 	@Column(name="ask")
-	private double ask ;
+	private Double ask ;
 
 	@Column(name="benchmark")
 	private String  benchmark ;

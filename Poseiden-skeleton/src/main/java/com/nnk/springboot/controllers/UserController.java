@@ -4,7 +4,7 @@ import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -37,17 +37,17 @@ public class UserController {
         return "user/add";
     }
 
-    @PostMapping("/user/validate")
-    public String validate(@Valid User user, BindingResult result, Model model) {
-        if (!result.hasErrors()) {
-            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-            user.setPassword(encoder.encode(user.getPassword()));
-            userRepository.save(user);
-            model.addAttribute(USERS, userRepository.findAll());
-            return REDIRECT_USER_LIST;
-        }
-        return "user/add";
-    }
+//    @PostMapping("/user/validate")
+//    public String validate(@Valid User user, BindingResult result, Model model) {
+//        if (!result.hasErrors()) {
+//            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+//            user.setPassword(encoder.encode(user.getPassword()));
+//            userRepository.save(user);
+//            model.addAttribute(USERS, userRepository.findAll());
+//            return REDIRECT_USER_LIST;
+//        }
+//        return "user/add";
+//    }
 
     @GetMapping("/user/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
@@ -57,20 +57,20 @@ public class UserController {
         return "user/update";
     }
 
-    @PostMapping("/user/update/{id}")
-    public String updateUser(@PathVariable("id") Integer id, @Valid User user,
-                             BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            return "user/update";
-        }
-
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        user.setPassword(encoder.encode(user.getPassword()));
-        user.setId(id);
-        userRepository.save(user);
-        model.addAttribute(USERS, userRepository.findAll());
-        return REDIRECT_USER_LIST;
-    }
+//    @PostMapping("/user/update/{id}")
+//    public String updateUser(@PathVariable("id") Integer id, @Valid User user,
+//                             BindingResult result, Model model) {
+//        if (result.hasErrors()) {
+//            return "user/update";
+//        }
+//
+//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+//        user.setPassword(encoder.encode(user.getPassword()));
+//        user.setId(id);
+//        userRepository.save(user);
+//        model.addAttribute(USERS, userRepository.findAll());
+//        return REDIRECT_USER_LIST;
+//    }
 
     @GetMapping("/user/delete/{id}")
     public String deleteUser(@PathVariable("id") Integer id, Model model) {

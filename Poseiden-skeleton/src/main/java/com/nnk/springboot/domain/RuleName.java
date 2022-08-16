@@ -1,20 +1,8 @@
 package com.nnk.springboot.domain;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
-import java.sql.Timestamp;
-
-//@NoArgsConstructor
-//@AllArgsConstructor
-//@ToString(of = {"id", "name", "description", "json", "template", "sqlStr", "sqlPart" })
-//@Getter @Setter
 @Entity
 @Table(name = "rulename")
 public class RuleName {

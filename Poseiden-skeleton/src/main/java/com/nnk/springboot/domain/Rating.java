@@ -1,21 +1,12 @@
 package com.nnk.springboot.domain;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
-import java.sql.Timestamp;
 
-//@NoArgsConstructor
-//@AllArgsConstructor
-//@ToString(of = {"id", "moodysRating", "sandPRating", "fitchRating", "orderNumber" })
-//@Getter @Setter
+
+
+
 @Entity
 @Table(name = "rating")
 public class Rating {

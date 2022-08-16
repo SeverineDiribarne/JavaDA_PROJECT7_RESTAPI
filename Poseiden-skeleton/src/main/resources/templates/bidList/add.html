@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <title>Home</title>
-<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
 </head>
 <body>
 <div class="container">
@@ -16,8 +16,23 @@
 	<div class="row">
 		<form action="#" th:action="@{/bidList/validate}" th:object="${bidList}" method="post" class="form-horizontal" style="width: 100%">
 			<!--
-			TODO: Create a form to input the values of Bid, there are 2 buttons: Save data and Cancel to the list Bid
+			 Create a form to input the values of Bid, there are 2 buttons: Save data and Cancel to the list Bid ->
+			 Créez un formulaire pour saisir les valeurs d'enchère, il y a 2 boutons : Enregistrer les données et Annuler à la liste Enchère 
+			 OK 
 			 -->
+			
+			 <label>Account</label><br>
+			 <input type="text" th:field="*{account}" placeholder="Account"><br>
+			 <label>Type</label><br>
+			 <input type="text" th:field="*{type}" placeholder="Type"><br>
+			 <label>Bid quantity</label><br>
+			 <input type="text" th:field="*{bidQuantity}" placeholder="Bid quantity">
+			 <br>
+			 <input type="reset" class="btn btn-danger"value ="Cancel"/>
+			 <input type="submit" class="btn btn-primary" value="Add BidList"/>
+			 
+			 
+			 
 		</form>
 	</div>
 

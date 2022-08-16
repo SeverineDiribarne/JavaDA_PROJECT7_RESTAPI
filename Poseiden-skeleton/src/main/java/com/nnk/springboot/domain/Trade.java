@@ -1,21 +1,9 @@
 package com.nnk.springboot.domain;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-
-import java.sql.Timestamp;
 import java.util.Date;
 
-//@NoArgsConstructor
-//@AllArgsConstructor
-//@ToString(of = {"tradeId", "account", "type", "buyQuantity", "sellQuantity", "buyPrice", "sellPrice", "tradeDate", "security", "status", "trader", "benchmark", "book", "creationName", "creationDate", "revisionName", "revisionDate", "dealName", "dealType", "sourceListId", "side" })
-//@Getter @Setter
+
 @Entity
 @Table(name = "trade")
 public class Trade {
@@ -66,7 +54,7 @@ public class Trade {
 	@Column(name="creation_name")	
 	private String creationName;
 
-	@Column(name="creationçdate")	
+	@Column(name="creation_date")	
 	private Date creationDate;
 
 	@Column(name="revision_name")	
