@@ -2,7 +2,9 @@ package com.nnk.springboot.domain;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.DynamicUpdate;
 
+@DynamicUpdate
 @Entity
 @Table(name = "rulename")
 public class RuleName {
