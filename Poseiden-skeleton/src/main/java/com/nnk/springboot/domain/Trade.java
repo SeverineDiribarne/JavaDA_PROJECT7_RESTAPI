@@ -1,15 +1,15 @@
 package com.nnk.springboot.domain;
 
 import javax.persistence.*;
+import org.hibernate.annotations.DynamicUpdate;
 import java.util.Date;
 
-
+@DynamicUpdate
 @Entity
 @Table(name = "trade")
 public class Trade {
 
 	//Attributes
-
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	@Column(name="trade_id")

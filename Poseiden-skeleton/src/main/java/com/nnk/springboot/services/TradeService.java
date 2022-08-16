@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.repositories.TradeRepository;
+
 @Service
 public class TradeService {
 
@@ -48,6 +49,7 @@ public class TradeService {
 	public List<Trade> saveAllTrades(Iterable<Trade> trades) {
 		return tradeRepository.saveAll(trades);
 	}
+	
 	/**
 	 * delete trade by id
 	 * @param id
