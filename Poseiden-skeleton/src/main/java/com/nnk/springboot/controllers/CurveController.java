@@ -23,37 +23,60 @@ public class CurveController {
     @RequestMapping("/curvePoint/list")
     public String home(Model model)
     {
-        // TODO: find all Curve Point, add to model
+        // find all Curve Point, add to model
+    	Iterable<CurvePoint> curvePoints = curvePointService.getCurvePoints();
+		model.addAttribute("curvePoints", curvePoints);
         return "curvePoint/list";
     }
 
     @GetMapping("/curvePoint/add")
-    public String addBidForm(CurvePoint bid) {
+    public String addBidForm(CurvePoint bid, Model model) {
+    	model.addAttribute("curvePoint", bid);
         return "curvePoint/add";
     }
 
     @PostMapping("/curvePoint/validate")
     public String validate(@Valid CurvePoint curvePoint, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return Curve list
-        return "curvePoint/add";
+        // check data valid and save to db, after saving return Curve list
+    	if(result.hasErrors()) {
+			return "curvePoint/add" ;    	
+		}
+		curvePointService.saveCurvePoint(curvePoint);
+		model.addAttribute(curvePoint);
+		model.addAttribute("curvePoints", curvePoint);
+        return "curvePoint/list";
     }
 
     @GetMapping("/curvePoint/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get CurvePoint by Id and to model then show to the form
+        // get CurvePoint by Id and to model then show to the form
+    	CurvePoint curvePointFoundById = curvePointService.getCurvePointById(id).get() ;
+		model.addAttribute(curvePointFoundById);
         return "curvePoint/update";
     }
 
     @PostMapping("/curvePoint/update/{id}")
     public String updateBid(@PathVariable("id") Integer id, @Valid CurvePoint curvePoint,
                              BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Curve and return Curve list
+        // check required fields, if valid call service to update Curve and return Curve list
+    	if(result.hasErrors()) {
+			return "curvePoint/update" ;    	
+		}
+		CurvePoint curvePointFoundById = curvePointService.getCurvePointById(id).get();
+		curvePointFoundById.setCurveId(curvePoint.getCurveId());
+		curvePointFoundById.setTerm(curvePoint.getTerm());
+		curvePointFoundById.setValue(curvePoint.getValue());
+		curvePointService.saveCurvePoint(curvePointFoundById);
+		model.addAttribute("bidlist", curvePointFoundById);
         return "redirect:/curvePoint/list";
     }
 
     @GetMapping("/curvePoint/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
-        // TODO: Find Curve by Id and delete the Curve, return to Curve list
+        // Find Curve by Id and delete the Curve, return to Curve list
+    	curvePointService.deleteCurvePointById(id);
+		Iterable<CurvePoint> curvePoints = curvePointService.getCurvePoints();
+		model.addAttribute(curvePoints);
         return "redirect:/curvePoint/list";
     }
 }

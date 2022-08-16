@@ -16,9 +16,18 @@
 	<div class="row">
 		<form action="#" th:action="@{/curvePoint/validate}" th:object="${curvePoint}" method="post" class="form-horizontal" style="width: 100%">
 			<!--
-			TODO: Create a form to input the values of CurvePoint, there are 2 buttons: Save data and Cancel to the list CurvePoint
+			Create a form to input the values of CurvePoint, there are 2 buttons: Save data and Cancel to the list CurvePoint
 			 -->
-
+ 			 <label>Curve Id</label><br>
+			 <input type="text" th:field="*{curveId}" placeholder="Curve Id"><br>
+			 <label>Term</label><br>
+			 <input type="text" th:field="*{term}" placeholder="Type"><br>
+			 <label>Value</label><br>
+			 <input type="text" th:field="*{value}" placeholder="Value">
+			 <br>
+			 <input type="reset" class="btn btn-danger"value ="Cancel"/>
+			 <input type="submit" class="btn btn-primary" value="Add CurvePoint"/>
+			 
 		</form>
 	</div>
 
