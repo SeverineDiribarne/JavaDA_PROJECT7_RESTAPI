@@ -67,7 +67,6 @@ public class BidListController {
 		bidListFoundById.setType(bidList.getType());
 		bidListFoundById.setBidQuantity(bidList.getBidQuantity());
 		bidListService.saveBidList(bidListFoundById);
-		model.addAttribute("bidlist", bidListFoundById);
 		return "redirect:/bidList/list";
 	}
 

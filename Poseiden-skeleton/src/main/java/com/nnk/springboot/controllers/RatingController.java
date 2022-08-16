@@ -65,7 +65,6 @@ public class RatingController {
 		ratingFoundById.setFitchRating(rating.getFitchRating());
 		ratingFoundById.setOrderNumber(rating.getOrderNumber());
 		ratingService.saveRating(ratingFoundById);
-		model.addAttribute("ratingList", ratingFoundById);
 		return "redirect:/rating/list";
 	}
 

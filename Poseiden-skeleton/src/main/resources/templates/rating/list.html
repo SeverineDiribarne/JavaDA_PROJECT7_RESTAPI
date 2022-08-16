@@ -28,8 +28,8 @@
 			<h2>Rating List</h2>
 		</div>
 		<div class="row">
-			<a href="/rating/add" class="btn btn-primary btn-sm">Add New</a>
-			<table class="table table-bordered">
+			<a href="/rating/add" class="btn btn-primary btn-sm">Add New Rating</a>
+			<table class="table table-bordered" style="margin-top : 1%">
 				<thead>
 					<tr>
 						<th>Id</th>
@@ -50,7 +50,7 @@
 						<td th:text="${rating.fitchRating}"></td>
 						<td th:text="${rating.orderNumber}"></td>
 						<td align="center"><a th:href="@{'update/'+${rating.id}}">Edit</a>&nbsp;|&nbsp;
-										   <a th:href="@{'/rating/delete/'+${rating.id}}">Delete</a></td>
+										   <a onclick="return confirm ('Are you sure ?')" th:href="@{'/rating/delete/'+${rating.id}}">Delete</a></td>
 					</tr>
 					
 				</tbody>

@@ -66,7 +66,6 @@ public class CurveController {
 		curvePointFoundById.setTerm(curvePoint.getTerm());
 		curvePointFoundById.setValue(curvePoint.getValue());
 		curvePointService.saveCurvePoint(curvePointFoundById);
-		model.addAttribute("curvePoint", curvePointFoundById);
         return "redirect:/curvePoint/list";
     }
 
