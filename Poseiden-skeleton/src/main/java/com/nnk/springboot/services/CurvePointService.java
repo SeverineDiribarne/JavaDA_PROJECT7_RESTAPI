@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.repositories.CurvePointRepository;
+
 @Service
 public class CurvePointService {
 
@@ -21,6 +22,7 @@ public class CurvePointService {
 	public Iterable<CurvePoint> getCurvePoints() {
 		return curvePointRepository.findAll();
 	}
+	
 	/**
 	 * Get curvePoint by id
 	 * @param id
@@ -47,6 +49,7 @@ public class CurvePointService {
 	public List<CurvePoint> saveAllCurvePoints(Iterable<CurvePoint> curvePoints) {
 		return curvePointRepository.saveAll(curvePoints);
 	}
+	
 	/**
 	 * delete CurvePoint by id
 	 * @param id

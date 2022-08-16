@@ -21,8 +21,7 @@ public class CurveController {
     CurvePointService curvePointService;
 
     @RequestMapping("/curvePoint/list")
-    public String home(Model model)
-    {
+    public String home(Model model){
         // find all Curve Point, add to model
     	Iterable<CurvePoint> curvePoints = curvePointService.getCurvePoints();
 		model.addAttribute("curvePoints", curvePoints);
@@ -56,7 +55,7 @@ public class CurveController {
     }
 
     @PostMapping("/curvePoint/update/{id}")
-    public String updateBid(@PathVariable("id") Integer id, @Valid CurvePoint curvePoint,
+    public String updateCurvePoint(@PathVariable("id") Integer id, @Valid CurvePoint curvePoint,
                              BindingResult result, Model model) {
         // check required fields, if valid call service to update Curve and return Curve list
     	if(result.hasErrors()) {
@@ -67,12 +66,12 @@ public class CurveController {
 		curvePointFoundById.setTerm(curvePoint.getTerm());
 		curvePointFoundById.setValue(curvePoint.getValue());
 		curvePointService.saveCurvePoint(curvePointFoundById);
-		model.addAttribute("bidlist", curvePointFoundById);
+		model.addAttribute("curvePoint", curvePointFoundById);
         return "redirect:/curvePoint/list";
     }
 
     @GetMapping("/curvePoint/delete/{id}")
-    public String deleteBid(@PathVariable("id") Integer id, Model model) {
+    public String deleteCurvePoint(@PathVariable("id") Integer id, Model model) {
         // Find Curve by Id and delete the Curve, return to Curve list
     	curvePointService.deleteCurvePointById(id);
 		Iterable<CurvePoint> curvePoints = curvePointService.getCurvePoints();
