@@ -1,41 +1,59 @@
 package com.nnk.springboot.controllers;
 
+
+import javax.validation.Valid;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.nnk.springboot.repositories.UserRepository;
+import com.nnk.springboot.domain.User;
+import com.nnk.springboot.services.LoginService;
+import com.nnk.springboot.utils.ValidityPasswordRules;
 
 @Controller
-@RequestMapping("app")
 public class LoginController {
 
-    @Autowired
-    private UserRepository userRepository;
+	@Autowired
+	private LoginService loginService;
+	
+	private static final Logger log = LogManager.getLogger(); 
 
-    @GetMapping("login")
-    public ModelAndView login() {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("login");
-        return mav;
-    }
+//	private final OAuth2AuthorizedClientService authorizedClientService;
+//
+//	public LoginController(OAuth2AuthorizedClientService authorizedClientService) {
+//		this.authorizedClientService = authorizedClientService;
+//	}
 
-    @GetMapping("secure/article-details")
-    public ModelAndView getAllUserArticles() {
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("users", userRepository.findAll());
-        mav.setViewName("user/list");
-        return mav;
-    }
+	@GetMapping("/login")
+	public ModelAndView login() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/login");
+		log.info("The login page is well displayed");
+		return mav;
+	}
 
-    @GetMapping("error")
-    public ModelAndView error() {
-        ModelAndView mav = new ModelAndView();
-        String errorMessage= "You are not authorized for the requested data.";
-        mav.addObject("errorMsg", errorMessage);
-        mav.setViewName("403");
-        return mav;
-    }
+	@PostMapping("/login/validate")
+	public String validatePassword(@Valid @ModelAttribute User user, Model model) {
+		// check password valid
+		ValidityPasswordRules validityPasswordRules = loginService.validatePassword(user);
+
+		String errorMessage = loginService.buildErrorMessage(validityPasswordRules);
+		if(!errorMessage.isEmpty()) {
+			model.addAttribute("msg", errorMessage);
+			log.info("There is an error in validating the password and the error message is indicated in the login page");
+			return "redirect:/login";
+		}
+		else {
+			log.info("The password validation was successful and the list of bids is displayed");
+			return "redirect:/bidList/list";
+		}
+	}
+
 }

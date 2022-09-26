@@ -17,10 +17,6 @@ import javax.sql.DataSource;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	
-
-//	 @Autowired
-//	    private UserDetailsService personDetailsService;
-	
 	 @Autowired
 	 private DataSource dataSource;
 		
@@ -33,16 +29,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			http
 
 			.authorizeRequests()
+			.antMatchers("/home").permitAll()
 			.antMatchers("/bidList", "/curvePoint", "/rating", "/ruleName", "/trade", "/user").authenticated()
+			
 			.and()
-	.formLogin()
-			.loginPage("/home").permitAll()
+			.formLogin()
 			.defaultSuccessUrl("/bidList/list",true)
+			.failureUrl("/login?error=true")
+			
 			.and()
-			.rememberMe()
+			.logout()
+			.logoutUrl("/app-logout")
+			.logoutSuccessUrl("/")
+			.permitAll()
+			.invalidateHttpSession(true)
+			
 			.and()
-	.logout()
-			.permitAll();
+			.oauth2Login();
+			
 		}
 		
 		@Override

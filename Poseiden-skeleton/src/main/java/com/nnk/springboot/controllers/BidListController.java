@@ -3,6 +3,8 @@ package com.nnk.springboot.controllers;
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.services.BidListService;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +21,8 @@ public class BidListController {
 
 	@Autowired
 	BidListService bidListService;
+	
+	private static final Logger log = LogManager.getLogger(); 
 
 	@RequestMapping("/bidList/list")
 	public String home(Model model)
@@ -26,12 +30,14 @@ public class BidListController {
 		// call service find all bids to show to the view OK
 		Iterable<BidList> bidLists = bidListService.getBidLists();
 		model.addAttribute("bidLists", bidLists);
+		log.info("all bids are found and returned to view");
 		return "bidList/list";
 	}
 
 	@GetMapping("/bidList/add")
 	public String addBidForm(BidList bid, Model model) {
 		model.addAttribute("bidList", bid);
+		log.info("The display of the addBidList page of a bid is functional");
 		return "bidList/add";
 	}
 
@@ -39,11 +45,13 @@ public class BidListController {
 	public String validate(@Valid BidList bid, BindingResult result, Model model) {
 		// check data valid and save to db, after saving return bid list OK
 		if(result.hasErrors()) {
-			return "bidList/add" ;    	
+			log.info("The validation of the bid as well as its backup in the database could not be carried out");
+			return "bidList/add" ; 
 		}
 		bidListService.saveBidList(bid);
 		model.addAttribute(bid);
 		model.addAttribute("bidLists", bid);
+		log.info("The validation of the bid is carried out as well as the backup in the database");
 		return "bidList/list";	
 	}
 
@@ -52,6 +60,7 @@ public class BidListController {
 		// get Bid by Id and to model then show to the form 
 		BidList bidListFoundById = bidListService.getBidListById(id).get() ;
 		model.addAttribute(bidListFoundById);
+		log.info("the update of the bid found by its id has been carried out");
 		return "bidList/update";
 	}
 
@@ -60,6 +69,7 @@ public class BidListController {
 			BindingResult result, Model model) {
 		//check required fields, if valid call service to update Bid and return list Bid
 		if(result.hasErrors()) {
+			log.info("bid update could not be performed");
 			return "bidList/update" ;    	
 		}
 		BidList bidListFoundById = bidListService.getBidListById(id).get();
@@ -67,6 +77,7 @@ public class BidListController {
 		bidListFoundById.setType(bidList.getType());
 		bidListFoundById.setBidQuantity(bidList.getBidQuantity());
 		bidListService.saveBidList(bidListFoundById);
+		log.info("The update of the bid has been carried out");
 		return "redirect:/bidList/list";
 	}
 
@@ -76,6 +87,7 @@ public class BidListController {
 		bidListService.deleteBidListById(id);
 		Iterable<BidList> bidLists = bidListService.getBidLists();
 		model.addAttribute(bidLists);
+		log.info("The bid found by its id has been deleted from the list");
 		return "redirect:/bidList/list";
 	}
 }

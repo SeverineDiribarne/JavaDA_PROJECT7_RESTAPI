@@ -3,6 +3,8 @@ package com.nnk.springboot.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,12 +16,16 @@ public class BidListService {
 
 	@Autowired
 	BidListRepository bidListRepository;
+	
+	private static final Logger log = LogManager.getLogger(); 
 
 	/**
 	 * Get bid lists
 	 * @return all list of bid
 	 */
 	public Iterable<BidList> getBidLists() {
+		List <BidList> bidList = bidListRepository.findAll();
+		log.info("Get BidList is executed and return " + bidList.size() + " rows.");
 		return bidListRepository.findAll();
 	}
 

@@ -3,6 +3,8 @@ package com.nnk.springboot.controllers;
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.services.RatingService;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +21,8 @@ public class RatingController {
 
 	@Autowired
 	RatingService ratingService;
+	
+	private static final Logger log = LogManager.getLogger(); 
 
 	@RequestMapping("/rating/list")
 	public String home(Model model)
@@ -26,12 +30,14 @@ public class RatingController {
 		// find all Rating, add to model
 		Iterable<Rating> ratings = ratingService.getRatings();
 		model.addAttribute("ratings", ratings);
+		log.info("all ratings are found and returned to view");
 		return "rating/list";
 	}
 
 	@GetMapping("/rating/add")
 	public String addRatingForm(Rating rating, Model model) {
 		model.addAttribute("rating", rating);
+		log.info("The display of the addRating page of a bid is functional");
 		return "rating/add";
 	}
 
@@ -39,11 +45,13 @@ public class RatingController {
 	public String validate(@Valid Rating rating, BindingResult result, Model model) {
 		// check data valid and save to db, after saving return Rating list
 		if(result.hasErrors()) {
+			log.info("The validation of the rating as well as its backup in the database could not be carried out");
 			return "rating/add";
 		}
 		ratingService.saveRating(rating);
 		model.addAttribute(rating);
 		model.addAttribute("ratings", rating);
+		log.info("The validation of the rating is carried out as well as the backup in the database");
 		return "rating/list";
 	}
 
@@ -52,6 +60,7 @@ public class RatingController {
 		// get Rating by Id and to model then show to the form
 		Rating ratingFoundById = ratingService.getRatingById(id).get();
 		model.addAttribute(ratingFoundById);
+		log.info("the update of the rating found by its id has been carried out");
 		return "rating/update";
 	}
 
@@ -59,12 +68,17 @@ public class RatingController {
 	public String updateRating(@PathVariable("id") Integer id, @Valid Rating rating,
 			BindingResult result, Model model) {
 		// check required fields, if valid call service to update Rating and return Rating list
+		if(result.hasErrors()) {
+			log.info("rating update could not be performed");
+			return "rating/update" ;    	
+		}
 		Rating ratingFoundById = ratingService.getRatingById(id).get();
 		ratingFoundById.setMoodysRating(rating.getMoodysRating());
 		ratingFoundById.setSandPRating(rating.getSandPRating());
 		ratingFoundById.setFitchRating(rating.getFitchRating());
 		ratingFoundById.setOrderNumber(rating.getOrderNumber());
 		ratingService.saveRating(ratingFoundById);
+		log.info("The update of the rating has been carried out");
 		return "redirect:/rating/list";
 	}
 
@@ -74,6 +88,7 @@ public class RatingController {
 		ratingService.deleteRatingById(id);
 		Iterable<Rating> ratings = ratingService.getRatings();
 		model.addAttribute(ratings);
+		log.info("The rating found by its id has been deleted from the list");
 		return "redirect:/rating/list";
 	}
 }

@@ -2,6 +2,7 @@ package com.nnk.springboot.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -21,6 +22,8 @@ public class User {
 	@Column(name="username")
 	private String username;
 
+	@Pattern(regexp = "^(?=.[0-9])(?=.[a-z])(?=.[A-Z])(?=.[!@#&()–[{}]:;',?/*~$^+=<>.]).{8,}$",
+            message = "Password must contains minimum 8 characters, at least 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character")
 	@NotBlank(message = "Password is mandatory")
 	@Column(name="password")
 	private String password;

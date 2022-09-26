@@ -1,3 +1,4 @@
+package com.nnk.springboot.repositories;
 //package com.nnk.springboot;
 //
 //import org.junit.jupiter.api.Test;

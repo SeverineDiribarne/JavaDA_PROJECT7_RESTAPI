@@ -3,6 +3,8 @@ package com.nnk.springboot.controllers;
 import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.services.RuleNameService;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +21,8 @@ public class RuleNameController {
 
 	@Autowired
 	RuleNameService ruleNameService;
+	
+	private static final Logger log = LogManager.getLogger(); 
 
     @RequestMapping("/ruleName/list")
     public String home(Model model)
@@ -26,12 +30,14 @@ public class RuleNameController {
         // find all RuleName, add to model
     	Iterable<RuleName> ruleNames = ruleNameService.getRuleNames();
     	model.addAttribute("ruleNames", ruleNames);
+    	log.info("all ruleNames are found and returned to view");
         return "ruleName/list";
     }
 
     @GetMapping("/ruleName/add")
     public String addRuleForm(RuleName ruleName, Model model) {
     	model.addAttribute(ruleName);
+    	log.info("The display of the addRuleName page of a ruleName is functional");
         return "ruleName/add";
     }
 
@@ -39,11 +45,13 @@ public class RuleNameController {
     public String validate(@Valid RuleName ruleName, BindingResult result, Model model) {
         // check data valid and save to db, after saving return RuleName list
     	if(result.hasErrors()) {
+    		log.info("The validation of the ruleName as well as its backup in the database could not be carried out");
         return "ruleName/add";
     	}
     	ruleNameService.saveRuleName(ruleName);
     	model.addAttribute(ruleName);
     	model.addAttribute("ruleNames", ruleName);
+    	log.info("The validation of the ruleName is carried out as well as the backup in the database");
     	return "ruleName/list";
     }
 
@@ -52,6 +60,7 @@ public class RuleNameController {
         // get RuleName by Id and to model then show to the form
     	RuleName ruleNameFoundById = ruleNameService.getRuleNameById(id).get();
     	model.addAttribute(ruleNameFoundById);
+    	log.info("the update of the ruleName found by its id has been carried out");
         return "ruleName/update";
     }
 
@@ -60,6 +69,7 @@ public class RuleNameController {
                              BindingResult result, Model model) {
         // check required fields, if valid call service to update RuleName and return RuleName list
     	if(result.hasErrors()) {
+    		log.info("ruleName update could not be performed");
     		return "ruleName/update";
     	}
     	RuleName ruleNameFoundById = ruleNameService.getRuleNameById(id).get();
@@ -71,6 +81,7 @@ public class RuleNameController {
     	ruleNameFoundById.setSqlPart(ruleName.getSqlPart());
     	ruleNameService.saveRuleName(ruleNameFoundById);
     	model.addAttribute("ruleName", ruleNameFoundById);
+    	log.info("The update of the ruleName has been carried out");
         return "redirect:/ruleName/list";
     }
 
@@ -80,6 +91,7 @@ public class RuleNameController {
     	ruleNameService.deleteRuleNameById(id);
     	Iterable<RuleName> ruleNames = ruleNameService.getRuleNames();
     	model.addAttribute(ruleNames);
+    	log.info("The ruleName found by its id has been deleted from the list");
         return "redirect:/ruleName/list";
     }
 }

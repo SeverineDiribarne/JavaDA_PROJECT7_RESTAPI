@@ -3,6 +3,8 @@ package com.nnk.springboot.controllers;
 import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.services.TradeService;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +21,8 @@ public class TradeController {
 
 	@Autowired
 	TradeService tradeService;
+	
+	private static final Logger log = LogManager.getLogger(); 
 
     @RequestMapping("/trade/list")
     public String home(Model model)
@@ -26,12 +30,14 @@ public class TradeController {
         // find all Trade, add to model
     	Iterable<Trade> trades = tradeService.getTrades();
     	model.addAttribute("trades", trades);
+    	log.info("all trades are found and returned to view");
         return "trade/list";
     }
 
     @GetMapping("/trade/add")
     public String addTrade(Trade trade, Model model) {
     	model.addAttribute("trade",trade);
+    	log.info("The display of the addTrade page of a trade is functional");
         return "trade/add";
     }
 
@@ -39,11 +45,13 @@ public class TradeController {
     public String validate(@Valid Trade trade, BindingResult result, Model model) {
         // check data valid and save to db, after saving return Trade list
     	if(result.hasErrors()) {
+    		log.info("The validation of the trade as well as its backup in the database could not be carried out");
     		 return "trade/add";
     	}
        tradeService.saveTrade(trade);
        model.addAttribute(trade);
        model.addAttribute("trades", trade);
+       log.info("The validation of the trade is carried out as well as the backup in the database");
        return "trade/list";
     }
 
@@ -52,6 +60,7 @@ public class TradeController {
         // get Trade by Id and to model then show to the form
     	Trade tradeFoundById = tradeService.getTradeById(id).get();
     	model.addAttribute(tradeFoundById);
+    	log.info("the update of the trade found by its id has been carried out");
         return "trade/update";
     }
 
@@ -60,6 +69,7 @@ public class TradeController {
                              BindingResult result, Model model) {
         // check required fields, if valid call service to update Trade and return Trade list
     	if(result.hasErrors()) {
+    		log.info("trade update could not be performed");
     		return "trade/update";
     	}
     	Trade tradeFoundById = tradeService.getTradeById(id).get();
@@ -69,6 +79,7 @@ public class TradeController {
     	tradeService.saveTrade(tradeFoundById);
     	model.addAttribute(tradeFoundById);
     	model.addAttribute("trades", tradeFoundById);
+    	log.info("The update of the trade has been carried out");
         return "redirect:/trade/list";
     }
 
@@ -78,6 +89,7 @@ public class TradeController {
     	tradeService.deleteTradeById(id);
     	Iterable<Trade> trades = tradeService.getTrades();
     	model.addAttribute(trades);
+    	log.info("The trade found by its id has been deleted from the list");
         return "redirect:/trade/list";
     }
 }

@@ -64,6 +64,11 @@ public class UserService {
 		userRepository.delete(user);
 	}
 
+	/**
+	 * get User by User name
+	 * @param username
+	 * @return user
+	 */
 	public User getUserByUsername(String username) {
 		return userRepository.findByUsername(username);
 	}
