@@ -1,16 +1,15 @@
 package com.nnk.springboot.controllers;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
-
+@Slf4j
 @Controller
 
 public class LogoutController {
 
-	private static final Logger log = LogManager.getLogger(); 
+	private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(LogoutController.class);
 	
 	 @GetMapping("/app-logout")
 	    public ModelAndView logout() {

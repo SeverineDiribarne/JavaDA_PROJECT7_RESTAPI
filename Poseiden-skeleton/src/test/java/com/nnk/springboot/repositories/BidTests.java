@@ -16,6 +16,7 @@ class BidTests {
 
 	@Autowired
 	private BidListRepository bidListRepository;
+	
 	private BidList bid;
 	
 	@BeforeEach
@@ -37,7 +38,6 @@ class BidTests {
 	@Test
 	void bidListFindTest() {
 		// Find
-		// Il y a un bug dans ce test A voir avec Marc
 		List<BidList> listResult = bidListRepository.findAll();
 		Assertions.assertTrue(listResult.size() > 0);
 	}

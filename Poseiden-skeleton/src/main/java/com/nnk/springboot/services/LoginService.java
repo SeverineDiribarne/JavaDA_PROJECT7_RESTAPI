@@ -1,7 +1,6 @@
 package com.nnk.springboot.services;
 
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.nnk.springboot.domain.User;

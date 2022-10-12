@@ -3,8 +3,10 @@ package com.nnk.springboot.controllers;
 import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.services.TradeService;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
+
+//import org.apache.logging.log4j.LogManager;
+//import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,14 +17,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
-
+@Slf4j
 @Controller
 public class TradeController {
 
 	@Autowired
 	TradeService tradeService;
 	
-	private static final Logger log = LogManager.getLogger(); 
+	private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(TradeController.class);
 
     @RequestMapping("/trade/list")
     public String home(Model model)

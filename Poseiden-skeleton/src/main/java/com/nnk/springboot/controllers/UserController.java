@@ -3,10 +3,12 @@ package com.nnk.springboot.controllers;
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.UserRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
 import javax.validation.Valid;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+//import org.apache.logging.log4j.LogManager;
+//import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -17,14 +19,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
+@Slf4j
 @Controller
 public class UserController {
 	
     @Autowired
     private UserRepository userRepository;
     
-	private static final Logger log = LogManager.getLogger(); 
+	private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(UserController.class);
     
     private static final String USERS = "users";
     private static final String REDIRECT_USER_LIST = "redirect:/user/list";

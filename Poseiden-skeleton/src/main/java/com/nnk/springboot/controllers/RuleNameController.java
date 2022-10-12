@@ -3,8 +3,7 @@ package com.nnk.springboot.controllers;
 import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.services.RuleNameService;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,14 +14,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
-
+@Slf4j
 @Controller
 public class RuleNameController {
 
 	@Autowired
 	RuleNameService ruleNameService;
 	
-	private static final Logger log = LogManager.getLogger(); 
+	private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(RuleNameController.class);
 
     @RequestMapping("/ruleName/list")
     public String home(Model model)
@@ -81,7 +80,7 @@ public class RuleNameController {
     	ruleNameFoundById.setSqlPart(ruleName.getSqlPart());
     	ruleNameService.saveRuleName(ruleNameFoundById);
     	model.addAttribute("ruleName", ruleNameFoundById);
-    	log.info("The update of the ruleName has been carried out");
+   	log.info("The update of the ruleName has been carried out");
         return "redirect:/ruleName/list";
     }
 
@@ -91,7 +90,7 @@ public class RuleNameController {
     	ruleNameService.deleteRuleNameById(id);
     	Iterable<RuleName> ruleNames = ruleNameService.getRuleNames();
     	model.addAttribute(ruleNames);
-    	log.info("The ruleName found by its id has been deleted from the list");
+   	log.info("The ruleName found by its id has been deleted from the list");
         return "redirect:/ruleName/list";
     }
 }
