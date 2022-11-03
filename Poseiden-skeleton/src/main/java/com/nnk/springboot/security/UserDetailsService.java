@@ -26,11 +26,4 @@ public class UserDetailsService {
 			}
 			return new MyMainUser(user);
 		}
-
-
-//	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//		User user = userService.getUserByUsername(username);
-//		user.orElseThrow(() -> newUsernameNotFoundException("Username : "+username+" not found"));
-//		return user.map(CustomUserDetails::new).get();
-//		   } 
 }

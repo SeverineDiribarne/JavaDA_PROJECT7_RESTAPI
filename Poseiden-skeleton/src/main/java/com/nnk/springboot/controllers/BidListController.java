@@ -21,12 +21,11 @@ public class BidListController {
 
 	@Autowired
 	BidListService bidListService;
-	
+
 	private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(BidListController.class);
-	
+
 	@RequestMapping("/bidList/list")
-	public String home(Model model)
-	{
+	public String home(Model model){
 		// call service find all bids to show to the view OK
 		Iterable<BidList> bidLists = bidListService.getBidLists();
 		model.addAttribute("bidLists", bidLists);
@@ -44,12 +43,11 @@ public class BidListController {
 	@PostMapping("/bidList/validate")
 	public String validate(@Valid BidList bid, BindingResult result, Model model) {
 		// check data valid and save to db, after saving return bid list OK
-		if(result.hasErrors()) {
+		if(result.hasErrors()){
 			log.info("The validation of the bid as well as its backup in the database could not be carried out");
-			return "bidList/add" ; 
+			return "bidList/add";
 		}
 		bidListService.saveBidList(bid);
-		model.addAttribute(bid);
 		model.addAttribute("bidLists", bid);
 		log.info("The validation of the bid is carried out as well as the backup in the database");
 		return "bidList/list";	

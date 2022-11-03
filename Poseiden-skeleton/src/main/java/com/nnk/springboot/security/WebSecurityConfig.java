@@ -29,12 +29,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			http
 
 			.authorizeRequests()
-			.antMatchers("/home").permitAll()
+			.antMatchers("/home", "/login").permitAll()
 			.antMatchers("/bidList", "/curvePoint", "/rating", "/ruleName", "/trade", "/user").authenticated()
 			
 			.and()
 			.formLogin()
-			.defaultSuccessUrl("/bidList/list",true)
+		//	.loginPage("/login")
+		//	.permitAll()
+		//	.defaultSuccessUrl("/bidList/list",true)
 			.failureUrl("/login?error=true")
 			
 			.and()
@@ -45,8 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			.invalidateHttpSession(true)
 			
 			.and()
-			.oauth2Login();
-			
+			.oauth2Login(); //.defaultSuccessUrl("/bidList/list")
 		}
 		
 		@Override

@@ -5,9 +5,11 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.UserRepository;
+import com.nnk.springboot.utils.ValidityPasswordRules;
 @Service
 public class UserService {
 
@@ -71,5 +73,69 @@ public class UserService {
 	 */
 	public User getUserByUsername(String username) {
 		return userRepository.findByUsername(username);
+	}
+
+	/**
+	 * Validate Password
+	 * @param user
+	 * @return validity password rules
+	 */
+	@PostMapping("/user/validate")
+	public ValidityPasswordRules validatePassword(User user) {
+		// check password valid
+		ValidityPasswordRules validityPasswordRules = new ValidityPasswordRules();
+
+		if (user.getPassword().length()>=8) {
+			validityPasswordRules.containsAtLeastEightCharacters = true;
+		}
+
+		for(int i = 0; i < user.getPassword().length(); i++) {
+			char passwordCharacter = user.getPassword().charAt(i);
+
+			if(Character.isDigit(passwordCharacter)) {
+				validityPasswordRules.containsAtLeastOneNumber = true; 	
+			}
+			else if (Character.isLetter(passwordCharacter)) {
+				validityPasswordRules.containsAtLeastOneLetter = true;
+
+				if(Character.isLowerCase(passwordCharacter)) {
+					validityPasswordRules.containsAtLeastOneLowercaseLetter = true;
+				}
+				else {
+					validityPasswordRules.containsAtLeastOneUppercaseLetter = true;
+				}
+			}
+			else {
+				validityPasswordRules.containsAtLeastOneSymbol = true;
+			}
+		}
+		return validityPasswordRules;
+	}
+	/**
+	 * Build Error Message
+	 * @param validityPasswordRules
+	 * @return error Message
+	 */
+	public String buildErrorMessage(ValidityPasswordRules validityPasswordRules) {
+		String errorMessage = "";
+		if(!validityPasswordRules.containsAtLeastEightCharacters) {
+			errorMessage = "Your password must contain at least eight characters.";
+		}
+		if(!validityPasswordRules.containsAtLeastOneNumber) {
+			errorMessage ="Your password must contain at least one number.";
+		}
+		if(!validityPasswordRules.containsAtLeastOneLetter) {
+			errorMessage ="Your password must contain at least one letter.";
+		}
+		if(!validityPasswordRules.containsAtLeastOneLowercaseLetter) {
+			errorMessage ="Your password must contain at least one lowercase letter.";
+		}
+		if(!validityPasswordRules.containsAtLeastOneUppercaseLetter) {
+			errorMessage ="Your password must contain at least one uppercase letter.";
+		}
+		if(!validityPasswordRules.containsAtLeastOneSymbol) {
+			errorMessage ="Your password must contain at least one symbol.";
+		}	
+		return errorMessage;
 	}
 }

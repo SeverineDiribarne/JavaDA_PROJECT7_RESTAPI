@@ -5,8 +5,7 @@ import com.nnk.springboot.services.TradeService;
 
 import lombok.extern.slf4j.Slf4j;
 
-//import org.apache.logging.log4j.LogManager;
-//import org.apache.logging.log4j.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+
 @Slf4j
 @Controller
 public class TradeController {
@@ -27,8 +27,7 @@ public class TradeController {
 	private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(TradeController.class);
 
     @RequestMapping("/trade/list")
-    public String home(Model model)
-    {
+    public String home(Model model){
         // find all Trade, add to model
     	Iterable<Trade> trades = tradeService.getTrades();
     	model.addAttribute("trades", trades);

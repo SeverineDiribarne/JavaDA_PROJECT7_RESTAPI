@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+
 @Slf4j
 @Controller
 public class RatingController {
@@ -24,8 +25,7 @@ public class RatingController {
 	private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(RatingController.class);
 
 	@RequestMapping("/rating/list")
-	public String home(Model model)
-	{
+	public String home(Model model){
 		// find all Rating, add to model
 		Iterable<Rating> ratings = ratingService.getRatings();
 		model.addAttribute("ratings", ratings);
