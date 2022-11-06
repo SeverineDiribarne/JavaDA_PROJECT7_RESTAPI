@@ -34,19 +34,19 @@ public class LoginController {
 	@GetMapping("/login")
 	public ModelAndView login() {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/login");
+		mav.setViewName("login.html");
 		log.info("The login page is well displayed");
 		return mav;
 	}
-	
+
 	@PostMapping("/login/validate")
 	public String validatePassword(@Valid @ModelAttribute User user, Model model) {
 		// check password valid
 		return "/login";
 	}
 	
-//	@RequestMapping("/*")
-//	public String getGithub() {
-//		return "welcome, github user";
-//	}
+	@RequestMapping("/*")
+	public String getGithub() {
+		return "welcome, github user";
+	}
 }

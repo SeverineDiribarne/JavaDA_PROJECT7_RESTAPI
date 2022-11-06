@@ -11,7 +11,7 @@ public class HomeController {
 	
 	private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(HomeController.class);
 	
-	@RequestMapping("/*")
+	@RequestMapping("/home")
 	public String home(Model model){
 		log.info("The home page is displayed correctly");
 		return "home";

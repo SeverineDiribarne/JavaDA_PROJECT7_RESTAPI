@@ -32,12 +32,12 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.ConcurrentModel;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.services.BidListService;
-
 
 @EnableWebMvc
 @SpringBootTest
@@ -63,6 +63,8 @@ class BidListControllerTest {
 	}
 
 	private Model modelTest = new ConcurrentModel();
+	
+//	private BindingResult bindingResult = new   ; 
 
 	private static BidList bidForMock() {
 		BidList bid4 = new BidList();
@@ -124,7 +126,7 @@ class BidListControllerTest {
 
 		return mockedList;
 	}
-
+	//Fonctionnal test
 	@Test
 	void testShouldGetBidList() throws Exception{
 		//given
@@ -142,14 +144,6 @@ class BidListControllerTest {
 		else {
 			Assertions.fail("Bad type of bidListResult");
 		}
-
-		mockMvc.perform(MockMvcRequestBuilders
-				.get("/bidList/list")
-				.contentType(MediaType.APPLICATION_FORM_URLENCODED))
-
-		.andExpect(status().isOk())
-		.andExpect(view().name("bidList/list"));
-
 		Iterator<?> bidListResultsIterator = bidListResults.iterator();
 		Iterator<BidList> BidListExpectedIterator = listForMock().iterator();
 
@@ -168,6 +162,21 @@ class BidListControllerTest {
 		Assertions.assertEquals(0, urlResult.compareTo("bidList/list"));
 	}
 
+	//EndPoint Test
+	@Test
+	void testShouldGetBidListForEndPoint() throws Exception{
+		//given
+		//when
+		//then
+		mockMvc.perform(MockMvcRequestBuilders
+				.get("/bidList/list")
+				.contentType(MediaType.APPLICATION_FORM_URLENCODED))
+
+		.andExpect(status().isOk())
+		.andExpect(view().name("bidList/list"));
+	}
+
+
 	static class AddBidFormArgumentsProvider implements ArgumentsProvider{
 		@Override
 		public Stream<? extends Arguments> provideArguments(ExtensionContext context) throws Exception{
@@ -175,7 +184,7 @@ class BidListControllerTest {
 			return Stream.of(Arguments.of(bid4));
 		}
 	}
-
+	//Fontionnal Test
 	@ParameterizedTest
 	@ArgumentsSource(AddBidFormArgumentsProvider.class)
 	void testShouldAddBidForm(BidList bidForTest) throws Exception{
@@ -192,12 +201,7 @@ class BidListControllerTest {
 		else {
 			Assertions.fail("Bad type of bidResult");
 		}
-		mockMvc.perform(MockMvcRequestBuilders
-				.get("/bidList/add")
-				.contentType(MediaType.APPLICATION_FORM_URLENCODED))
 
-		.andExpect(status().isOk())
-		.andExpect(view().name("bidList/add"));
 		Assertions.assertEquals(0, bidResult.getAccount().compareTo(bidForTest.getAccount()));
 		Assertions.assertEquals(0, bidResult.getType().compareTo(bidForTest.getType()));
 		Assertions.assertEquals(bidResult.getBidQuantity(), bidForTest.getBidQuantity());
@@ -207,9 +211,55 @@ class BidListControllerTest {
 
 		Assertions.assertEquals(0, urlResult.compareTo("bidList/add"));	
 	}
-
+	
+	//EndPoint Test
 	@Test
-	void testShouldValidateBid() throws Exception{
+	void testShouldAddBidFormForEndPoint(BidList bidForTest) throws Exception{
+		mockMvc.perform(MockMvcRequestBuilders
+				.get("/bidList/add")
+				.contentType(MediaType.APPLICATION_FORM_URLENCODED))
+
+		.andExpect(status().isOk())
+		.andExpect(view().name("bidList/add"));
+	}
+
+	//Fontionnal Test ShouldValidateBid
+	@Test
+	void testShouldValidateBid(BidList bidForTest) throws Exception{
+	//given
+	//when
+	//String urlResult = bidListController.validate(bidForTest, result, modelTest);
+	Object attribute =  modelTest.getAttribute("bidLists");
+
+	//then
+	Iterable<?> bidListResults = null;
+	if(attribute instanceof Iterable<?>) {
+		bidListResults = (Iterable<?>) attribute;
+	}
+	else {
+		Assertions.fail("Bad type of bidListResult");
+	}
+	Iterator<?> bidListResultsIterator = bidListResults.iterator();
+	Iterator<BidList> BidListExpectedIterator = listForMock().iterator();
+
+	while(bidListResultsIterator.hasNext()){
+
+		BidList bidListResult = (BidList) bidListResultsIterator.next();
+		BidList bidListExpected =  BidListExpectedIterator.next();
+
+		Assertions.assertEquals(0, bidListResult.getAccount().compareTo(bidListExpected.getAccount()));
+		Assertions.assertEquals(0, bidListResult.getType().compareTo(bidListExpected.getType()));
+		Assertions.assertEquals(bidListResult.getBidQuantity(), bidListExpected.getBidQuantity());
+		Assertions.assertEquals(bidListResult.getAskQuantity(),(bidListExpected.getAskQuantity()));
+		Assertions.assertEquals(0, bidListResult.getBenchmark().compareTo(bidListExpected.getBenchmark()));
+		Assertions.assertEquals(0, bidListResult.getSide().compareTo(bidListExpected.getSide()));
+	}
+//	Assertions.assertEquals(0, urlResult.compareTo("bidList/list"));
+}
+	
+	//EndPoint Test
+	@Test
+	void testShouldValidateBidForEndPoint() throws Exception{
 		//given
 		//When
 		when(bidListService.saveBidList(any())).thenReturn(new BidList());
@@ -225,6 +275,26 @@ class BidListControllerTest {
 		.andExpect(view().name("bidList/list"))	;
 	}
 
+
+	//Error Test
+	@Test
+	void testShouldValidateBidWithError() throws Exception{
+		//given
+		//When
+		when(bidListService.saveBidList(any())).thenReturn(new BidList());
+		//then
+		mockMvc.perform(
+				post("/bidList/validate")
+				.param("account","test")
+				.param("type","testType")
+				.param("bidQuantity","10.0")
+				.contentType(MediaType.APPLICATION_FORM_URLENCODED))
+
+		.andExpect(status().isOk())
+		.andExpect(view().name("bidList/list"))	;
+	}
+
+	//EndPoint Test
 	@Test
 	void testShouldShowUpdateForm() throws Exception {
 		//given
@@ -238,6 +308,8 @@ class BidListControllerTest {
 		.andExpect(view().name("bidList/update"));
 	}
 
+
+	//EndPoint Test
 	@Test
 	void testShouldUpdateBid() throws Exception {
 		//given
@@ -256,7 +328,7 @@ class BidListControllerTest {
 	}
 
 
-
+	//EndPoint Test
 	@Test
 	void testShouldDeleteBid() throws Exception {
 		//given

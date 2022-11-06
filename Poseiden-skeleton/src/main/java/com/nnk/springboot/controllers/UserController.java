@@ -56,10 +56,9 @@ public class UserController {
 			log.info("The validation of the user as well as its backup in the database could not be carried out");
 			log.info("There is an error in validating the password and the error message is indicated in the addUser page");
 			return "redirect:/user/add";
-		}else {
+		} else {
 			if (!result.hasErrors()) {
 				BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-
 				user.setPassword(encoder.encode(user.getPassword()));
 				userService.saveUser(user);
 				model.addAttribute(USERS, userService.getUsers());

@@ -37,6 +37,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.services.UserService;
+import com.nnk.springboot.utils.ValidityPasswordRules;
 
 @EnableWebMvc
 @SpringBootTest
@@ -180,21 +181,29 @@ class UserControllerTest {
 	@Test
 	void testShouldValidateUser() throws Exception{
 		//given
+		ValidityPasswordRules validity = new ValidityPasswordRules();
+		validity.containsAtLeastEightCharacters = true;
+		validity.containsAtLeastOneLetter = true;
+		validity.containsAtLeastOneLowercaseLetter = true;
+		validity.containsAtLeastOneNumber= true;
+		validity.containsAtLeastOneSymbol =true;
+		validity.containsAtLeastOneUppercaseLetter= true;
+		
 		//When
 		when(userService.saveUser(any())).thenReturn(new User());
+		when(userService.validatePassword(any())).thenReturn(validity);
+		when(userService.buildErrorMessage(any())).thenReturn("");
 		//then
 		mockMvc.perform(
 				post("/user/validate")
 				.param("fullname","fullname1")
 				.param("username","username1")
-				.param("password","password1")
+				.param("password","@Password1")
 				.param("role", "USER")
 				.contentType(MediaType.APPLICATION_FORM_URLENCODED))
 
-		.andExpect(status().isOk())
-		.andExpect(view().name("user/list"))
-		;
-
+		.andExpect(status().isFound())
+		.andExpect(view().name("redirect:/user/list"));
 	}
 
 	@Test

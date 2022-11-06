@@ -34,7 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			
 			.and()
 			.formLogin()
-		//	.loginPage("/login")
+			.loginPage("/login.html")
 		//	.permitAll()
 		//	.defaultSuccessUrl("/bidList/list",true)
 			.failureUrl("/login?error=true")
