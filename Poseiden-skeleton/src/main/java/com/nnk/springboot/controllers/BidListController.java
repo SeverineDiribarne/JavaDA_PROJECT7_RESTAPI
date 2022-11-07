@@ -5,6 +5,7 @@ import com.nnk.springboot.services.BidListService;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 
@@ -44,8 +46,9 @@ public class BidListController {
 	public String validate(@Valid BidList bid, BindingResult result, Model model) {
 		// check data valid and save to db, after saving return bid list OK
 		if(result.hasErrors()){
-			log.info("The validation of the bid as well as its backup in the database could not be carried out");
-			return "bidList/add";
+			log.error("The validation of the bid as well as its backup in the database could not be carried out");
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Your bid is not found");
+		//	return "bidList/add";
 		}
 		bidListService.saveBidList(bid);
 		model.addAttribute("bidLists", bid);
@@ -75,6 +78,7 @@ public class BidListController {
 		bidListFoundById.setType(bidList.getType());
 		bidListFoundById.setBidQuantity(bidList.getBidQuantity());
 		bidListService.saveBidList(bidListFoundById);
+		model.addAttribute(bidListFoundById);
 		log.info("The update of the bid has been carried out");
 		return "redirect:/bidList/list";
 	}
@@ -82,6 +86,7 @@ public class BidListController {
 	@GetMapping("/bidList/delete/{id}")
 	public String deleteBid(@PathVariable("id") Integer id, Model model) {
 		// Find Bid by Id and delete the bid, return to Bid list 
+		BidList bidListFoundById = bidListService.getBidListById(id).get();
 		bidListService.deleteBidListById(id);
 		Iterable<BidList> bidLists = bidListService.getBidLists();
 		model.addAttribute(bidLists);
