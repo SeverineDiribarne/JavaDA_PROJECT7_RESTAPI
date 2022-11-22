@@ -1,6 +1,5 @@
-package com.nnk.springboot.service;
+package com.nnk.springboot.services;
 
-import static org.assertj.core.api.Assertions.fail;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -146,10 +145,10 @@ class BidListServiceTests {
 	 * the save method of the repository is called
 	 * 
 	 * We mock the repository in order to capture the arguments of the saveCurvePoint method
-	 * And we check if the captured value is equal to argument value (here curve4 instance)
+	 * And we check if the captured value is equal to argument value (here bid4 instance)
 	 * 
-	 * @param curvePoint
-	 * @return save or update curvePoint in BDD
+	 * @param bidList
+	 * @return save or update bidList in BDD
 	 */
 	@Test
 	void testSaveBidList() throws Exception {
@@ -157,86 +156,23 @@ class BidListServiceTests {
 		//TODO Créer un element et l'ajouter a mon repo par mon service + appeler méthode saveBidList puis appeler getBidLists et verifier que element est dedans
 		BidList bid4 = new BidList();
 		bid4.setBidListId(4);
-		bid4.setAccount("Account test 4 for mock");;
-		bid4.setType("Type test 4 for mock");;
+		bid4.setAccount("Account test 4 for mock");
+		bid4.setType("Type test 4 for mock");
 		bid4.setBidQuantity(14);
 
 		//When
 		ArgumentCaptor<BidList> capturedBidListWhenSaveMethodIsCalled = ArgumentCaptor.forClass(BidList.class);
-		Mockito.doNothing().when(bidListRepository).save(capturedBidListWhenSaveMethodIsCalled.capture());
+		when(bidListRepository.save(capturedBidListWhenSaveMethodIsCalled.capture())).thenReturn(bid4);
 
 		bidListService.saveBidList(bid4);
 
 		//Then
 		BidList capturedBidList = capturedBidListWhenSaveMethodIsCalled.getValue();
 		Assertions.assertEquals(4, capturedBidList.getBidListId());
-		Assertions.assertEquals(4, capturedBidList.getAccount());
-		Assertions.assertEquals(14, capturedBidList.getType());
+		Assertions.assertEquals("Account test 4 for mock", capturedBidList.getAccount());
+		Assertions.assertEquals("Type test 4 for mock", capturedBidList.getType());
 		Assertions.assertEquals(14, capturedBidList.getBidQuantity());
 	}	
-
-	 ArgumentCaptor<Iterable<BidList>> captorIterableBidList;
-	/**
-	 * Save all list of BidList
-	 * @param bidLists
-	 * @return save all bidLists
-	 */
-	@Test
-	void testSaveAllBidList() {
-	//	TODO create an element and add it to the repo by service + call saveAllBidList and call getBidLists and verify element is in it
-		//given
-		BidList bid4 = new BidList();
-		bid4.setBidListId(4);
-		bid4.setAccount("Account test 4 for mock");
-		bid4.setType("Type test 4 for mock");
-		bid4.setBidQuantity(14);
-
-		BidList bid5 = new BidList();
-		bid5.setBidListId(5);
-		bid5.setAccount("Account test 5 for mock");
-		bid5.setType("Type test 5 for mock");
-		bid5.setBidQuantity(15);
-		
-		BidList bid6 = new BidList();
-		bid6.setBidListId(6);
-		bid6.setAccount("Account test 6 for mock");
-		bid6.setType("Type test 6 for mock");
-		bid6.setBidQuantity(16);
-		
-		List<BidList> mockedList = new ArrayList<>();
-		mockedList.add(bid4);
-		mockedList.add(bid5);
-		mockedList.add(bid6);
-
-		//When	
-		Iterable<BidList> capturedBidList = captorIterableBidList.getValue();
-		bidListService.saveAllBidList(mockedList);
-
-		//Then
-		Assertions.assertEquals(4, capturedBidList.iterator().next().getBidListId());
-		Assertions.assertEquals("Account test 4 for mock", capturedBidList.iterator().next().getAccount());
-		Assertions.assertEquals("Type test 4 for mock", capturedBidList.iterator().next().getType());
-		Assertions.assertEquals(14, capturedBidList.iterator().next().getBidQuantity());
-
-	}
-
-	/**
-	 * delete bidList by id
-	 * @param id
-	 */
-	@Test
-	void testDeleteRatingById() {
-		//TODO call deleteById and verify element don't exist
-		//Given
-		ArgumentCaptor<Integer> idCapture = ArgumentCaptor.forClass(Integer.class);
-		Mockito.doNothing().when(bidListRepository).deleteById(idCapture.capture());
-
-		//When
-		bidListService.deleteBidListById(BID_ID);
-
-		//Then
-		Assertions.assertEquals(BID_ID, idCapture.getValue());
-	}
 	
 	/**
 	 * delete bidList
@@ -245,6 +181,28 @@ class BidListServiceTests {
 	@Test
 	void testDeleteBidList() {
 		//TODO appeler le delete et verifier que l'element n'existe plus
-		fail("not yet implemented");
+		//given
+		BidList bid1 = new BidList();
+		bid1.setBidListId(1);
+		bid1.setAccount("Account1 Test for Mock");
+		bid1.setType("Type1 test for mock");
+		bid1.setBidQuantity(12);
+		bid1.setAskQuantity(6);
+		bid1.setBid(9);
+		bid1.setAsk(4);
+		bid1.setBenchmark("benchmark1");
+		bid1.setSide("Test1");
+		bid1.setSourceListId("1");
+		//when
+		ArgumentCaptor<BidList> capturedBidListWhenDeleteMethodIsCalled =ArgumentCaptor.forClass(BidList.class);
+		Mockito.doNothing().when(bidListRepository).delete(capturedBidListWhenDeleteMethodIsCalled.capture());
+		
+		bidListService.deleteBidList(bid1);
+		//then
+		BidList capturedBidList = capturedBidListWhenDeleteMethodIsCalled.getValue();
+		Assertions.assertEquals(1, capturedBidList.getBidListId());
+		Assertions.assertEquals("Account1 Test for Mock", capturedBidList.getAccount());
+		Assertions.assertEquals("Type1 test for mock", capturedBidList.getType());
+		Assertions.assertEquals( 12, capturedBidList.getBidQuantity());
 	}
 }

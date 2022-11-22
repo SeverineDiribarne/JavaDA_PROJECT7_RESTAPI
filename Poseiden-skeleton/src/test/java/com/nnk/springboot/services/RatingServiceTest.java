@@ -1,6 +1,5 @@
-package com.nnk.springboot.service;
+package com.nnk.springboot.services;
 
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -105,7 +104,7 @@ class RatingServiceTest {
 		//Then
 		Assertions.assertEquals(true, ratingResult.isPresent());
 		Assertions.assertEquals(RATING_ID.intValue(), ratingResult.get().getId());
-		Assertions.assertEquals(10,ratingResult.get().getOrderNumber());
+		Assertions.assertEquals(1,ratingResult.get().getOrderNumber());
 	}
 
 	/**
@@ -127,7 +126,7 @@ class RatingServiceTest {
 		
 		//When
 		ArgumentCaptor<Rating> capturedRatingWhenSaveMethodIsCalled = ArgumentCaptor.forClass(Rating.class);
-		Mockito.doNothing().when(ratingRepository).save(capturedRatingWhenSaveMethodIsCalled.capture());
+		when(ratingRepository.save(capturedRatingWhenSaveMethodIsCalled.capture())).thenReturn(rating4);
 
 		ratingService.saveRating(rating4);
 
@@ -136,44 +135,30 @@ class RatingServiceTest {
 		Assertions.assertEquals(4, capturedRating.getId());
 		Assertions.assertEquals(14, capturedRating.getOrderNumber());
 	}	
-	
-		/**
-		 * Save all list of Rating
-		 * @param rating
-		 * @return save all ratings
-		 */
-		@Test
-		void testSaveAllRating() {
-			//TODO create an element and add it to the repo by service + call saveAllRatings and call getRatings and verify element is in it
-			fail("not yet implemented");
-		}
 		
 		/**
-		 * delete rating by id
-		 * @param id
-		 */
-		@Test
-		void testDeleteRatingById() {
-			//TODO call deleteById and verify element don't exist
-			//Given
-			ArgumentCaptor<Integer> idCapture = ArgumentCaptor.forClass(Integer.class);
-			Mockito.doNothing().when(ratingRepository).deleteById(idCapture.capture());
-	
-			//When
-			ratingService.deleteRatingById(RATING_ID);
-	
-			//Then
-			Assertions.assertEquals(RATING_ID, idCapture.getValue());
-		}
-	
-		
-		/**
-		 * delete rating
-		 * @param rating
+		 *  Call deleteRating method and verify element don't exist
 		 */
 		@Test
 		void testDeleteRating() {
-			//TODO appeler le delete et verifier que l'element n'existe plus
-			fail("not yet implemented");
+			Rating rating1 = new Rating();
+			rating1.setId(1);
+			rating1.setMoodysRating("MoodysRating1 Test for mock");
+			rating1.setSandPRating("SandPRating1 Test for mock");
+			rating1.setFitchRating("FitchRating1 Test for mock");
+			rating1.setOrderNumber(1);
+			
+			//when
+			ArgumentCaptor<Rating> capturedRatingWhenDeleteMethodIsCalled =ArgumentCaptor.forClass(Rating.class);
+			Mockito.doNothing().when(ratingRepository).delete(capturedRatingWhenDeleteMethodIsCalled.capture());
+
+			ratingService.deleteRating(rating1);
+			//then
+			Rating capturedRating = capturedRatingWhenDeleteMethodIsCalled.getValue();
+			Assertions.assertEquals(1, capturedRating.getId());
+			Assertions.assertEquals("MoodysRating1 Test for mock", capturedRating.getMoodysRating());
+			Assertions.assertEquals("SandPRating1 Test for mock", capturedRating.getSandPRating());
+			Assertions.assertEquals("FitchRating1 Test for mock",  capturedRating.getFitchRating());
+			Assertions.assertEquals(1,  capturedRating.getOrderNumber());
 		}
 }

@@ -37,7 +37,7 @@ public class CurvePointService {
 	 * @param curvePoint
 	 * @return curvePoint
 	 */
-	public CurvePoint saveCurvePoint(CurvePoint curvePoint) {
+	public  CurvePoint saveCurvePoint(CurvePoint curvePoint) {
 		return curvePointRepository.save(curvePoint);
 	}
 	

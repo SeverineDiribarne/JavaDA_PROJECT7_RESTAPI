@@ -17,11 +17,11 @@
 			<!-- Create a form to edit the values of CurvePoint, there are 2 buttons: Update data and Cancel to the Curve Point -->
 			
 			 <label>Curve Id</label><br>
-			 <input type="text" th:field="*{curveId}"placeholder="Curve Id"/><br>
+			 <input type="number" th:field="*{curveId}"placeholder="Curve Id"/><br>
 			 <label>Term</label><br>
-			 <input type="text" th:field="*{term}"placeholder="Type"/><br>
+			 <input type="number" step=0.01 th:field="*{term}"placeholder="Type"/><br>
 			 <label>Value</label><br>
-			 <input type="text" th:field="*{value}"placeholder="Value"/>
+			 <input type="number" step=0.01 th:field="*{value}"placeholder="Value"/>
 			 <br>
 			 <input type="reset" class="btn btn-danger"value ="Cancel" style="margin-top:0.5%"/>
 			 <input type="submit" class="btn btn-primary" value="Update CurvePoint" style="margin-top:0.5%"/>

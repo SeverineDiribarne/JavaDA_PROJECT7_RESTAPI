@@ -44,8 +44,15 @@
 					<p class="text-danger" th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></p>
 				</div>
 			</div>
-
-
+			
+			 <span th:style="'color: red;'" th:if="${headerMessage}"  th:utext="${headerMessage}">Error</span>
+          
+		    <table>
+			  <tr th:each="message : ${messages}">
+            	<td><span th:style="'color: red;'" th:text="${message}">Error Message</span></td>
+        	  </tr>
+            </table>
+        
 			<div class="form-group">
 				<div class="col-sm-12">
 					<a class="btn btn-danger btn-sm" href="/user/list">Cancel</a>

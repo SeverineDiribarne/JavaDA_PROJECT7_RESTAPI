@@ -192,7 +192,7 @@ class UserControllerTest {
 		//When
 		when(userService.saveUser(any())).thenReturn(new User());
 		when(userService.validatePassword(any())).thenReturn(validity);
-		when(userService.buildErrorMessage(any())).thenReturn("");
+		when(userService.buildErrorMessage(any())).thenReturn(new ArrayList<>());
 		//then
 		mockMvc.perform(
 				post("/user/validate")

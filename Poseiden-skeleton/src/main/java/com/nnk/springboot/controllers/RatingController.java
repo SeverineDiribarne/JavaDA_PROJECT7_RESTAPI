@@ -57,7 +57,7 @@ public class RatingController {
 	@GetMapping("/rating/update/{id}")
 	public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
 		// get Rating by Id and to model then show to the form
-		Rating ratingFoundById = ratingService.getRatingById(id).get();
+		Rating	ratingFoundById = ratingService.getRatingById(id).get();
 		model.addAttribute(ratingFoundById);
 		log.info("the update of the rating found by its id has been carried out");
 		return "rating/update";
@@ -77,6 +77,7 @@ public class RatingController {
 		ratingFoundById.setFitchRating(rating.getFitchRating());
 		ratingFoundById.setOrderNumber(rating.getOrderNumber());
 		ratingService.saveRating(ratingFoundById);
+		model.addAttribute(ratingFoundById);
 		log.info("The update of the rating has been carried out");
 		return "redirect:/rating/list";
 	}
@@ -84,7 +85,8 @@ public class RatingController {
 	@GetMapping("/rating/delete/{id}")
 	public String deleteRating(@PathVariable("id") Integer id, Model model) {
 		// Find Rating by Id and delete the Rating, return to Rating list
-		ratingService.deleteRatingById(id);
+		Rating ratingFoundById = ratingService.getRatingById(id).get();
+		ratingService.deleteRating(ratingFoundById);
 		Iterable<Rating> ratings = ratingService.getRatings();
 		model.addAttribute(ratings);
 		log.info("The rating found by its id has been deleted from the list");

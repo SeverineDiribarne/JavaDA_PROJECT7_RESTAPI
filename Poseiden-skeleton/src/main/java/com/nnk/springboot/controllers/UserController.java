@@ -6,6 +6,8 @@ import com.nnk.springboot.utils.ValidityPasswordRules;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,14 +50,18 @@ public class UserController {
 
 	@PostMapping("/user/validate")
 	public String validate(@Valid User user, BindingResult result, Model model) {
-
+		// TODO :  Veririfer si le nom ou le prenom n'est pas vide 1
+		// TODO : Veirifier si check box est clique  2
+		// TODO : Verifier si l'utilisateur n'existe pas en base de donnees avec le role Admin ou User
+		
 		ValidityPasswordRules validityPasswordRules = userService.validatePassword(user);
-		String errorMessage = userService.buildErrorMessage(validityPasswordRules);
-		if(!errorMessage.isEmpty()) {
-			model.addAttribute("msg", errorMessage);
-			log.info("The validation of the user as well as its backup in the database could not be carried out");
-			log.info("There is an error in validating the password and the error message is indicated in the addUser page");
-			return "redirect:/user/add";
+		List<String> errorMessages = userService.buildErrorMessage(validityPasswordRules);
+		if(!errorMessages.isEmpty()) {
+			model.addAttribute("headerMessage", "Your password:");
+			model.addAttribute("messages", errorMessages);
+			log.error("The validation of the user as well as its backup in the database could not be carried out");
+			log.error("There is an error in validating the password and the error message is indicated in the addUser page");
+			return "/user/add";
 		} else {
 			if (!result.hasErrors()) {
 				BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -81,18 +87,29 @@ public class UserController {
 	@PostMapping("/user/update/{id}")
 	public String updateUser(@PathVariable("id") Integer id, @Valid User user,
 			BindingResult result, Model model) {
-		if (result.hasErrors()) {
-			log.info("user update could not be performed");
-			return "user/update";
+		// TODO :  Veririfer si le nom ou le prenom n'est pas vide 1
+		// TODO : Veirifier si check box est clique  2
+		// TODO : Verifier si l'utilisateur n'existe pas en base de donnees avec le role Admin ou User
+		ValidityPasswordRules validityPasswordRules = userService.validatePassword(user);
+		List<String> errorMessages = userService.buildErrorMessage(validityPasswordRules);
+		if(!errorMessages.isEmpty()) {
+			model.addAttribute("headerMessage", "Your password:");
+			model.addAttribute("messages", errorMessages);
+			log.error("The validation of the user as well as its backup in the database could not be carried out");
+			log.error("There is an error in validating the password and the error message is indicated in the addUser page");
+			return "redirect:/user/update";
+		} else {
+			if (!result.hasErrors()) {
+				BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+				user.setPassword(encoder.encode(user.getPassword()));
+				user.setId(id);
+				userService.saveUser(user);
+				model.addAttribute(USERS, userService.getUsers());
+				log.info("The update of the user has been carried out");
+				return REDIRECT_USER_LIST;
+			}
 		}
-
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		user.setPassword(encoder.encode(user.getPassword()));
-		user.setId(id);
-		userService.saveUser(user);
-		model.addAttribute(USERS, userService.getUsers());
-		log.info("The update of the user has been carried out");
-		return REDIRECT_USER_LIST;
+		return "redirect:/user/update";
 	}
 
 	@GetMapping("/user/delete/{id}")

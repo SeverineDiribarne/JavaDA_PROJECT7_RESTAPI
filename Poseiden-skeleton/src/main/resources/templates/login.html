@@ -1,37 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
 <title>Please sign in</title>
 <link
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
 	rel="stylesheet">
-<link
+  <link
 	href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css"
-	rel="stylesheet" />
-	<link href="logincss.css" rel="stylesheet" />
+	rel="stylesheet" />   
 </head>
 <body>
-	<div class="container" >
-		<form  method="post" action="/login" class="form-signin" >
-	 	<h2 class="form-signin-heading">Please sign in</h2>
-			<p>
-				<label for="username" class="sr-only">Username</label>
-				 <input type="text" id="username" name="username" class="form-control"
-					placeholder="Username1" required autofocus>
-			</p>
-			<p>
-				<label for="password" class="sr-only">Password</label>
-				 <input type="password" id="password" name="password" class="form-control"
-					placeholder="Password" required>
-			</p>
-			<input name="_csrf" type="hidden" value="97fefb49-1db5-445f-86e2-130cbadb2f0a" />
-			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+	<div class="container1">
+	<!-- Login via Username and password -->
+	
+		<form th:action="@{/login/validate}" method="post" class="form-signin">
+			<h2 class="form-signin-heading">Login with Username and Password</h2>
+		
+			<div class="input-group1">
+				<label for="username" class="sr-only">User :</label> <input
+					type="text" id="username" name="username" class="form-control"
+					placeholder="Username" required autofocus />
+			</div>
+			<div class="input-group2">
+				<label for="password" class="sr-only">Password :</label> <input
+					type="password" id="password" name="password" class="form-control"
+					placeholder="Password" required />
+			</div>
+			
+			 <span th:style="'color: red;'" th:if="${message}"  th:text="${message}">Error</span>
+ 
+			<div>
+				<button type="submit" class="btn btn-lg btn-primary btn-block">Login</button>
+			</div>
 		</form>
+
+		<!-- Login via Oauth2 -->
+		
 		<h2 class="form-signin-heading">Login with OAuth 2.0</h2>
 		<table class="table table-striped">
 			<tr>

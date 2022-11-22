@@ -51,25 +51,6 @@ public class BidListService {
 	}
 	
 	/**
-	 * Save all list of BidList
-	 * @param bidLists
-	 * @return save all bidLists
-	 */
-	@Transactional(rollbackFor = Exception.class)
-	public List<BidList> saveAllBidList(Iterable<BidList> bidLists) {
-		return bidListRepository.saveAll(bidLists);
-	}
-	
-	/**
-	 * delete bidList by id
-	 * @param id
-	 */
-	@Transactional(rollbackFor = Exception.class)
-	public void deleteBidListById(Integer id) {
-		bidListRepository.deleteById(id);
-	}
-	
-	/**
 	 * delete bidList
 	 * @param bidList
 	 */

@@ -5,7 +5,6 @@ import com.nnk.springboot.services.BidListService;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 
@@ -47,8 +45,8 @@ public class BidListController {
 		// check data valid and save to db, after saving return bid list OK
 		if(result.hasErrors()){
 			log.error("The validation of the bid as well as its backup in the database could not be carried out");
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Your bid is not found");
-		//	return "bidList/add";
+			model.addAttribute( "msgerror", "Your bid is not found");
+			return "bidList/add";
 		}
 		bidListService.saveBidList(bid);
 		model.addAttribute("bidLists", bid);
@@ -87,7 +85,7 @@ public class BidListController {
 	public String deleteBid(@PathVariable("id") Integer id, Model model) {
 		// Find Bid by Id and delete the bid, return to Bid list 
 		BidList bidListFoundById = bidListService.getBidListById(id).get();
-		bidListService.deleteBidListById(id);
+		bidListService.deleteBidList(bidListFoundById);
 		Iterable<BidList> bidLists = bidListService.getBidLists();
 		model.addAttribute(bidLists);
 		log.info("The bid found by its id has been deleted from the list");

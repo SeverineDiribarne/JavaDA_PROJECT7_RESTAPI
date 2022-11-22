@@ -7,7 +7,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Slf4j
 @Controller
-
 public class LogoutController {
 
 	private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(LogoutController.class);
@@ -16,7 +15,7 @@ public class LogoutController {
 	    public ModelAndView logout() {
 	        ModelAndView mav = new ModelAndView();
 	        mav.setViewName("/logout");
-	        //TODO a verifier ce que fait cette methode pour bien adapter le message
+	        //TODO a verifier ce que fait cette methode pour bien adapter le message + afficher message de thymeleaf "vous etes bien deconnecté"
 	        log.info("disconnection was successful");
 	        return mav;
 	    }

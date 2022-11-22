@@ -6,20 +6,20 @@ import com.nnk.springboot.repositories.TradeRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
 import java.util.Optional;
 
-@SpringBootTest
-public class TradeTests {
+@DataJpaTest
+class TradeTests {
 
 	@Autowired
 	private TradeRepository tradeRepository;
 
 	@Test
-	public void tradeTest() {
-		Trade trade = new Trade(0, "Trade Account", "Type", 0, 0, 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+	void tradeTest() {
+		Trade trade = new Trade(1, "Trade Account", "Type", 0, 0, 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 
 		// Save
 		trade = tradeRepository.save(trade);

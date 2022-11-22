@@ -87,10 +87,11 @@ public class RuleNameController {
     @GetMapping("/ruleName/delete/{id}")
     public String deleteRuleName(@PathVariable("id") Integer id, Model model) {
         // Find RuleName by Id and delete the RuleName, return to Rule list
-    	ruleNameService.deleteRuleNameById(id);
-    	Iterable<RuleName> ruleNames = ruleNameService.getRuleNames();
-    	model.addAttribute(ruleNames);
-   	log.info("The ruleName found by its id has been deleted from the list");
-        return "redirect:/ruleName/list";
+    	RuleName ruleNameFoundById = ruleNameService.getRuleNameById(id).get();
+    	ruleNameService.deleteRuleName(ruleNameFoundById);
+		Iterable<RuleName> ruleNames = ruleNameService.getRuleNames();
+		model.addAttribute(ruleNames);
+		log.info("The ruleName found by its id has been deleted from the list");
+		return "redirect:/ruleName/list";
     }
 }

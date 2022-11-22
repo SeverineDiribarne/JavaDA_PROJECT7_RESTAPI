@@ -71,19 +71,21 @@ public class CurveController {
     		log.info("curvePoint update could not be performed");
 			return "curvePoint/update" ;    	
 		}
-		CurvePoint curvePointFoundById = curvePointService.getCurvePointById(id).get();
+    	CurvePoint curvePointFoundById = curvePointService.getCurvePointById(id).get();
 		curvePointFoundById.setCurveId(curvePoint.getCurveId());
 		curvePointFoundById.setTerm(curvePoint.getTerm());
 		curvePointFoundById.setValue(curvePoint.getValue());
 		curvePointService.saveCurvePoint(curvePointFoundById);
+		model.addAttribute(curvePointFoundById);
 		log.info("The update of the curvePoint has been carried out");
-        return "redirect:/curvePoint/list";
+		return "redirect:/curvePoint/list";
     }
 
     @GetMapping("/curvePoint/delete/{id}")
     public String deleteCurvePoint(@PathVariable("id") Integer id, Model model) {
         // Find Curve by Id and delete the Curve, return to Curve list
-    	curvePointService.deleteCurvePointById(id);
+    	CurvePoint curvePointFoundById = curvePointService.getCurvePointById(id).get();
+    	curvePointService.deleteCurvePoint(curvePointFoundById);
 		Iterable<CurvePoint> curvePoints = curvePointService.getCurvePoints();
 		model.addAttribute(curvePoints);
 		log.info("The curvePoint found by its id has been deleted from the list");

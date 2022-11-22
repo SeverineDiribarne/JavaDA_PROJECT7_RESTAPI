@@ -16,6 +16,12 @@ public class HomeController {
 		log.info("The home page is displayed correctly");
 		return "home";
 	}
+	
+	@RequestMapping("/")
+	public String hom(Model model){
+		log.info("The home page is displayed correctly");
+		return "home";
+	}
 
 	@RequestMapping("/admin/home")
 	public String adminHome(Model model){

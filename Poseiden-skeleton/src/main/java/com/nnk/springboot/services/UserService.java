@@ -1,5 +1,6 @@
 package com.nnk.springboot.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -116,26 +117,30 @@ public class UserService {
 	 * @param validityPasswordRules
 	 * @return error Message
 	 */
-	public String buildErrorMessage(ValidityPasswordRules validityPasswordRules) {
-		String errorMessage = "";
+	public List<String> buildErrorMessage(ValidityPasswordRules validityPasswordRules) {
+		List<String> errorMessages = new ArrayList<>();
 		if(!validityPasswordRules.containsAtLeastEightCharacters) {
-			errorMessage = "Your password must contain at least eight characters.";
+			errorMessages.add( "- must contain at least eight characters.");
 		}
 		if(!validityPasswordRules.containsAtLeastOneNumber) {
-			errorMessage ="Your password must contain at least one number.";
+			errorMessages.add("- must contain at least one number.");
 		}
 		if(!validityPasswordRules.containsAtLeastOneLetter) {
-			errorMessage ="Your password must contain at least one letter.";
+			errorMessages.add("- must contain at least one letter.");
 		}
 		if(!validityPasswordRules.containsAtLeastOneLowercaseLetter) {
-			errorMessage ="Your password must contain at least one lowercase letter.";
+			errorMessages.add("- must contain at least one lowercase letter.");
 		}
 		if(!validityPasswordRules.containsAtLeastOneUppercaseLetter) {
-			errorMessage ="Your password must contain at least one uppercase letter.";
+			errorMessages.add("- must contain at least one uppercase letter.");
 		}
 		if(!validityPasswordRules.containsAtLeastOneSymbol) {
-			errorMessage ="Your password must contain at least one symbol.";
-		}	
-		return errorMessage;
+			errorMessages.add("- must contain at least one symbol.");
+		}
+	//	if(!errorMessage.isEmpty())
+		//{
+			//errorMessage = "Your password :\n" + errorMessage;
+		//}
+		return errorMessages;
 	}
 }

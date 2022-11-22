@@ -22,13 +22,14 @@ import org.junit.jupiter.params.provider.ArgumentsSource;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
+//import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpStatus;
+//import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -38,7 +39,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.server.ResponseStatusException;
+//import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.nnk.springboot.domain.BidList;
@@ -75,15 +76,15 @@ class BidListControllerTest {
 	private static BidList bidForMock() {
 		BidList bid4 = new BidList();
 		bid4.setBidListId(4);
-		bid4.setAccount("Account4 Test for Mock");
-		bid4.setType("Type4 test for mock");
-		bid4.setBidQuantity(12);
-		bid4.setAskQuantity(6);
-		bid4.setBid(9);
+		bid4.setAccount("Account4 Test for mock");
+		bid4.setType("Type4 Test for mock");
+		bid4.setBidQuantity(4);
+		bid4.setAskQuantity(4);
+		bid4.setBid(4);
 		bid4.setAsk(4);
-		bid4.setBenchmark("null");
-		bid4.setSide("Test4");
-		bid4.setSourceListId("4");
+		bid4.setBenchmark("Benchmark4 Test for mock");
+		bid4.setSide("Side4 Test for mock");
+		bid4.setSourceListId("SourceListId4 Test for mock");
 		return bid4;
 	}
 
@@ -91,39 +92,39 @@ class BidListControllerTest {
 
 		BidList bid1 = new BidList();
 		bid1.setBidListId(1);
-		bid1.setAccount("Account1 Test for Mock");
-		bid1.setType("Type1 test for mock");
-		bid1.setBidQuantity(12);
-		bid1.setAskQuantity(6);
-		bid1.setBid(9);
-		bid1.setAsk(4);
-		bid1.setBenchmark("null");
-		bid1.setSide("Test1");
-		bid1.setSourceListId("1");
+		bid1.setAccount("Account1 Test for mock");
+		bid1.setType("Type1 Test for mock");
+		bid1.setBidQuantity(1);
+		bid1.setAskQuantity(1);
+		bid1.setBid(1);
+		bid1.setAsk(1);
+		bid1.setBenchmark("Benchmark1 Test for mock");
+		bid1.setSide("Side1 Test for mock");
+		bid1.setSourceListId("SourceListId1 Test for mock");
 
 		BidList bid2 = new BidList();
 		bid2.setBidListId(2);
-		bid2.setAccount("Account2 Test for Mock");
-		bid2.setType("Type2 test for mock");
-		bid2.setBidQuantity(4);
+		bid2.setAccount("Account2 Test for mock");
+		bid2.setType("Type2 Test for mock");
+		bid2.setBidQuantity(2);
 		bid2.setAskQuantity(2);
-		bid2.setBid(3);
-		bid2.setAsk(5);
-		bid2.setBenchmark("benchmark1");
-		bid2.setSide("Test2");
-		bid2.setSourceListId("10");
+		bid2.setBid(2);
+		bid2.setAsk(2);
+		bid2.setBenchmark("Benchmark2 Test for mock");
+		bid2.setSide("Side2 Test for mock");
+		bid2.setSourceListId("SourceListId2 Test for mock");
 
 		BidList bid3 = new BidList();
 		bid3.setBidListId(3);
-		bid3.setAccount("Account3 Test for Mock");
-		bid3.setType("Type3 test for mock");
-		bid3.setBidQuantity(10);
-		bid3.setAskQuantity(5);
-		bid3.setBid(6);
-		bid3.setAsk(2);
-		bid3.setBenchmark("benchmark2");
-		bid3.setSide("Test3");
-		bid3.setSourceListId("20");
+		bid3.setAccount("Account3 Test for mock");
+		bid3.setType("Type3 Test for mock");
+		bid3.setBidQuantity(3);
+		bid3.setAskQuantity(3);
+		bid3.setBid(3);
+		bid3.setAsk(3);
+		bid3.setBenchmark("Benchmark3 Test for mock");
+		bid3.setSide("Side3 Test for mock");
+		bid3.setSourceListId("SourceListId3 Test for mock");
 
 		List<BidList> mockedList = new ArrayList<>();
 		mockedList.add(bid1);
@@ -151,12 +152,12 @@ class BidListControllerTest {
 			Assertions.fail("Bad type of bidListResult");
 		}
 		Iterator<?> bidListResultsIterator = bidListResults.iterator();
-		Iterator<BidList> BidListExpectedIterator = listForMock().iterator();
+		Iterator<BidList> bidListExpectedIterator = listForMock().iterator();
 
 		while(bidListResultsIterator.hasNext()){
 
 			BidList bidListResult = (BidList) bidListResultsIterator.next();
-			BidList bidListExpected =  BidListExpectedIterator.next();
+			BidList bidListExpected =  bidListExpectedIterator.next();
 
 			Assertions.assertEquals(0, bidListResult.getAccount().compareTo(bidListExpected.getAccount()));
 			Assertions.assertEquals(0, bidListResult.getType().compareTo(bidListExpected.getType()));
@@ -264,9 +265,9 @@ class BidListControllerTest {
 
 		BidList capturedBidList = capturedBidListWhenSaveMethodIsCalled.getValue();
 		Assertions.assertEquals(4, capturedBidList.getBidListId());
-		Assertions.assertEquals("Account4 Test for Mock", capturedBidList.getAccount());
-		Assertions.assertEquals("Type4 test for mock", capturedBidList.getType());
-		Assertions.assertEquals(12, capturedBidList.getBidQuantity());
+		Assertions.assertEquals("Account4 Test for mock", capturedBidList.getAccount());
+		Assertions.assertEquals("Type4 Test for mock", capturedBidList.getType());
+		Assertions.assertEquals(4, capturedBidList.getBidQuantity());
 	}
 
 	//EndPoint Test
@@ -278,8 +279,8 @@ class BidListControllerTest {
 		//then
 		mockMvc.perform(
 				post("/bidList/validate")
-				.param("account","test")
-				.param("type","testType")
+				.param("account","Account1 Test for mock")
+				.param("type","Type1 Test for mock")
 				.param("bidQuantity","10.0")
 				.contentType(MediaType.APPLICATION_FORM_URLENCODED))
 
@@ -328,7 +329,7 @@ class BidListControllerTest {
 	@Test
 	void testShouldValidateBidWithError() throws Exception{
 		/**
-		 * Voir avec Marc comment dans Thymeleaf on récupère le status 404 (isNotFound), afficher un message d'erreur et retourner sur la page add
+		 * Voir avec Marc comment dans Thymeleaf , afficher un message d'erreur et retourner sur la page add
 		 */
 		//given
 		//When
@@ -338,10 +339,11 @@ class BidListControllerTest {
 				post("/bidList/validate")
 				.param("account", "12")
 				.param("type", "12")
-				.param("bidQuantity","adc" )
+				.param("bidQuantity","null" )
 				.contentType(MediaType.APPLICATION_FORM_URLENCODED))
 
-		.andExpect(status().isNotFound());
+		.andExpect(status().isOk())
+		.andExpect(view().name("bidList/add"));
 	}
 
 	static class shouldShowUpdateFormArgumentsProvider implements ArgumentsProvider{
@@ -402,18 +404,19 @@ class BidListControllerTest {
 	void testShouldUpdateBid(BidList bidForTest) throws Exception{
 		//given
 		when(bidListService.getBidListById(any())).thenReturn(Optional.of(bidForTest));
-		bidForTest.setAccount("account 5");
-		bidForTest.setType("type 5");
-		bidForTest.setBidQuantity(50);
-		bidForTest.setAskQuantity(15);
-		bidForTest.setBenchmark("benchmark5");
-		bidForTest.setSide("side5");
+		bidForTest.setAccount("Account5 Test for mock");
+		bidForTest.setType("Type5 Test for mock");
+		bidForTest.setBidQuantity(5);
+		bidForTest.setAskQuantity(5);
+		bidForTest.setBenchmark("Benchmark5 Test for mock");
+		bidForTest.setSide("Side5 Test for mock");
 		when(bidListService.saveBidList(any())).thenReturn(bidForTest);
 
+		ArgumentCaptor<BidList> capturedBidListWhenSaveMethodIsCalled = ArgumentCaptor.forClass(BidList.class);
+		when(bidListService.saveBidList(capturedBidListWhenSaveMethodIsCalled.capture())).thenReturn(new BidList());
+		
 		String urlResult = bidListController.updateBid(4, bidForTest, resultTest, modelTest);
-
 		Object attribute =  modelTest.getAttribute("bidList");
-		//TODO argumentCaptor sur le saveBidList
 		//then
 		BidList bidResult = null;
 		if(attribute instanceof BidList) {
@@ -431,7 +434,14 @@ class BidListControllerTest {
 		Assertions.assertEquals(0, bidResult.getSide().compareTo(bidForTest.getSide()));
 
 		Assertions.assertEquals(0, urlResult.compareTo("redirect:/bidList/list"));	
+		
+		BidList capturedBidList = capturedBidListWhenSaveMethodIsCalled.getValue();
+		Assertions.assertEquals(4, capturedBidList.getBidListId());
+		Assertions.assertEquals("Account5 Test for mock", capturedBidList.getAccount());
+		Assertions.assertEquals("Type5 Test for mock", capturedBidList.getType());
+		Assertions.assertEquals(5, capturedBidList.getBidQuantity());
 	}
+	
 	//EndPoint Test
 	@Test
 	void testShouldUpdateBidForEndPoint() throws Exception {
@@ -442,9 +452,9 @@ class BidListControllerTest {
 		//then
 		mockMvc.perform(
 				post("/bidList/update/{id}",4)
-				.param("account", "Account4 Test for Mock")
-				.param("type", "Account4 Test for Mock")
-				.param("bidQuantity", "12")
+				.param("account", "Account4 Test for mock")
+				.param("type", "Type4 Test for mock")
+				.param("bidQuantity", "4")
 				.contentType(MediaType.APPLICATION_FORM_URLENCODED))
 		.andExpect(status().is3xxRedirection())
 		.andExpect(view().name("redirect:/bidList/list"));
@@ -454,27 +464,27 @@ class BidListControllerTest {
 
 		BidList bid2 = new BidList();
 		bid2.setBidListId(2);
-		bid2.setAccount("Account2 Test for Mock");
-		bid2.setType("Type2 test for mock");
-		bid2.setBidQuantity(4);
+		bid2.setAccount("Account2 Test for mock");
+		bid2.setType("Type2 Test for mock");
+		bid2.setBidQuantity(2);
 		bid2.setAskQuantity(2);
-		bid2.setBid(3);
-		bid2.setAsk(5);
-		bid2.setBenchmark("benchmark1");
-		bid2.setSide("Test2");
-		bid2.setSourceListId("10");
+		bid2.setBid(2);
+		bid2.setAsk(2);
+		bid2.setBenchmark("Benchmark2 Test for mock");
+		bid2.setSide("Side2 Test for mock");
+		bid2.setSourceListId("SourceListId2 Test for mock");
 
 		BidList bid3 = new BidList();
 		bid3.setBidListId(3);
-		bid3.setAccount("Account3 Test for Mock");
-		bid3.setType("Type3 test for mock");
-		bid3.setBidQuantity(10);
-		bid3.setAskQuantity(5);
-		bid3.setBid(6);
-		bid3.setAsk(2);
-		bid3.setBenchmark("benchmark2");
-		bid3.setSide("Test3");
-		bid3.setSourceListId("20");
+		bid3.setAccount("Account3 Test for mock");
+		bid3.setType("Type3 Test for mock");
+		bid3.setBidQuantity(3);
+		bid3.setAskQuantity(3);
+		bid3.setBid(3);
+		bid3.setAsk(3);
+		bid3.setBenchmark("Benchmark3 Test for mock");
+		bid3.setSide("Side3 Test for mock");
+		bid3.setSourceListId("SourceListId3 Test for mock");
 
 		List<BidList> mockedList = new ArrayList<>();
 		mockedList.add(bid2);
@@ -488,22 +498,24 @@ class BidListControllerTest {
 		//given
 		Integer id =1;
 		//when
-		//TODO argumentCaptor sur delete  + mock methode delete
-		//TODO creer en dur dans le TU la liste - l'element supprimé
-		//TODO 
+		ArgumentCaptor<BidList> capturedBidListWhenDeleteMethodIsCalled =ArgumentCaptor.forClass(BidList.class);
+		Mockito.doNothing().when(bidListService).deleteBidList(capturedBidListWhenDeleteMethodIsCalled.capture());
+		
+		when(bidListService.getBidListById(id)).thenReturn(Optional.of(listForMock().get(0)));
 		when(bidListService.getBidLists()).thenReturn(listForMockDeleted());
 		String urlResult = bidListController.deleteBid(id, modelTest);
-		Object attribute =  modelTest.getAttribute("bidList");
+		Object attribute =  modelTest.getAttribute("bidListList");
 
 		//then
 		Iterable<?> bidListResults = null;
 		if(attribute instanceof Iterable<?>) {
 			bidListResults = (Iterable<?>) attribute;
-		} else {
-			Assertions.fail("Bad type of bidResult");
+		}
+		else {
+			Assertions.fail("Bad type of bidListResult");
 		}
 		Iterator<?> bidListResultsIterator = bidListResults.iterator();
-		Iterator<BidList> BidListExpectedIterator = listForMock().iterator();
+		Iterator<BidList> BidListExpectedIterator = listForMockDeleted().iterator();
 
 		BidList bidListResult1 = (BidList) bidListResultsIterator.next();
 		BidList bidListExpected1 =  BidListExpectedIterator.next();
@@ -525,13 +537,21 @@ class BidListControllerTest {
 		Assertions.assertEquals(0, bidListResult2.getSide().compareTo(bidListExpected2.getSide()));
 		
 		Assertions.assertEquals(0, urlResult.compareTo("redirect:/bidList/list"));	
+		
+		BidList capturedBidList = capturedBidListWhenDeleteMethodIsCalled.getValue();
+		Assertions.assertEquals("Account1 Test for mock", capturedBidList.getAccount());
+		Assertions.assertEquals("Type1 Test for mock", capturedBidList.getType());
+		Assertions.assertEquals( 1, capturedBidList.getBidQuantity());
 	}
 
 	//EndPoint Test
 	@Test
 	void testShouldDeleteBidForEndPoint() throws Exception {
 		//given
+		Integer id =1;
 		//when
+		when(bidListService.getBidListById(id)).thenReturn(Optional.of(listForMock().get(1)));
+		when(bidListService.getBidLists()).thenReturn(listForMock());
 		//then
 		mockMvc.perform(MockMvcRequestBuilders
 				.get("/bidList/delete/{id}", 1)
