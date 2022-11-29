@@ -43,10 +43,16 @@
 					<label class="checkbox-inline"><input type="radio" th:field="*{role}" th:value="USER">User</label>
 				</div>
 			</div>
-
-			 <span th:style="'color: red;'" th:if="${message}"  th:utext="${message}">Error</span>
-
-			<div class="form-group">
+ 			<span th:style="'color: red;'" th:if="${messageName}"  th:utext="${messageName}">Error Username</span><br>
+			 <span th:style="'color: red;'" th:if="${messageFullName}"  th:utext="${messageFullName}">Error fullname</span><br>
+			 <span th:style="'color: red;'" th:if="${messageRole}"  th:utext="${messageRole}">Error Role</span><br>
+			 <span th:style="'color: red;'" th:if="${headerMessage}"  th:utext="${headerMessage}">Error password</span>
+		    <table>
+			  <tr th:each="message : ${messages}">
+            	<td><span th:style="'color: red;'" th:text="${message}">Error Message password</span></td>
+        	  </tr>
+            </table>
+            <div class="form-group">
 				<div class="col-sm-12">
 					<input type="hidden" th:field="*{id}">
 					<a class="btn btn-danger btn-sm" href="/user/list">Cancel</a>

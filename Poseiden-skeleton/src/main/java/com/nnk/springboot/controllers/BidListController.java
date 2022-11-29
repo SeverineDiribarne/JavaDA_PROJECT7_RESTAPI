@@ -42,6 +42,11 @@ public class BidListController {
 
 	@PostMapping("/bidList/validate")
 	public String validate(@Valid BidList bid, BindingResult result, Model model) {
+//		if( bid.getAccount().isEmpty() || bid.getType().isEmpty() || bid.getBidQuantity()==0) {
+//			log.error("The validation of the bid as well as its backup in the database could not be carried out because the bid is empty");
+//			model.addAttribute( "msgerror", "Your bid is empty");
+//			return "bidList/add";
+//		}
 		// check data valid and save to db, after saving return bid list OK
 		if(result.hasErrors()){
 			log.error("The validation of the bid as well as its backup in the database could not be carried out");

@@ -39,27 +39,26 @@
 			<div class="form-group">
 				<label for="password" class="col-sm-2 control-label">Role</label>
 				<div class="col-sm-10">
-					<label class="checkbox-inline"><input type="radio" th:field="*{role}" th:value="ADMIN">Admin</label>
-					<label class="checkbox-inline"><input type="radio" th:field="*{role}" th:value="USER">User</label>
+					<label class="checkbox-inline"><input type="checkbox" name ="role" th:field="*{role}" th:value="ADMIN">Admin</label>
+					<label class="checkbox-inline"><input type="checkbox" name ="role"  th:field="*{role}" th:value="USER">User</label>
 					<p class="text-danger" th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></p>
 				</div>
 			</div>
-			
-			 <span th:style="'color: red;'" th:if="${headerMessage}"  th:utext="${headerMessage}">Error</span>
-          
+			 <span th:style="'color: red;'" th:if="${messageFullName}"  th:utext="${messageFullName}">Error fullname</span><br>
+			 <span th:style="'color: red;'" th:if="${messageUserName}"  th:utext="${messageUserName}">Error Username</span><br>
+			 <span th:style="'color: red;'" th:if="${messageRole}"  th:utext="${messageRole}">Error Role</span><br>
+			 <span th:style="'color: red;'" th:if="${headerMessage}"  th:utext="${headerMessage}">Error password</span>
 		    <table>
 			  <tr th:each="message : ${messages}">
-            	<td><span th:style="'color: red;'" th:text="${message}">Error Message</span></td>
+            	<td><span th:style="'color: red;'" th:text="${message}">Error Message password</span></td>
         	  </tr>
             </table>
-        
-			<div class="form-group">
+         <div class="form-group">
 				<div class="col-sm-12">
-					<a class="btn btn-danger btn-sm" href="/user/list">Cancel</a>
+					<a href="/user/list" class="btn btn-danger btn-sm" >Cancel</a>
 					<input class="btn btn-primary btn-sm" type="submit" value="Add user">
 				</div>
 			</div>
-
 		</form>
 	</div>
 

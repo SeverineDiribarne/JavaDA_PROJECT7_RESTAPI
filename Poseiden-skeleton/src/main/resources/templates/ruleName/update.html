@@ -30,9 +30,12 @@
 				<label>SQL Part</label><br> 
 				<input type="text" th:field="*{sqlPart}" placeholder="Sql Part">
 				<br>
-				<input type="reset" class="btn btn-danger" value="Cancel" style="margin-top:0.5%" /> 
-				<input type="submit" class="btn btn-primary" value="Update RuleName" style="margin-top:0.5%" />
-
+				<div class="form-group">
+					<div class="col-sm-12">
+						<a href="/rulename/list" class="btn btn-danger" style="margin-top: 0.5%">Cancel</a> 
+							<input type="submit" class="btn btn-primary" value="Add RuleName" style="margin-top: 0.5%">
+					</div>
+				</div>
 		</form>
 	</div>
 
