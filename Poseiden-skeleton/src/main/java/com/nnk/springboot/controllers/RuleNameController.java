@@ -22,6 +22,8 @@ public class RuleNameController {
 	@Autowired
 	RuleNameService ruleNameService;
 	
+	private static final String LOG_ERROR = "The validation of the ruleName as well as its backup in the database could not be carried out because the ruleName is empty";
+	
 	private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(RuleNameController.class);
 
     @RequestMapping("/ruleName/list")
@@ -43,15 +45,45 @@ public class RuleNameController {
     @PostMapping("/ruleName/validate")
     public String validate(@Valid RuleName ruleName, BindingResult result, Model model) {
         // check data valid and save to db, after saving return RuleName list
+    	if(ruleName.getName().isEmpty() ) {
+			log.error(LOG_ERROR);
+			model.addAttribute("msgName" , "Your name is empty");
+			return "rulename/add";
+		}
+		if(ruleName.getDescription().isEmpty()) {
+			log.error(LOG_ERROR);
+			model.addAttribute("msgDescription", "Your description is empty");
+			return "rulename/add";
+		}
+		if(ruleName.getJson().isEmpty()) {
+			log.error(LOG_ERROR);
+			model.addAttribute("msgJson","Your Json is empty");
+			return "rulename/add";
+		}
+		if(ruleName.getTemplate().isEmpty()) {
+			log.error(LOG_ERROR);
+			model.addAttribute("msgTemplate","Your Template  is empty");
+			return "rulename/add";
+		}
+		if(ruleName.getSqlStr().isEmpty()) {
+			log.error(LOG_ERROR);
+			model.addAttribute("msgSqlStr","Your SqlStr  is empty");
+			return "rulename/add";
+		}
+		if(ruleName.getSqlPart().isEmpty()) {
+			log.error(LOG_ERROR);
+			model.addAttribute("msgSqlPart","Your SqlPart  is empty");
+			return "rulename/add";
+		}
     	if(result.hasErrors()) {
-    		log.info("The validation of the ruleName as well as its backup in the database could not be carried out");
+    		log.error("The validation of the ruleName as well as its backup in the database could not be carried out");
         return "ruleName/add";
     	}
     	ruleNameService.saveRuleName(ruleName);
     	model.addAttribute(ruleName);
     	model.addAttribute("ruleNames", ruleName);
     	log.info("The validation of the ruleName is carried out as well as the backup in the database");
-    	return "ruleName/list";
+    	return "redirect:/ruleName/list";
     }
 
     @GetMapping("/ruleName/update/{id}")
@@ -67,8 +99,38 @@ public class RuleNameController {
     public String updateRuleName(@PathVariable("id") Integer id, @Valid RuleName ruleName,
                              BindingResult result, Model model) {
         // check required fields, if valid call service to update RuleName and return RuleName list
+    	if( ruleName.getName().isEmpty() ) {
+			log.error(LOG_ERROR);
+			model.addAttribute("msgName" , "Your name is empty");
+			return "rulename/update";
+		}
+		if(ruleName.getDescription().isEmpty()) {
+			log.error(LOG_ERROR);
+			model.addAttribute("msgDescription", "Your description is empty");
+			return "rulename/update";
+		}
+		if(ruleName.getJson().isEmpty()) {
+			log.error(LOG_ERROR);
+			model.addAttribute("msgJson","Your Json is empty");
+			return "rulename/update";
+		}
+		if(ruleName.getTemplate().isEmpty()) {
+			log.error(LOG_ERROR);
+			model.addAttribute("msgTemplate","Your Template  is empty");
+			return "rulename/update";
+		}
+		if(ruleName.getSqlStr().isEmpty()) {
+			log.error(LOG_ERROR);
+			model.addAttribute("msgSqlStr","Your SqlStr  is empty");
+			return "rulename/update";
+		}
+		if(ruleName.getSqlPart().isEmpty()) {
+			log.error(LOG_ERROR);
+			model.addAttribute("msgSqlPart","Your SqlPart  is empty");
+			return "rulename/update";
+		}
     	if(result.hasErrors()) {
-    		log.info("ruleName update could not be performed");
+    		log.error("ruleName update could not be performed");
     		return "ruleName/update";
     	}
     	RuleName ruleNameFoundById = ruleNameService.getRuleNameById(id).get();

@@ -22,6 +22,9 @@ public class RatingController {
 	@Autowired
 	RatingService ratingService;
 	
+	private static final String LOG_ERROR = "The validation of the rating as well as its backup in the database could not be carried out because the rating is empty";
+
+	
 	private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(RatingController.class);
 
 	@RequestMapping("/rating/list")
@@ -43,15 +46,35 @@ public class RatingController {
 	@PostMapping("/rating/validate")
 	public String validate(@Valid Rating rating, BindingResult result, Model model) {
 		// check data valid and save to db, after saving return Rating list
+		if( rating.getMoodysRating().isEmpty() ) {
+			log.error(LOG_ERROR);
+			model.addAttribute("msgMoodysRating" , "Your moodysRating is empty");
+			return "rating/add";
+		}
+		if(rating.getSandPRating().isEmpty()) {
+			log.error(LOG_ERROR);
+			model.addAttribute("msgSandPRating", "Your sandPRating is empty");
+			return "rating/add";
+		}
+		if(rating.getFitchRating().isEmpty()) {
+			log.error(LOG_ERROR);
+			model.addAttribute("msgFitchRating","Your fitchRating is empty");
+			return "rating/add";
+		}
+		if(rating.getOrderNumber()==0) {
+			log.error(LOG_ERROR);
+			model.addAttribute("msgOrderNumber","Your orderNumber is equals to 0");
+			return "rating/add";
+		}
 		if(result.hasErrors()) {
-			log.info("The validation of the rating as well as its backup in the database could not be carried out");
+			log.error("The validation of the rating as well as its backup in the database could not be carried out");
 			return "rating/add";
 		}
 		ratingService.saveRating(rating);
 		model.addAttribute(rating);
 		model.addAttribute("ratings", rating);
 		log.info("The validation of the rating is carried out as well as the backup in the database");
-		return "rating/list";
+		return "redirect:/rating/list";
 	}
 
 	@GetMapping("/rating/update/{id}")
@@ -67,8 +90,28 @@ public class RatingController {
 	public String updateRating(@PathVariable("id") Integer id, @Valid Rating rating,
 			BindingResult result, Model model) {
 		// check required fields, if valid call service to update Rating and return Rating list
+		if( rating.getMoodysRating().isEmpty() ) {
+			log.error(LOG_ERROR);
+			model.addAttribute("msgMoodysRating" , "Your moodysRating is empty");
+			return "rating/update";
+		}
+		if(rating.getSandPRating().isEmpty() ) {
+			log.error(LOG_ERROR);
+			model.addAttribute("msgSandPRating", "Your SandPRating is empty");
+			return "rating/update";
+		}
+		if(rating.getFitchRating().isEmpty() ) {
+			log.error(LOG_ERROR);
+			model.addAttribute("msgFitchRating", "Your fitchRating is empty");
+			return "rating/update";
+		}
+		if(rating.getOrderNumber()==0) {
+			log.error(LOG_ERROR);
+			model.addAttribute("msgOrderNumber","Your orderNumber is equals to 0");
+			return "rating/update";
+		}
 		if(result.hasErrors()) {
-			log.info("rating update could not be performed");
+			log.error("rating update could not be performed");
 			return "rating/update" ;    	
 		}
 		Rating ratingFoundById = ratingService.getRatingById(id).get();

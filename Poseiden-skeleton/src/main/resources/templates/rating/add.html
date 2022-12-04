@@ -20,14 +20,18 @@
 				style="width: 100%">
 				<!-- Create a form to input the values of Rating, there are 2 buttons: Save data and Cancel to the list Rating -->
 
-				<label>MoodysRating</label><br> <input type="text"
-					th:field="*{moodysRating}" placeholder="MoodysRating"><br>
-				<label>Sand P Rating</label><br> <input type="text"
-					th:field="*{sandPRating}" placeholder="Sand P Rating"><br>
-				<label>FitchRating</label><br> <input type="text"
-					th:field="*{fitchRating}" placeholder="Fitch Rating"> <br>
-				<label>Order Number</label><br> <input type="number"
-					th:field="*{orderNumber}" placeholder="Order Number"> <br>
+				<label>MoodysRating</label><br> 
+				<input type="text" th:field="*{moodysRating}" placeholder="MoodysRating"><br>
+				<label>Sand P Rating</label><br> 
+				<input type="text" th:field="*{sandPRating}" placeholder="Sand P Rating"><br>
+				<label>FitchRating</label><br> 
+				<input type="text" th:field="*{fitchRating}" placeholder="Fitch Rating"> <br>
+				<label>Order Number</label><br> 
+				<input type="number" th:field="*{orderNumber}" placeholder="Order Number"> <br>
+			 	<span th:style="'color: red;'" th:if="${msgMoodysRating}"  th:utext="${msgMoodysRating}">Error MoodysRating</span><br>
+			 	<span th:style="'color: red;'" th:if="${msgSandPRating}"  th:utext="${msgSandPRating}">Error SandPRating</span><br>
+			 	<span th:style="'color: red;'" th:if="${msgFitchRating}"  th:utext="${msgFitchRating}">Error FitchRating</span><br>
+			 	<span th:style="'color: red;'" th:if="${msgOrderNumber}"  th:utext="${msgOrderNumber}">Error OrderNumber</span><br>
 				<div class="form-group">
 					<div class="col-sm-12">
 						<a href="/rating/list" class="btn btn-danger" style="margin-top: 0.5%">Cancel</a> 

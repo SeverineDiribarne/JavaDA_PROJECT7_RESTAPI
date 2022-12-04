@@ -21,6 +21,9 @@ public class BidListController {
 
 	@Autowired
 	BidListService bidListService;
+	
+	private static final String LOG_ERROR = "The validation of the bid as well as its backup in the database could not be carried out because the bid is empty";
+
 
 	private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(BidListController.class);
 
@@ -42,12 +45,22 @@ public class BidListController {
 
 	@PostMapping("/bidList/validate")
 	public String validate(@Valid BidList bid, BindingResult result, Model model) {
-//		if( bid.getAccount().isEmpty() || bid.getType().isEmpty() || bid.getBidQuantity()==0) {
-//			log.error("The validation of the bid as well as its backup in the database could not be carried out because the bid is empty");
-//			model.addAttribute( "msgerror", "Your bid is empty");
-//			return "bidList/add";
-//		}
 		// check data valid and save to db, after saving return bid list OK
+		if( bid.getAccount().isEmpty() ) {
+			log.error(LOG_ERROR);
+			model.addAttribute("msgAccount" , "Your account is empty");
+			return "bidList/add";
+		}
+		if(bid.getType().isEmpty() ) {
+			log.error(LOG_ERROR);
+			model.addAttribute("msgType", "Your type is empty");
+			return "bidList/add";
+		}
+		if(bid.getBidQuantity()==0) {
+			log.error(LOG_ERROR);
+			model.addAttribute("msgQuantity", "Your bidQuantity is equal to 0");
+			return "bidList/add";
+		}
 		if(result.hasErrors()){
 			log.error("The validation of the bid as well as its backup in the database could not be carried out");
 			model.addAttribute( "msgerror", "Your bid is not found");
@@ -56,7 +69,7 @@ public class BidListController {
 		bidListService.saveBidList(bid);
 		model.addAttribute("bidLists", bid);
 		log.info("The validation of the bid is carried out as well as the backup in the database");
-		return "bidList/list";	
+		return "redirect:/bidList/list";	
 	}
 
 	@GetMapping("/bidList/update/{id}")
@@ -72,8 +85,23 @@ public class BidListController {
 	public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList,
 			BindingResult result, Model model) {
 		//check required fields, if valid call service to update Bid and return list Bid
+		if( bidList.getAccount().isEmpty() ) {
+			log.error(LOG_ERROR);
+			model.addAttribute("msgAccount" , "Your account is empty");
+			return "bidList/update";
+		}
+		if(bidList.getType().isEmpty() ) {
+			log.error(LOG_ERROR);
+			model.addAttribute("msgType", "Your type is empty");
+			return "bidList/update";
+		}
+		if(bidList.getBidQuantity()==0) {
+			log.error(LOG_ERROR);
+			model.addAttribute("msgQuantity", "Your bidQuantity is empty");
+			return "bidList/update";
+		}
 		if(result.hasErrors()) {
-			log.info("bid update could not be performed");
+			log.error("bid update could not be performed");
 			return "bidList/update" ;    	
 		}
 		BidList bidListFoundById = bidListService.getBidListById(id).get();

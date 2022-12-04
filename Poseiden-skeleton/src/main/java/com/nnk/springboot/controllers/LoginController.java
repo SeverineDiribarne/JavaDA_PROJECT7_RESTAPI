@@ -30,7 +30,7 @@ public class LoginController {
 	public ModelAndView login() {		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("login.html");
-		log.info("The login page is well displayed");
+		log.info("Login page is well displayed");
 		return mav;
 	}
 
@@ -41,9 +41,11 @@ public class LoginController {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(4);
 		for(User userInDatabase : usersInDatabase) {
 			if(userToValidate.getUsername().compareTo(userInDatabase.getUsername())==0 && encoder.matches(userToValidate.getPassword(), userInDatabase.getPassword())) {
+				log.info("User is correctly identified.");
 				return "redirect:/bidList/list";	
 			}
 		}
+		log.error("User made a mistake in his username or password and is not identified.");
 		model.addAttribute("message", "Invalid email and/or password"); 
 		return "/login";
 	}

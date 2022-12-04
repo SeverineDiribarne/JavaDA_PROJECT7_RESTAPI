@@ -15,7 +15,6 @@ public class LogoutController {
 	    public ModelAndView logout() {
 	        ModelAndView mav = new ModelAndView();
 	        mav.setViewName("/logout");
-	        //TODO a verifier ce que fait cette methode pour bien adapter le message + afficher message de thymeleaf "vous etes bien deconnecté"
 	        log.info("disconnection was successful");
 	        return mav;
 	    }

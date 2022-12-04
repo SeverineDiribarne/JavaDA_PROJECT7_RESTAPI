@@ -24,6 +24,9 @@ public class TradeController {
 	@Autowired
 	TradeService tradeService;
 	
+	private static final String LOG_ERROR = "The validation of the trade as well as its backup in the database could not be carried out because the trade is empty";
+
+	
 	private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(TradeController.class);
 
     @RequestMapping("/trade/list")
@@ -45,15 +48,30 @@ public class TradeController {
     @PostMapping("/trade/validate")
     public String validate(@Valid Trade trade, BindingResult result, Model model) {
         // check data valid and save to db, after saving return Trade list
+    	if( trade.getAccount().isEmpty() ) {
+			log.error(LOG_ERROR);
+			model.addAttribute("msgAccount" , "Your account is empty");
+			return "trade/add";
+		}
+		if(trade.getType().isEmpty() ) {
+			log.error(LOG_ERROR);
+			model.addAttribute("msgType", "Your type is empty");
+			return "trade/add";
+		}
+		if(trade.getBuyQuantity()==0) {
+			log.error(LOG_ERROR);
+			model.addAttribute("msgQuantity", "Your buyQuantity is equal to 0");
+			return "trade/add";
+		}
     	if(result.hasErrors()) {
-    		log.info("The validation of the trade as well as its backup in the database could not be carried out");
+    		log.error("The validation of the trade as well as its backup in the database could not be carried out");
     		 return "trade/add";
     	}
        tradeService.saveTrade(trade);
        model.addAttribute(trade);
        model.addAttribute("trades", trade);
        log.info("The validation of the trade is carried out as well as the backup in the database");
-       return "trade/list";
+       return "redirect:/trade/list";
     }
 
     @GetMapping("/trade/update/{id}")
@@ -69,8 +87,23 @@ public class TradeController {
     public String updateTrade(@PathVariable("id") Integer id, @Valid Trade trade,
                              BindingResult result, Model model) {
         // check required fields, if valid call service to update Trade and return Trade list
+    	if( trade.getAccount().isEmpty() ) {
+			log.error(LOG_ERROR);
+			model.addAttribute("msgAccount" , "Your account is empty");
+			return "trade/update";
+		}
+		if(trade.getType().isEmpty() ) {
+			log.error(LOG_ERROR);
+			model.addAttribute("msgType", "Your type is empty");
+			return "trade/update";
+		}
+		if(trade.getBuyQuantity()==0) {
+			log.error(LOG_ERROR);
+			model.addAttribute("msgQuantity", "Your buyQuantity is equal to 0");
+			return "trade/update";
+		}
     	if(result.hasErrors()) {
-    		log.info("trade update could not be performed");
+    		log.error("trade update could not be performed");
     		return "trade/update";
     	}
     	Trade tradeFoundById = tradeService.getTradeById(id).get();

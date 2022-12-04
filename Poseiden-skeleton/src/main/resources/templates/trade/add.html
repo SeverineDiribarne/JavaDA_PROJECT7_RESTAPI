@@ -22,9 +22,10 @@
 				<label>Type</label><br>
 				<input type="text" th:field="*{type}" placeholder="Type"><br>
 				<label>Buy Quantity</label><br> 
-				<input type="number" step=0.01 th:field="*{buyQuantity}" placeholder="Buy Quantity"> 
-				<br>
-				$
+				<input type="number" step=0.01 th:field="*{buyQuantity}" placeholder="Buy Quantity"> <br>
+				<span th:style="'color: red;'" th:if="${msgAccount}"  th:utext="${msgAccount}">Error Account</span><br>
+			    <span th:style="'color: red;'" th:if="${msgType}"  th:utext="${msgType}">Error Type</span><br>
+			    <span th:style="'color: red;'" th:if="${msgQuantity}"  th:utext="${msgQuantity}">Error Buy Quantity</span><br>
 				<div class="form-group">
 					<div class="col-sm-12">
 						<a href="/trade/list" class="btn btn-danger" style="margin-top: 0.5%">Cancel</a> 

@@ -28,11 +28,16 @@
 				<label>Sql Str</label><br> 
 				<input type="text" th:field="*{sqlStr}" placeholder="Sql Str"><br>
 				<label>Sql Part</label><br> 
-				<input type="text" th:field="*{sqlPart}" placeholder="Sql Part">
-				<br>
+				<input type="text" th:field="*{sqlPart}" placeholder="Sql Part"><br>
+				<span th:style="'color: red;'" th:if="${msgName}"  th:utext="${msgName}">Error Name</span><br>
+			 	<span th:style="'color: red;'" th:if="${msgDescription}"  th:utext="${msgDescription}">Error Description</span><br>
+			 	<span th:style="'color: red;'" th:if="${msgJson}"  th:utext="${msgJson}">Error Json</span><br>
+			 	<span th:style="'color: red;'" th:if="${msgTemplate}"  th:utext="${msgTemplate}">Error Template</span><br>
+			 	<span th:style="'color: red;'" th:if="${msgSqlStr}"  th:utext="${msgSqlStr}">Error Sql Str</span><br>
+			 	<span th:style="'color: red;'" th:if="${msgSqlPart}"  th:utext="${msgSqlPart}">Error Sql Part</span><br>
 				<div class="form-group">
 					<div class="col-sm-12">
-						<a href="/rulename/list" class="btn btn-danger" style="margin-top: 0.5%">Cancel</a> 
+							<a href="/ruleName/list" class="btn btn-danger" style="margin-top: 0.5%">Cancel</a> 
 							<input type="submit" class="btn btn-primary" value="Add RuleName" style="margin-top: 0.5%">
 					</div>
 				</div>

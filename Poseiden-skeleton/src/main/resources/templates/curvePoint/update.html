@@ -23,6 +23,9 @@
 			 <label>Value</label><br>
 			 <input type="number" step=0.01 th:field="*{value}"placeholder="Value"/>
 			 <br>
+			 <span th:style="'color: red;'" th:if="${msgCurveId}"  th:utext="${msgCurveId}">Error CurveId</span><br>
+			 <span th:style="'color: red;'" th:if="${msgTerm}"  th:utext="${msgTerm}">Error Term</span><br>
+			 <span th:style="'color: red;'" th:if="${msgValue}"  th:utext="${msgValue}">Error value</span><br>
 			 <div class="form-group">
 				<div class="col-sm-12">
 					<a href="/curvePoint/list" class="btn btn-danger" style="margin-top:0.5%">Cancel</a>

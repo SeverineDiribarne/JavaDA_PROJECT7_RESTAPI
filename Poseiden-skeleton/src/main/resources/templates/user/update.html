@@ -39,11 +39,11 @@
 			<div class="form-group">
 				<label for="password" class="col-sm-2 control-label">Role</label>
 				<div class="col-sm-10">
-					<label class="checkbox-inline"><input type="radio" th:field="*{role}" th:value="ADMIN">Admin</label>
-					<label class="checkbox-inline"><input type="radio" th:field="*{role}" th:value="USER">User</label>
+					<label class="checkbox-inline"><input type="checkbox" th:field="*{role}" th:value="ADMIN">Admin</label>
+					<label class="checkbox-inline"><input type="checkbox" th:field="*{role}" th:value="USER">User</label>
 				</div>
 			</div>
- 			<span th:style="'color: red;'" th:if="${messageName}"  th:utext="${messageName}">Error Username</span><br>
+ 			<span th:style="'color: red;'" th:if="${messageUserName}"  th:utext="${messageUserName}">Error Username</span><br>
 			 <span th:style="'color: red;'" th:if="${messageFullName}"  th:utext="${messageFullName}">Error fullname</span><br>
 			 <span th:style="'color: red;'" th:if="${messageRole}"  th:utext="${messageRole}">Error Role</span><br>
 			 <span th:style="'color: red;'" th:if="${headerMessage}"  th:utext="${headerMessage}">Error password</span>

@@ -22,6 +22,9 @@ public class CurveController {
     @Autowired
     CurvePointService curvePointService;
     
+	private static final String LOG_ERROR = "The validation of the curvePoint as well as its backup in the database could not be carried out because the curvePoint is empty";
+
+    
 	private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(CurveController.class);
 
     @RequestMapping("/curvePoint/list")
@@ -42,16 +45,31 @@ public class CurveController {
 
     @PostMapping("/curvePoint/validate")
     public String validate(@Valid CurvePoint curvePoint, BindingResult result, Model model) {
-        // check data valid and save to db, after saving return Curve list
+    	 // check data valid and save to db, after saving return Curve list
+    	if( curvePoint.getCurveId()==0 ) {
+			log.error(LOG_ERROR);
+			model.addAttribute("msgCurveId" , "Your curveId number is equals to 0");
+			return "curvePoint/add";
+		}
+		if(curvePoint.getTerm()==0 ) {
+			log.error(LOG_ERROR);
+			model.addAttribute("msgTerm", "Your term number is equals to 0");
+			return "curvePoint/add";
+		}
+		if(curvePoint.getValue()==0) {
+			log.error(LOG_ERROR);
+			model.addAttribute("msgValue","Your value number is equals to 0");
+			return "curvePoint/add";
+		}
     	if(result.hasErrors()) {
-    		log.info("The validation of the curvePoint as well as its backup in the database could not be carried out");
+    		log.error("The validation of the curvePoint as well as its backup in the database could not be carried out");
 			return "curvePoint/add" ;    	
 		}
 		curvePointService.saveCurvePoint(curvePoint);
 		model.addAttribute(curvePoint);
 		model.addAttribute("curvePoints", curvePoint);
 		log.info("The validation of the curvePoint is carried out as well as the backup in the database");
-        return "curvePoint/list";
+        return "redirect:/curvePoint/list";
     }
 
     @GetMapping("/curvePoint/update/{id}")
@@ -67,8 +85,23 @@ public class CurveController {
     public String updateCurvePoint(@PathVariable("id") Integer id, @Valid CurvePoint curvePoint,
                              BindingResult result, Model model) {
         // check required fields, if valid call service to update Curve and return Curve list
+    	if( curvePoint.getCurveId()==0 ) {
+			log.error(LOG_ERROR);
+			model.addAttribute("msgCurveId" , "Your curveId number is equals to 0");
+			return "curvePoint/update";
+		}
+		if(curvePoint.getTerm()==0 ) {
+			log.error(LOG_ERROR);
+			model.addAttribute("msgTerm", "Your term number is equals to 0");
+			return "curvePoint/update";
+		}
+		if(curvePoint.getValue()==0) {
+			log.error(LOG_ERROR);
+			model.addAttribute("msgValue","Your value number is equals to 0");
+			return "curvePoint/update";
+		}
     	if(result.hasErrors()) {
-    		log.info("curvePoint update could not be performed");
+    		log.error("curvePoint update could not be performed");
 			return "curvePoint/update" ;    	
 		}
     	CurvePoint curvePointFoundById = curvePointService.getCurvePointById(id).get();

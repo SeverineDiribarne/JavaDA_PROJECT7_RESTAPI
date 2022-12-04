@@ -1,0 +1,38 @@
+.form {
+	display: flex;
+	position: absolute;
+	flex-direction: column;
+	justify-content: center;
+	width: 700px;
+}
+
+.title_login1 {
+	width: 700px;
+	display: flex;
+	position: absolute;
+
+	margin: 5% 45% 35% 5%;
+}
+
+.form_content {
+	display: flex;
+	position: absolute;
+	flex-direction: column;
+	width: 300px;
+	margin: 15% 37% 35% 18%;
+}
+
+.loginOauth2 {
+	display: flex;
+	position: absolute;
+	flex-direction: column;
+	width: 500px;
+	margin: 25% 25% 25% 30%;
+}
+
+.img {
+	margin-left: 35%;
+	width: 150px;
+	border-radius: 0.7em;
+	width: 150px;
+}
