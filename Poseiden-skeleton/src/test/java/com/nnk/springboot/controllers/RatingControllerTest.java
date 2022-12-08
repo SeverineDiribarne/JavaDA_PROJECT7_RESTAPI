@@ -166,6 +166,7 @@ class RatingControllerTest {
 				return Stream.of(Arguments.of(rating4));
 			}
 		}
+		
 		//Functional Test shouldAddRatingForm
 		@ParameterizedTest
 		@ArgumentsSource(AddRatingFormArgumentsProvider.class)
@@ -232,7 +233,7 @@ class RatingControllerTest {
 			Assertions.assertEquals(0, ratingResult.getSandPRating().compareTo(ratingExpected.getSandPRating()));
 			Assertions.assertEquals(0, ratingResult.getFitchRating().compareTo(ratingExpected.getFitchRating()));
 			Assertions.assertEquals(ratingResult.getOrderNumber(),(ratingExpected.getOrderNumber()));
-			Assertions.assertEquals(0, urlResult.compareTo("rating/list"));
+			Assertions.assertEquals(0, urlResult.compareTo("redirect:/rating/list"));
 
 			Rating capturedRating = capturedRatingWhenSaveMethodIsCalled.getValue();
 			Assertions.assertEquals(4, capturedRating.getId());
@@ -257,43 +258,9 @@ class RatingControllerTest {
 					.param("orderNumber","1")
 					.contentType(MediaType.APPLICATION_FORM_URLENCODED))
 
-			.andExpect(status().isOk())
-			.andExpect(view().name("rating/list"));
+			.andExpect(status().isFound())
+			.andExpect(view().name("redirect:/rating/list"));
 		}
-
-//			static class ErrorArgumentsProvider implements ArgumentsProvider{
-//				@Override
-//				public Stream<? extends Arguments> provideArguments(ExtensionContext context) throws Exception{
-//					Rating rating = new Rating();
-//					rating.setMoodysRating(null);
-//					rating.setSandPRating(null);
-//					rating.setFitchRating(null);
-//					
-//					return Stream.of(Arguments.of(rating));
-//				}
-//			}
-//		
-//			//Functional Test ShouldValidateRatingWithError
-//			@ParameterizedTest
-//			@ArgumentsSource(ErrorArgumentsProvider.class)
-//			void testShouldValidateRatingWithError(Rating ratingForTest) throws Exception{
-//				//given
-//				String urlResult = null;
-//				//when
-//				ArgumentCaptor<Rating> capturedRatingWhenSaveMethodIsCalled = ArgumentCaptor.forClass(Rating.class);
-//				when(ratingService.saveRating(capturedRatingWhenSaveMethodIsCalled.capture())).thenReturn(new Rating());
-//			
-//				 urlResult = ratingController.validate(ratingForTest, resultTest, modelTest);
-//				Object attribute =  modelTest.getAttribute("ratings");
-//		
-//				//then
-//				Assertions.assertNull(attribute);
-//				Assertions.assertNull(urlResult);
-//		
-//				Rating capturedRating = capturedRatingWhenSaveMethodIsCalled.getValue();
-//				Assertions.assertNull(capturedRating);
-//			}
-
 
 		//Error Test
 		@Test

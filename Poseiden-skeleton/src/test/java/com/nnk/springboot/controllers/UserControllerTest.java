@@ -168,14 +168,14 @@ class UserControllerTest {
 				.contentType(MediaType.APPLICATION_FORM_URLENCODED))
 
 		.andExpect(status().isOk())
-		.andExpect(view().name("user/add"));
+		.andExpect(view().name("/user/add"));
 		Assertions.assertEquals(userResult.getId() , userForTest.getId());
 		Assertions.assertEquals(0, userResult.getFullname().compareTo(userForTest.getFullname()));
 		Assertions.assertEquals(0, userResult.getUsername().compareTo(userForTest.getUsername()));
 		Assertions.assertEquals(userResult.getPassword(), userForTest.getPassword());
 		Assertions.assertEquals(userResult.getRole(),(userForTest.getRole()));
 		
-		Assertions.assertEquals(0, urlResult.compareTo("user/add"));	
+		Assertions.assertEquals(0, urlResult.compareTo("/user/add"));	
 	}
 
 	@Test
@@ -216,7 +216,7 @@ class UserControllerTest {
 				.get("/user/update/{id}", 1)
 				.contentType(MediaType.APPLICATION_FORM_URLENCODED))
 		.andExpect(status().isOk())
-		.andExpect(view().name("user/update"));
+		.andExpect(view().name("/user/update"));
 	}
 
 	@Test

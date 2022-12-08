@@ -41,22 +41,6 @@ public class RatingService {
 	}
 	
 	/**
-	 * save all ratings
-	 * @param ratings
-	 * @return list of rating
-	 */
-	public List<Rating> saveAllRatings(Iterable<Rating> ratings) {
-		return ratingRepository.saveAll(ratings);
-	}
-	/**
-	 * delete rating by id
-	 * @param id
-	 */
-	public void deleteRatingById(Integer id) {
-		ratingRepository.deleteById(id);
-	}
-	
-	/**
 	 * delete rating
 	 * @param rating
 	 */

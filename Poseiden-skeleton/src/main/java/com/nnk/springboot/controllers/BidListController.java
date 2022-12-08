@@ -2,8 +2,11 @@ package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.services.BidListService;
+import com.nnk.springboot.services.UserService;
 
 import lombok.extern.slf4j.Slf4j;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,9 +24,13 @@ public class BidListController {
 
 	@Autowired
 	BidListService bidListService;
+	@Autowired
+	UserService userService;
 	
 	private static final String LOG_ERROR = "The validation of the bid as well as its backup in the database could not be carried out because the bid is empty";
-
+	private static final String REDIRECT_BIDLIST_LIST = "redirect:/bidList/list";
+	private static final String BIDLIST_ADD = "bidList/add";
+	private static final String BIDLIST_UPDATE = "bidList/update";
 
 	private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(BidListController.class);
 
@@ -40,7 +47,7 @@ public class BidListController {
 	public String addBidForm(BidList bid, Model model) {
 		model.addAttribute("bidList", bid);
 		log.info("The display of the addBidList page of a bid is functional");
-		return "bidList/add";
+		return BIDLIST_ADD;
 	}
 
 	@PostMapping("/bidList/validate")
@@ -49,27 +56,27 @@ public class BidListController {
 		if( bid.getAccount().isEmpty() ) {
 			log.error(LOG_ERROR);
 			model.addAttribute("msgAccount" , "Your account is empty");
-			return "bidList/add";
+			return BIDLIST_ADD;
 		}
 		if(bid.getType().isEmpty() ) {
 			log.error(LOG_ERROR);
 			model.addAttribute("msgType", "Your type is empty");
-			return "bidList/add";
+			return BIDLIST_ADD;
 		}
 		if(bid.getBidQuantity()==0) {
 			log.error(LOG_ERROR);
 			model.addAttribute("msgQuantity", "Your bidQuantity is equal to 0");
-			return "bidList/add";
+			return BIDLIST_ADD;
 		}
 		if(result.hasErrors()){
 			log.error("The validation of the bid as well as its backup in the database could not be carried out");
 			model.addAttribute( "msgerror", "Your bid is not found");
-			return "bidList/add";
+			return BIDLIST_ADD;
 		}
 		bidListService.saveBidList(bid);
 		model.addAttribute("bidLists", bid);
 		log.info("The validation of the bid is carried out as well as the backup in the database");
-		return "redirect:/bidList/list";	
+		return REDIRECT_BIDLIST_LIST;	
 	}
 
 	@GetMapping("/bidList/update/{id}")
@@ -78,7 +85,7 @@ public class BidListController {
 		BidList bidListFoundById = bidListService.getBidListById(id).get() ;
 		model.addAttribute(bidListFoundById);
 		log.info("the update of the bid found by its id has been carried out");
-		return "bidList/update";
+		return BIDLIST_UPDATE;
 	}
 
 	@PostMapping("/bidList/update/{id}")
@@ -88,21 +95,21 @@ public class BidListController {
 		if( bidList.getAccount().isEmpty() ) {
 			log.error(LOG_ERROR);
 			model.addAttribute("msgAccount" , "Your account is empty");
-			return "bidList/update";
+			return BIDLIST_UPDATE;
 		}
 		if(bidList.getType().isEmpty() ) {
 			log.error(LOG_ERROR);
 			model.addAttribute("msgType", "Your type is empty");
-			return "bidList/update";
+			return BIDLIST_UPDATE;
 		}
 		if(bidList.getBidQuantity()==0) {
 			log.error(LOG_ERROR);
 			model.addAttribute("msgQuantity", "Your bidQuantity is empty");
-			return "bidList/update";
+			return BIDLIST_UPDATE;
 		}
 		if(result.hasErrors()) {
 			log.error("bid update could not be performed");
-			return "bidList/update" ;    	
+			return BIDLIST_UPDATE ;    	
 		}
 		BidList bidListFoundById = bidListService.getBidListById(id).get();
 		bidListFoundById.setAccount(bidList.getAccount());
@@ -111,7 +118,7 @@ public class BidListController {
 		bidListService.saveBidList(bidListFoundById);
 		model.addAttribute(bidListFoundById);
 		log.info("The update of the bid has been carried out");
-		return "redirect:/bidList/list";
+		return REDIRECT_BIDLIST_LIST;
 	}
 
 	@GetMapping("/bidList/delete/{id}")
@@ -122,6 +129,6 @@ public class BidListController {
 		Iterable<BidList> bidLists = bidListService.getBidLists();
 		model.addAttribute(bidLists);
 		log.info("The bid found by its id has been deleted from the list");
-		return "redirect:/bidList/list";
+		return REDIRECT_BIDLIST_LIST;
 	}
 }

@@ -1,6 +1,5 @@
 package com.nnk.springboot.services;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,23 +38,6 @@ public class CurvePointService {
 	 */
 	public  CurvePoint saveCurvePoint(CurvePoint curvePoint) {
 		return curvePointRepository.save(curvePoint);
-	}
-	
-	/**
-	 * save all CurvePoints
-	 * @param curvePoints
-	 * @return list of curvePoint
-	 */
-	public List<CurvePoint> saveAllCurvePoints(Iterable<CurvePoint> curvePoints) {
-		return curvePointRepository.saveAll(curvePoints);
-	}
-	
-	/**
-	 * delete CurvePoint by id
-	 * @param id
-	 */
-	public void deleteCurvePointById(Integer id) {
-		curvePointRepository.deleteById(id);
 	}
 	
 	/**

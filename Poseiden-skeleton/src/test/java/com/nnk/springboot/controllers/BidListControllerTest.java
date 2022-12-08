@@ -83,6 +83,15 @@ class BidListControllerTest {
 		bid4.setBid(4);
 		bid4.setAsk(4);
 		bid4.setBenchmark("Benchmark4 Test for mock");
+		bid4.setCommentary("commentary4 Test for mock");
+		bid4.setSecurity("Security4 Test for mock");
+		bid4.setStatus("status4 Test for mock");
+		bid4.setTrader("trader4 Test for mock");
+		bid4.setBook("book4 Test for mock");
+		bid4.setCreationName("creationName4 Test for mock");
+		bid4.setRevisionName("revisionName4 Test for mock");
+		bid4.setDealName("dealName4 Test for mock");
+		bid4.setDealType("dealType4 Test for mock");
 		bid4.setSide("Side4 Test for mock");
 		bid4.setSourceListId("SourceListId4 Test for mock");
 		return bid4;
@@ -99,6 +108,15 @@ class BidListControllerTest {
 		bid1.setBid(1);
 		bid1.setAsk(1);
 		bid1.setBenchmark("Benchmark1 Test for mock");
+		bid1.setCommentary("commentary4 Test for mock");
+		bid1.setSecurity("Security4 Test for mock");
+		bid1.setStatus("status4 Test for mock");
+		bid1.setTrader("trader4 Test for mock");
+		bid1.setBook("book4 Test for mock");
+		bid1.setCreationName("creationName4 Test for mock");
+		bid1.setRevisionName("revisionName4 Test for mock");
+		bid1.setDealName("dealName4 Test for mock");
+		bid1.setDealType("dealType4 Test for mock");
 		bid1.setSide("Side1 Test for mock");
 		bid1.setSourceListId("SourceListId1 Test for mock");
 
@@ -111,6 +129,15 @@ class BidListControllerTest {
 		bid2.setBid(2);
 		bid2.setAsk(2);
 		bid2.setBenchmark("Benchmark2 Test for mock");
+		bid2.setCommentary("commentary4 Test for mock");
+		bid2.setSecurity("Security4 Test for mock");
+		bid2.setStatus("status4 Test for mock");
+		bid2.setTrader("trader4 Test for mock");
+		bid2.setBook("book4 Test for mock");
+		bid2.setCreationName("creationName4 Test for mock");
+		bid2.setRevisionName("revisionName4 Test for mock");
+		bid2.setDealName("dealName4 Test for mock");
+		bid2.setDealType("dealType4 Test for mock");
 		bid2.setSide("Side2 Test for mock");
 		bid2.setSourceListId("SourceListId2 Test for mock");
 
@@ -123,6 +150,15 @@ class BidListControllerTest {
 		bid3.setBid(3);
 		bid3.setAsk(3);
 		bid3.setBenchmark("Benchmark3 Test for mock");
+		bid3.setCommentary("commentary4 Test for mock");
+		bid3.setSecurity("Security4 Test for mock");
+		bid3.setStatus("status4 Test for mock");
+		bid3.setTrader("trader4 Test for mock");
+		bid3.setBook("book4 Test for mock");
+		bid3.setCreationName("creationName4 Test for mock");
+		bid3.setRevisionName("revisionName4 Test for mock");
+		bid3.setDealName("dealName4 Test for mock");
+		bid3.setDealType("dealType4 Test for mock");
 		bid3.setSide("Side3 Test for mock");
 		bid3.setSourceListId("SourceListId3 Test for mock");
 
@@ -164,6 +200,16 @@ class BidListControllerTest {
 			Assertions.assertEquals(bidListResult.getBidQuantity(), bidListExpected.getBidQuantity());
 			Assertions.assertEquals(bidListResult.getAskQuantity(),(bidListExpected.getAskQuantity()));
 			Assertions.assertEquals(0, bidListResult.getBenchmark().compareTo(bidListExpected.getBenchmark()));
+			Assertions.assertEquals(0, bidListResult.getCommentary().compareTo(bidListExpected.getCommentary()));
+			Assertions.assertEquals(0, bidListResult.getSecurity().compareTo(bidListExpected.getSecurity()));
+			Assertions.assertEquals(0, bidListResult.getStatus().compareTo(bidListExpected.getStatus()));
+			Assertions.assertEquals(0, bidListResult.getTrader().compareTo(bidListExpected.getTrader()));
+			Assertions.assertEquals(0, bidListResult.getBook().compareTo(bidListExpected.getBook()));
+			Assertions.assertEquals(0, bidListResult.getCreationName().compareTo(bidListExpected.getCreationName()));
+			Assertions.assertEquals(0, bidListResult.getRevisionName().compareTo(bidListExpected.getRevisionName()));
+			Assertions.assertEquals(0, bidListResult.getDealName().compareTo(bidListExpected.getDealName()));
+			Assertions.assertEquals(0, bidListResult.getDealType().compareTo(bidListExpected.getDealType()));
+			Assertions.assertEquals(0, bidListResult.getSourceListId().compareTo(bidListExpected.getSourceListId()));
 			Assertions.assertEquals(0, bidListResult.getSide().compareTo(bidListExpected.getSide()));
 		}
 		Assertions.assertEquals(0, urlResult.compareTo("bidList/list"));
@@ -214,6 +260,16 @@ class BidListControllerTest {
 		Assertions.assertEquals(bidResult.getBidQuantity(), bidForTest.getBidQuantity());
 		Assertions.assertEquals(bidResult.getAskQuantity(),(bidForTest.getAskQuantity()));
 		Assertions.assertEquals(0, bidResult.getBenchmark().compareTo(bidForTest.getBenchmark()));
+		Assertions.assertEquals(0, bidResult.getCommentary().compareTo(bidForTest.getCommentary()));
+		Assertions.assertEquals(0, bidResult.getSecurity().compareTo(bidForTest.getSecurity()));
+		Assertions.assertEquals(0, bidResult.getStatus().compareTo(bidForTest.getStatus()));
+		Assertions.assertEquals(0, bidResult.getTrader().compareTo(bidForTest.getTrader()));
+		Assertions.assertEquals(0, bidResult.getBook().compareTo(bidForTest.getBook()));
+		Assertions.assertEquals(0, bidResult.getCreationName().compareTo(bidForTest.getCreationName()));
+		Assertions.assertEquals(0, bidResult.getRevisionName().compareTo(bidForTest.getRevisionName()));
+		Assertions.assertEquals(0, bidResult.getDealName().compareTo(bidForTest.getDealName()));
+		Assertions.assertEquals(0, bidResult.getDealType().compareTo(bidForTest.getDealType()));
+		Assertions.assertEquals(0, bidResult.getSourceListId().compareTo(bidForTest.getSourceListId()));
 		Assertions.assertEquals(0, bidResult.getSide().compareTo(bidForTest.getSide()));
 
 		Assertions.assertEquals(0, urlResult.compareTo("bidList/add"));	
@@ -260,8 +316,18 @@ class BidListControllerTest {
 		Assertions.assertEquals(bidListResult.getBidQuantity(), bidListExpected.getBidQuantity());
 		Assertions.assertEquals(bidListResult.getAskQuantity(),(bidListExpected.getAskQuantity()));
 		Assertions.assertEquals(0, bidListResult.getBenchmark().compareTo(bidListExpected.getBenchmark()));
+		Assertions.assertEquals(0, bidListResult.getCommentary().compareTo(bidListExpected.getCommentary()));
+		Assertions.assertEquals(0, bidListResult.getSecurity().compareTo(bidListExpected.getSecurity()));
+		Assertions.assertEquals(0, bidListResult.getStatus().compareTo(bidListExpected.getStatus()));
+		Assertions.assertEquals(0, bidListResult.getTrader().compareTo(bidListExpected.getTrader()));
+		Assertions.assertEquals(0, bidListResult.getBook().compareTo(bidListExpected.getBook()));
+		Assertions.assertEquals(0, bidListResult.getCreationName().compareTo(bidListExpected.getCreationName()));
+		Assertions.assertEquals(0, bidListResult.getRevisionName().compareTo(bidListExpected.getRevisionName()));
+		Assertions.assertEquals(0, bidListResult.getDealName().compareTo(bidListExpected.getDealName()));
+		Assertions.assertEquals(0, bidListResult.getDealType().compareTo(bidListExpected.getDealType()));
+		Assertions.assertEquals(0, bidListResult.getSourceListId().compareTo(bidListExpected.getSourceListId()));
 		Assertions.assertEquals(0, bidListResult.getSide().compareTo(bidListExpected.getSide()));
-		Assertions.assertEquals(0, urlResult.compareTo("bidList/list"));
+		Assertions.assertEquals(0, urlResult.compareTo("redirect:/bidList/list"));
 
 		BidList capturedBidList = capturedBidListWhenSaveMethodIsCalled.getValue();
 		Assertions.assertEquals(4, capturedBidList.getBidListId());
@@ -284,46 +350,9 @@ class BidListControllerTest {
 				.param("bidQuantity","10.0")
 				.contentType(MediaType.APPLICATION_FORM_URLENCODED))
 
-		.andExpect(status().isOk())
-		.andExpect(view().name("bidList/list"))	;
+		.andExpect(status().isFound())
+		.andExpect(view().name("redirect:/bidList/list"))	;
 	}
-
-	//	static class ErrorArgumentsProvider implements ArgumentsProvider{
-	//		@Override
-	//		public Stream<? extends Arguments> provideArguments(ExtensionContext context) throws Exception{
-	//			BidList bid = new BidList();
-	//			bid.setAccount("12");
-	//			bid.setType("12");
-	//			bid.setBidQuantity(-1);
-	//			return Stream.of(Arguments.of(bid));
-	//		}
-	//	}
-	//
-	//	//Functional Test ShouldValidateBidWithError
-	//	@ParameterizedTest
-	//	@ArgumentsSource(ErrorArgumentsProvider.class)
-	//	void testShouldValidateBidWithError(BidList bidForTest) throws Exception{
-	//		//given
-	//		String urlResult = null;
-	//		//when
-	//		ArgumentCaptor<BidList> capturedBidListWhenSaveMethodIsCalled = ArgumentCaptor.forClass(BidList.class);
-	//		when(bidListService.saveBidList(capturedBidListWhenSaveMethodIsCalled.capture())).thenReturn(new BidList());
-	//		try {
-	//		 urlResult = bidListController.validate(bidForTest, resultTest, modelTest);
-	//		}catch(ResponseStatusException response) {
-	//			Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatus());
-	//			Assertions.assertEquals("Your bid is not found", response.getReason());
-	//		}
-	//		Object attribute =  modelTest.getAttribute("bidLists");
-	//
-	//		//then
-	//		Assertions.assertNull(attribute);
-	//		Assertions.assertNull(urlResult);
-	//
-	//		BidList capturedBidList = capturedBidListWhenSaveMethodIsCalled.getValue();
-	//		Assertions.assertNull(capturedBidList);
-	//	}
-
 
 	//Error Test
 	@Test
@@ -379,6 +408,16 @@ class BidListControllerTest {
 		Assertions.assertEquals(bidResult.getBidQuantity(), bidForMock().getBidQuantity());
 		Assertions.assertEquals(bidResult.getAskQuantity(),(bidForMock().getAskQuantity()));
 		Assertions.assertEquals(0, bidResult.getBenchmark().compareTo(bidForMock().getBenchmark()));
+		Assertions.assertEquals(0, bidResult.getCommentary().compareTo(bidForMock().getCommentary()));
+		Assertions.assertEquals(0, bidResult.getSecurity().compareTo(bidForMock().getSecurity()));
+		Assertions.assertEquals(0, bidResult.getStatus().compareTo(bidForMock().getStatus()));
+		Assertions.assertEquals(0, bidResult.getTrader().compareTo(bidForMock().getTrader()));
+		Assertions.assertEquals(0, bidResult.getBook().compareTo(bidForMock().getBook()));
+		Assertions.assertEquals(0, bidResult.getCreationName().compareTo(bidForMock().getCreationName()));
+		Assertions.assertEquals(0, bidResult.getRevisionName().compareTo(bidForMock().getRevisionName()));
+		Assertions.assertEquals(0, bidResult.getDealName().compareTo(bidForMock().getDealName()));
+		Assertions.assertEquals(0, bidResult.getDealType().compareTo(bidForMock().getDealType()));
+		Assertions.assertEquals(0, bidResult.getSourceListId().compareTo(bidForMock().getSourceListId()));
 		Assertions.assertEquals(0, bidResult.getSide().compareTo(bidForMock().getSide()));
 
 		Assertions.assertEquals(0, urlResult.compareTo("bidList/update"));	
@@ -471,6 +510,15 @@ class BidListControllerTest {
 		bid2.setBid(2);
 		bid2.setAsk(2);
 		bid2.setBenchmark("Benchmark2 Test for mock");
+		bid2.setCommentary("commentary4 Test for mock");
+		bid2.setSecurity("Security4 Test for mock");
+		bid2.setStatus("status4 Test for mock");
+		bid2.setTrader("trader4 Test for mock");
+		bid2.setBook("book4 Test for mock");
+		bid2.setCreationName("creationName4 Test for mock");
+		bid2.setRevisionName("revisionName4 Test for mock");
+		bid2.setDealName("dealName4 Test for mock");
+		bid2.setDealType("dealType4 Test for mock");
 		bid2.setSide("Side2 Test for mock");
 		bid2.setSourceListId("SourceListId2 Test for mock");
 
@@ -483,6 +531,15 @@ class BidListControllerTest {
 		bid3.setBid(3);
 		bid3.setAsk(3);
 		bid3.setBenchmark("Benchmark3 Test for mock");
+		bid3.setCommentary("commentary4 Test for mock");
+		bid3.setSecurity("Security4 Test for mock");
+		bid3.setStatus("status4 Test for mock");
+		bid3.setTrader("trader4 Test for mock");
+		bid3.setBook("book4 Test for mock");
+		bid3.setCreationName("creationName4 Test for mock");
+		bid3.setRevisionName("revisionName4 Test for mock");
+		bid3.setDealName("dealName4 Test for mock");
+		bid3.setDealType("dealType4 Test for mock");
 		bid3.setSide("Side3 Test for mock");
 		bid3.setSourceListId("SourceListId3 Test for mock");
 
@@ -524,6 +581,16 @@ class BidListControllerTest {
 		Assertions.assertEquals(bidListResult1.getBidQuantity(), bidListExpected1.getBidQuantity());
 		Assertions.assertEquals(bidListResult1.getAskQuantity(),(bidListExpected1.getAskQuantity()));
 		Assertions.assertEquals(0, bidListResult1.getBenchmark().compareTo(bidListExpected1.getBenchmark()));
+		Assertions.assertEquals(0, bidListResult1.getCommentary().compareTo(bidListExpected1.getCommentary()));
+		Assertions.assertEquals(0, bidListResult1.getSecurity().compareTo(bidListExpected1.getSecurity()));
+		Assertions.assertEquals(0, bidListResult1.getStatus().compareTo(bidListExpected1.getStatus()));
+		Assertions.assertEquals(0, bidListResult1.getTrader().compareTo(bidListExpected1.getTrader()));
+		Assertions.assertEquals(0, bidListResult1.getBook().compareTo(bidListExpected1.getBook()));
+		Assertions.assertEquals(0, bidListResult1.getCreationName().compareTo(bidListExpected1.getCreationName()));
+		Assertions.assertEquals(0, bidListResult1.getRevisionName().compareTo(bidListExpected1.getRevisionName()));
+		Assertions.assertEquals(0, bidListResult1.getDealName().compareTo(bidListExpected1.getDealName()));
+		Assertions.assertEquals(0, bidListResult1.getDealType().compareTo(bidListExpected1.getDealType()));
+		Assertions.assertEquals(0, bidListResult1.getSourceListId().compareTo(bidListExpected1.getSourceListId()));
 		Assertions.assertEquals(0, bidListResult1.getSide().compareTo(bidListExpected1.getSide()));
 
 		BidList bidListResult2 = (BidList) bidListResultsIterator.next();
@@ -534,6 +601,16 @@ class BidListControllerTest {
 		Assertions.assertEquals(bidListResult2.getBidQuantity(), bidListExpected2.getBidQuantity());
 		Assertions.assertEquals(bidListResult2.getAskQuantity(),(bidListExpected2.getAskQuantity()));
 		Assertions.assertEquals(0, bidListResult2.getBenchmark().compareTo(bidListExpected2.getBenchmark()));
+		Assertions.assertEquals(0, bidListResult2.getCommentary().compareTo(bidListExpected2.getCommentary()));
+		Assertions.assertEquals(0, bidListResult2.getSecurity().compareTo(bidListExpected2.getSecurity()));
+		Assertions.assertEquals(0, bidListResult2.getStatus().compareTo(bidListExpected2.getStatus()));
+		Assertions.assertEquals(0, bidListResult2.getTrader().compareTo(bidListExpected2.getTrader()));
+		Assertions.assertEquals(0, bidListResult2.getBook().compareTo(bidListExpected2.getBook()));
+		Assertions.assertEquals(0, bidListResult2.getCreationName().compareTo(bidListExpected2.getCreationName()));
+		Assertions.assertEquals(0, bidListResult2.getRevisionName().compareTo(bidListExpected2.getRevisionName()));
+		Assertions.assertEquals(0, bidListResult2.getDealName().compareTo(bidListExpected2.getDealName()));
+		Assertions.assertEquals(0, bidListResult2.getDealType().compareTo(bidListExpected2.getDealType()));
+		Assertions.assertEquals(0, bidListResult2.getSourceListId().compareTo(bidListExpected2.getSourceListId()));
 		Assertions.assertEquals(0, bidListResult2.getSide().compareTo(bidListExpected2.getSide()));
 		
 		Assertions.assertEquals(0, urlResult.compareTo("redirect:/bidList/list"));	

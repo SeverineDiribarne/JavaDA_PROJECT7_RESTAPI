@@ -21,8 +21,9 @@ class RatingTests {
 	void ratingTest() {
 		Rating rating = new Rating(1, "MoodysRating", "SandPRating", "FitchRating", 10);
 		// Save
-		rating = ratingRepository.save(rating);
-		Assertions.assertEquals(1, rating.getId());
+		Rating ratingSaved = ratingRepository.save(rating);
+		 int ratingId = ratingSaved.getId();
+		Assertions.assertNotEquals(0,ratingId);
 		Assertions.assertEquals(10, rating.getOrderNumber() );
 
 		// Find

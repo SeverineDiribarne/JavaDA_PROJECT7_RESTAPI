@@ -42,23 +42,6 @@ public class TradeService {
 	}
 	
 	/**
-	 * Save all Trades
-	 * @param trades
-	 * @return list of trade
-	 */
-	public List<Trade> saveAllTrades(Iterable<Trade> trades) {
-		return tradeRepository.saveAll(trades);
-	}
-	
-	/**
-	 * delete trade by id
-	 * @param id
-	 */
-	public void deleteTradeById(Integer id) {
-		tradeRepository.deleteById(id);
-	}
-	
-	/**
 	 * Delete trade
 	 * @param trade
 	 */

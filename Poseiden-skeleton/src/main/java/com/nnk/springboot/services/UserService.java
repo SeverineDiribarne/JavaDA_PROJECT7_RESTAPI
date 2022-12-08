@@ -44,22 +44,6 @@ public class UserService {
 	}
 	
 	/**
-	 * Save all users
-	 * @param users
-	 * @return list of user
-	 */
-	public List<User> saveAllUsers(Iterable<User> users) {
-		return userRepository.saveAll(users);
-	}
-	/**
-	 * delete user by id
-	 * @param id
-	 */
-	public void deleteUserById(Integer id) {
-		userRepository.deleteById(id);
-	}
-	
-	/**
 	 * Delete user
 	 * @param user
 	 */

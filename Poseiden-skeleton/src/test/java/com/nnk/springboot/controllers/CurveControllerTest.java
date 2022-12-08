@@ -228,7 +228,7 @@ class CurveControllerTest {
 		Assertions.assertEquals(curvePointResult.getCurveId(), curvePointExpected.getCurveId());
 		Assertions.assertEquals(curvePointResult.getTerm(), curvePointExpected.getTerm());
 		Assertions.assertEquals(curvePointResult.getValue(), curvePointExpected.getValue());
-		Assertions.assertEquals(0, urlResult.compareTo("curvePoint/list"));
+		Assertions.assertEquals(0, urlResult.compareTo("redirect:/curvePoint/list"));
 
 		CurvePoint capturedCurvePoint = capturedCurvePointWhenSaveMethodIsCalled.getValue();
 		Assertions.assertEquals(4, capturedCurvePoint.getId());
@@ -252,66 +252,9 @@ class CurveControllerTest {
 				.param("value", "1")
 				.contentType(MediaType.APPLICATION_FORM_URLENCODED))
 
-		.andExpect(status().isOk())
-		.andExpect(view().name("curvePoint/list"))	;
+		.andExpect(status().isFound())
+		.andExpect(view().name("redirect:/curvePoint/list"))	;
 	}
-
-	//	static class ErrorArgumentsProvider implements ArgumentsProvider{
-	//		@Override
-	//		public Stream<? extends Arguments> provideArguments(ExtensionContext context) throws Exception{
-	//			CurvePoint curvePoint = new CurvePoint();
-	//			curvePoint.setId("A b c");
-	//			curvePoint.setCurveId("A b c");
-	//			curvePoint.setBidQuantity(-1);
-	//			return Stream.of(Arguments.of(curvePoint));
-	//		}
-	//	}
-	//
-	//	//Functional Test ShouldValidateCurvePointWithError
-	//	@ParameterizedTest
-	//	@ArgumentsSource(ErrorArgumentsProvider.class)
-	//	void testShouldValidateCurvePointWithError(CurvePoint curvePointForTest) throws Exception{
-	//		//given
-	//		String urlResult = null;
-	//		//when
-	//		ArgumentCaptor<CurvePoint> capturedCurvePointWhenSaveMethodIsCalled = ArgumentCaptor.forClass(CurvePoint.class);
-	//		when(curvePointService.saveCurvePoint(capturedCurvePointWhenSaveMethodIsCalled.capture())).thenReturn(new CurvePoint());
-	//		try {
-	//		 urlResult = curvePointController.validate(curvePointForTest, resultTest, modelTest);
-	//		}catch(ResponseStatusException response) {
-	//			Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatus());
-	//			Assertions.assertEquals("Your curvePoint is not found", response.getReason());
-	//		}
-	//		Object attribute =  modelTest.getAttribute("curvePoints");
-	//
-	//		//then
-	//		Assertions.assertNull(attribute);
-	//		Assertions.assertNull(urlResult);
-	//
-	//		CurvePoint capturedCurvePoint = capturedCurvePointWhenSaveMethodIsCalled.getValue();
-	//		Assertions.assertNull(capturedCurvePoint);
-	//	}
-
-
-//	//Error Test
-//	@Test
-//	void testShouldValidateCurvePointWithError() throws Exception{
-//		/**
-//		 * Voir avec Marc comment dans Thymeleaf on récupère le status 404 (isNotFound), afficher un message d'erreur et retourner sur la page add
-//		 */
-//		//given
-//		//When
-//		when(curvePointService.saveCurvePoint(any())).thenReturn(new CurvePoint());
-//		//then
-//		mockMvc.perform(
-//				post("/curvePoint/validate")
-//				.param("curveId", "null")
-//				.param("term","null" )
-//				.param("value","null" )
-//				.contentType(MediaType.APPLICATION_FORM_URLENCODED))
-//
-//		.andExpect(status().isNotFound());
-//	}
 
 	static class shouldShowUpdateFormArgumentsProvider implements ArgumentsProvider{
 		@Override

@@ -41,22 +41,6 @@ public class RuleNameService {
 	}
 	
 	/**
-	 * Save all RulesNames
-	 * @param ruleNames
-	 * @return list of ruleName
-	 */
-	public List<RuleName> saveAllRuleNames(Iterable<RuleName> ruleNames) {
-		return ruleNameRepository.saveAll(ruleNames);
-	}
-	/**
-	 * delete ruleName by id
-	 * @param id
-	 */
-	public void deleteRuleNameById(Integer id) {
-		ruleNameRepository.deleteById(id);
-	}
-	
-	/**
 	 * Delete ruleName
 	 * @param ruleName
 	 */

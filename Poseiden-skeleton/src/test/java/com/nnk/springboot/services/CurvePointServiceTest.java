@@ -33,7 +33,6 @@ class CurvePointServiceTest {
 	@InjectMocks
 	CurvePointService curvePointService = new CurvePointService();
 
-
 	public List<CurvePoint> listForMock() {
 
 		CurvePoint curve1 = new CurvePoint();
@@ -60,13 +59,13 @@ class CurvePointServiceTest {
 		mockedList.add(curve3);
 		return mockedList;
 	}
+
 	/**
-	 * Get curvePoint tests
+	 * Call GetCurvePoints method and verify that elements are presents
 	 * @return all list of curvePoint
 	 */
 	@Test
-	void testGetCurvePoint() {
-
+	void testGetCurvePoints() {
 		//Given
 		when(curveRepository.findAll()).thenReturn(listForMock());
 
@@ -86,17 +85,22 @@ class CurvePointServiceTest {
 			Assertions.assertEquals(curveResult.getValue(),(curveExpected.getValue()));
 		}
 	}
-
+	/**
+	 * Method FindById
+	 * @param id
+	 * @return curve
+	 */
 	private Optional<CurvePoint> findById(Integer id){
-		for(CurvePoint curve :listForMock()) {
+		for(CurvePoint curve : listForMock()) {
 			if(curve.getCurveId()== id.intValue()) {
 				return Optional.of(curve);
 			}
 		}
 		return Optional.empty();
 	}
+
 	/**
-	 * get curvePoint by id
+	 * Call GetCurvePointById method and verify that the element is the correct one
 	 * @param id
 	 * @return curvePoint by his id
 	 */
@@ -116,12 +120,7 @@ class CurvePointServiceTest {
 		Assertions.assertEquals(1,curveResult.get().getValue());
 	}
 	/**
-	 * This test checks when we call saveCurvePoint method of the CurvePointService
-	 * the save method of the repository is called
-	 * 
-	 * We mock the repository in order to capture the arguments of the saveCurvePoint method
-	 * And we check if the captured value is equal to argument value (here curve4 instance)
-	 * 
+	 * Call saveCurvePoint method and verify element is saved in DB
 	 * @param curvePoint
 	 * @return save or update curvePoint in BDD
 	 */
@@ -137,7 +136,6 @@ class CurvePointServiceTest {
 		//When
 		ArgumentCaptor<CurvePoint> capturedCurvePointWhenSaveMethodIsCalled = ArgumentCaptor.forClass(CurvePoint.class);
 		when(curveRepository.save(capturedCurvePointWhenSaveMethodIsCalled.capture())).thenReturn(curve4);
-
 		curvePointService.saveCurvePoint(curve4);
 
 		//Then
@@ -146,27 +144,26 @@ class CurvePointServiceTest {
 		Assertions.assertEquals(4, capturedCurve.getCurveId());
 		Assertions.assertEquals(4, capturedCurve.getTerm());
 		Assertions.assertEquals(4, capturedCurve.getValue());
-
 	}	
+
 	/**
-	 * delete curvePoint
-	 * @param curvePoint
+	 * Call deleteCurvePoint method and verify element don't exist
 	 */
 	@Test
 	void testDeleteCurvePoint() {
-		//TODO appeler le delete et verifier que l'element n'existe plus
+		//Given
 		CurvePoint curvePoint1 = new CurvePoint();
 		curvePoint1.setId(1);
 		curvePoint1.setCurveId(1);
 		curvePoint1.setTerm(1);
 		curvePoint1.setValue(1);
-		
-		//when
+
+		//When
 		ArgumentCaptor<CurvePoint> capturedCurvePointWhenDeleteMethodIsCalled =ArgumentCaptor.forClass(CurvePoint.class);
 		Mockito.doNothing().when(curveRepository).delete(capturedCurvePointWhenDeleteMethodIsCalled.capture());
-
 		curvePointService.deleteCurvePoint(curvePoint1);
-		//then
+
+		//Then
 		CurvePoint capturedCurvePoint = capturedCurvePointWhenDeleteMethodIsCalled.getValue();
 		Assertions.assertEquals(1, capturedCurvePoint.getId());
 		Assertions.assertEquals(1, capturedCurvePoint.getCurveId());

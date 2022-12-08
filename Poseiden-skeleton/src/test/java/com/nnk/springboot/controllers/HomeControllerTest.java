@@ -31,6 +31,14 @@ class HomeControllerTest {
 	}
 
 	@Test
+	void testShouldGetHom(){
+		//when
+		String urlResult = homeController.hom(modelTest);
+
+		//then
+		Assertions.assertEquals(0, urlResult.compareTo("home"));
+	}
+	@Test
 	void testShouldGetAdminHome() {
 		//when
 		String urlResult = homeController.adminHome(modelTest);

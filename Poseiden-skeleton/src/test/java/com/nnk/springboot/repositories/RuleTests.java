@@ -21,11 +21,12 @@ import java.util.Optional;
 	void ruleNameTest() {		
 		List<RuleName> listResult = ruleNameRepository.findAll();
 		Assertions.assertEquals(0, listResult.size());
-		RuleName rule = new RuleName(2, "RuleName", "Description", "Json", "Template", "SQL", "SQL Part");
+		RuleName rule = new RuleName(1, "RuleName", "Description", "Json", "Template", "SQL", "SQL Part");
 
 		// Save
-		rule = ruleNameRepository.save(rule);
-		Assertions.assertEquals(2, rule.getId());
+		RuleName ruleNameSaved = ruleNameRepository.save(rule);
+		 int ruleNameId = ruleNameSaved.getId();
+		Assertions.assertNotEquals(0, ruleNameId);
 		Assertions.assertEquals("RuleName", rule.getName());
 
 		// Update

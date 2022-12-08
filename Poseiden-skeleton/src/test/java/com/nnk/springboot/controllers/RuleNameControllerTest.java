@@ -250,7 +250,7 @@ class RuleNameControllerTest {
 			Assertions.assertEquals(0, ruleNameResult.getTemplate().compareTo(ruleNameExpected.getTemplate()));
 			Assertions.assertEquals(0, ruleNameResult.getSqlStr().compareTo(ruleNameExpected.getSqlStr()));
 			Assertions.assertEquals(0, ruleNameResult.getSqlPart().compareTo(ruleNameExpected.getSqlPart()));
-			Assertions.assertEquals(0, urlResult.compareTo("ruleName/list"));
+			Assertions.assertEquals(0, urlResult.compareTo("redirect:/ruleName/list"));
 
 			RuleName capturedRuleName = capturedRuleNameWhenSaveMethodIsCalled.getValue();
 			Assertions.assertEquals(4, capturedRuleName.getId());
@@ -279,70 +279,9 @@ class RuleNameControllerTest {
 				.param("sqlPart","SqlPart1 Test for mock")
 				.contentType(MediaType.APPLICATION_FORM_URLENCODED))
 
-		.andExpect(status().isOk())
-		.andExpect(view().name("ruleName/list"));
+		.andExpect(status().isFound())
+		.andExpect(view().name("redirect:/ruleName/list"));
 	}
-
-	//	static class ErrorArgumentsProvider implements ArgumentsProvider{
-	//		@Override
-	//		public Stream<? extends Arguments> provideArguments(ExtensionContext context) throws Exception{
-	//			RuleName bid = new RuleName();
-	//			bid.setAccount("12");
-	//			bid.setType("12");
-	//			bid.setBidQuantity(-1);
-	//			return Stream.of(Arguments.of(bid));
-	//		}
-	//	}
-	//
-	//	//Functional Test ShouldValidateBidWithError
-	//	@ParameterizedTest
-	//	@ArgumentsSource(ErrorArgumentsProvider.class)
-	//	void testShouldValidateBidWithError(BidList bidForTest) throws Exception{
-	//		//given
-	//		String urlResult = null;
-	//		//when
-	//		ArgumentCaptor<RuleName> capturedRuleNameWhenSaveMethodIsCalled = ArgumentCaptor.forClass(RuleName.class);
-	//		when(bidListService.saveBidList(capturedRuleNameWhenSaveMethodIsCalled.capture())).thenReturn(new RuleName());
-	//		try {
-	//		 urlResult = bidListController.validate(bidForTest, resultTest, modelTest);
-	//		}catch(ResponseStatusException response) {
-	//			Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatus());
-	//			Assertions.assertEquals("Your bid is not found", response.getReason());
-	//		}
-	//		Object attribute =  modelTest.getAttribute("bidLists");
-	//
-	//		//then
-	//		Assertions.assertNull(attribute);
-	//		Assertions.assertNull(urlResult);
-	//
-	//		RuleName capturedRuleName = capturedRuleNameWhenSaveMethodIsCalled.getValue();
-	//		Assertions.assertNull(capturedRuleName);
-	//	}
-
-
-//	//Error Test
-//	@Test
-//	void testShouldValidateRuleNameWithError() throws Exception{
-//		/**
-//		 * Voir avec Marc comment dans Thymeleaf on récupère le status 404 (isNotFound), afficher un message d'erreur et retourner sur la page add
-//		 */
-//		//given
-//		//When
-//		when(ruleNameService.saveRuleName(any())).thenReturn(new RuleName());
-//		//then
-//		mockMvc.perform(
-//				post("/ruleName/validate")
-//				.param("Name", "12")
-//				.param("Description", "12.0")
-//				.param("Json","12.0" )
-//				.param("Template","12.0" )
-//				.param("SqlStr","12.0" )
-//				.param("SqlPart","12.0" )
-//				.contentType(MediaType.APPLICATION_FORM_URLENCODED))
-//
-//		.andExpect(status().isOk())
-//		.andExpect(view().name("ruleName/add"));
-//	}
 	
 	static class shouldShowUpdateFormArgumentsProvider implements ArgumentsProvider{
 		@Override
@@ -399,7 +338,7 @@ class RuleNameControllerTest {
 	//Functional test shouldUpdateRuleName
 	@ParameterizedTest
 	@ArgumentsSource(shouldShowUpdateFormArgumentsProvider.class)
-	void testShouldUpdateBid(RuleName ruleNameForTest) throws Exception{
+	void testShouldUpdateRuleName(RuleName ruleNameForTest) throws Exception{
 		//given
 		when(ruleNameService.getRuleNameById(any())).thenReturn(Optional.of(ruleNameForTest));
 		ruleNameForTest.setName("Name5 Test for mock");

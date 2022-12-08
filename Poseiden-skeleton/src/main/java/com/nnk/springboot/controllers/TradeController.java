@@ -1,5 +1,6 @@
 package com.nnk.springboot.controllers;
 
+import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.services.TradeService;
 
@@ -120,7 +121,8 @@ public class TradeController {
     @GetMapping("/trade/delete/{id}")
     public String deleteTrade(@PathVariable("id") Integer id, Model model) {
         // Find Trade by Id and delete the Trade, return to Trade list
-    	tradeService.deleteTradeById(id);
+    	Trade tradeFoundById = tradeService.getTradeById(id).get();
+		tradeService.deleteTrade(tradeFoundById);
     	Iterable<Trade> trades = tradeService.getTrades();
     	model.addAttribute(trades);
     	log.info("The trade found by its id has been deleted from the list");
