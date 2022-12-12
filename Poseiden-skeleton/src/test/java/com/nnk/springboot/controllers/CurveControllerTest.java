@@ -237,6 +237,126 @@ class CurveControllerTest {
 		Assertions.assertEquals(4, capturedCurvePoint.getValue());
 	}
 
+	private static CurvePoint emptyCurveIdCurvePointForMock() {
+		CurvePoint curvePoint1 = new CurvePoint();
+		curvePoint1.setId(1);
+		curvePoint1.setCurveId(0);
+		curvePoint1.setTerm(1);
+		curvePoint1.setValue(1);
+
+		return curvePoint1;
+	}
+	static class EmptyCurveIdCurvePointFormArgumentsProvider implements ArgumentsProvider{
+		@Override
+		public Stream<? extends Arguments> provideArguments(ExtensionContext context) throws Exception{
+			CurvePoint curvePoint1 = emptyCurveIdCurvePointForMock();
+			return Stream.of(Arguments.of(curvePoint1));
+		}
+	}
+
+	//Functional Test ShouldValidateCurvePointEmptyCurveId
+	@ParameterizedTest
+	@ArgumentsSource(EmptyCurveIdCurvePointFormArgumentsProvider.class)
+	void testShouldValidateCurvePointEmptyCurveId(CurvePoint bidForTest) throws Exception{
+		//given
+		//when
+		String urlResult = curvePointController.validate(bidForTest, resultTest, modelTest);
+		//then
+		String attributeKey = "msgCurveId";
+		Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+
+		String errorMessageResult = null;
+		if(errorMessageReturned instanceof String) {
+			errorMessageResult = (String) errorMessageReturned;
+		}
+		else {
+			Assertions.fail("Bad type of errorMessageResult");
+		}
+
+		Assertions.assertEquals(0, urlResult.compareTo("curvePoint/add"));
+		Assertions.assertEquals(0, errorMessageResult.compareTo("Your curveId number is equals to 0"));
+	}
+	
+	private static CurvePoint emptyTermCurvePointForMock() {
+		CurvePoint curvePoint1 = new CurvePoint();
+		curvePoint1.setId(1);
+		curvePoint1.setCurveId(1);
+		curvePoint1.setTerm(0);
+		curvePoint1.setValue(1);
+
+		return curvePoint1;
+	}
+	static class EmptyTermCurvePointFormArgumentsProvider implements ArgumentsProvider{
+		@Override
+		public Stream<? extends Arguments> provideArguments(ExtensionContext context) throws Exception{
+			CurvePoint curvePoint1 = emptyTermCurvePointForMock();
+			return Stream.of(Arguments.of(curvePoint1));
+		}
+	}
+
+	//Functional Test ShouldValidateCurvePointEmptyTerm
+	@ParameterizedTest
+	@ArgumentsSource(EmptyTermCurvePointFormArgumentsProvider.class)
+	void testShouldValidateCurvePointEmptyTerm(CurvePoint bidForTest) throws Exception{
+		//given
+		//when
+		String urlResult = curvePointController.validate(bidForTest, resultTest, modelTest);
+		//then
+		String attributeKey = "msgTerm";
+		Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+
+		String errorMessageResult = null;
+		if(errorMessageReturned instanceof String) {
+			errorMessageResult = (String) errorMessageReturned;
+		}
+		else {
+			Assertions.fail("Bad type of errorMessageResult");
+		}
+
+		Assertions.assertEquals(0, urlResult.compareTo("curvePoint/add"));
+		Assertions.assertEquals(0, errorMessageResult.compareTo("Your term number is equals to 0"));
+	}
+	
+	private static CurvePoint emptyValueCurvePointForMock() {
+		CurvePoint curvePoint1 = new CurvePoint();
+		curvePoint1.setId(1);
+		curvePoint1.setCurveId(1);
+		curvePoint1.setTerm(1);
+		curvePoint1.setValue(0);
+
+		return curvePoint1;
+	}
+	static class EmptyValueCurvePointFormArgumentsProvider implements ArgumentsProvider{
+		@Override
+		public Stream<? extends Arguments> provideArguments(ExtensionContext context) throws Exception{
+			CurvePoint curvePoint1 = emptyValueCurvePointForMock();
+			return Stream.of(Arguments.of(curvePoint1));
+		}
+	}
+
+	//Functional Test ShouldValidateCurvePointEmptyValue
+	@ParameterizedTest
+	@ArgumentsSource(EmptyValueCurvePointFormArgumentsProvider.class)
+	void testShouldValidateCurvePointEmptyValue(CurvePoint bidForTest) throws Exception{
+		//given
+		//when
+		String urlResult = curvePointController.validate(bidForTest, resultTest, modelTest);
+		//then
+		String attributeKey = "msgValue";
+		Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+
+		String errorMessageResult = null;
+		if(errorMessageReturned instanceof String) {
+			errorMessageResult = (String) errorMessageReturned;
+		}
+		else {
+			Assertions.fail("Bad type of errorMessageResult");
+		}
+
+		Assertions.assertEquals(0, urlResult.compareTo("curvePoint/add"));
+		Assertions.assertEquals(0, errorMessageResult.compareTo("Your value number is equals to 0"));
+	}
+	
 	//EndPoint Test
 	@Test
 	void testShouldValidateCurvePointForEndPoint() throws Exception{
@@ -346,6 +466,75 @@ class CurveControllerTest {
 		Assertions.assertEquals(5, capturedCurvePoint.getValue());
 	}
 	
+	//Functional Test ShouldUpdateCurvePointEmptyCurveId
+		@ParameterizedTest
+		@ArgumentsSource(EmptyCurveIdCurvePointFormArgumentsProvider.class)
+		void testShouldUpdateCurvePointEmptyCurveId(CurvePoint bidForTest) throws Exception{
+			//given
+			//when
+			String urlResult = curvePointController.updateCurvePoint(1, bidForTest, resultTest, modelTest);
+			//then
+			String attributeKey = "msgCurveId";
+			Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+
+			String errorMessageResult = null;
+			if(errorMessageReturned instanceof String) {
+				errorMessageResult = (String) errorMessageReturned;
+			}
+			else {
+				Assertions.fail("Bad type of errorMessageResult");
+			}
+
+			Assertions.assertEquals(0, urlResult.compareTo("curvePoint/update"));
+			Assertions.assertEquals(0, errorMessageResult.compareTo("Your curveId number is equals to 0"));
+		}
+		
+		//Functional Test ShouldUpdateCurvePointEmptyTerm
+		@ParameterizedTest
+		@ArgumentsSource(EmptyTermCurvePointFormArgumentsProvider.class)
+		void testShouldUpdateCurvePointEmptyTerm(CurvePoint bidForTest) throws Exception{
+			//given
+			//when
+			String urlResult = curvePointController.updateCurvePoint(1, bidForTest, resultTest, modelTest);
+			//then
+			String attributeKey = "msgTerm";
+			Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+
+			String errorMessageResult = null;
+			if(errorMessageReturned instanceof String) {
+				errorMessageResult = (String) errorMessageReturned;
+			}
+			else {
+				Assertions.fail("Bad type of errorMessageResult");
+			}
+
+			Assertions.assertEquals(0, urlResult.compareTo("curvePoint/update"));
+			Assertions.assertEquals(0, errorMessageResult.compareTo("Your term number is equals to 0"));
+		}
+	
+		//Functional Test ShouldUpdateCurvePointEmptyValue
+		@ParameterizedTest
+		@ArgumentsSource(EmptyValueCurvePointFormArgumentsProvider.class)
+		void testShouldUpdateCurvePointEmptyValue(CurvePoint bidForTest) throws Exception{
+			//given
+			//when
+			String urlResult = curvePointController.updateCurvePoint(1, bidForTest, resultTest, modelTest);
+			//then
+			String attributeKey = "msgValue";
+			Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+
+			String errorMessageResult = null;
+			if(errorMessageReturned instanceof String) {
+				errorMessageResult = (String) errorMessageReturned;
+			}
+			else {
+				Assertions.fail("Bad type of errorMessageResult");
+			}
+
+			Assertions.assertEquals(0, urlResult.compareTo("curvePoint/update"));
+			Assertions.assertEquals(0, errorMessageResult.compareTo("Your value number is equals to 0"));
+		}
+		
 	//EndPoint Test
 	@Test
 	void testShouldUpdateCurvePointForEndPoint() throws Exception {

@@ -104,7 +104,7 @@ public class BidListController {
 		}
 		if(bidList.getBidQuantity()==0) {
 			log.error(LOG_ERROR);
-			model.addAttribute("msgQuantity", "Your bidQuantity is empty");
+			model.addAttribute("msgQuantity", "Your bidQuantity is equal to 0");
 			return BIDLIST_UPDATE;
 		}
 		if(result.hasErrors()) {

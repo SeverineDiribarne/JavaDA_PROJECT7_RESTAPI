@@ -39,7 +39,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import com.nnk.springboot.controllers.RatingControllerTest.AddRatingFormArgumentsProvider;
 import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.services.TradeService;
 
@@ -347,6 +346,126 @@ class TradeControllerTest {
 		Assertions.assertEquals("Side4 Test for mock", capturedTrade.getSide());
 	}
 
+	private static Trade emptyAccountTradeForMock() {
+		Trade trade1 = new Trade();
+		trade1.setTradeId(1);
+		trade1.setAccount("");
+		trade1.setType("Your type is empty");
+		trade1.setBuyQuantity(1);
+
+		return trade1;
+	}
+	static class EmptyAccountTradeFormArgumentsProvider implements ArgumentsProvider{
+		@Override
+		public Stream<? extends Arguments> provideArguments(ExtensionContext context) throws Exception{
+			Trade trade1 = emptyAccountTradeForMock();
+			return Stream.of(Arguments.of(trade1));
+		}
+	}
+
+	//Functional Test ShouldValidateTradeEmptyAccount
+	@ParameterizedTest
+	@ArgumentsSource(EmptyAccountTradeFormArgumentsProvider.class)
+	void testShouldValidateTradeEmptyAccount(Trade tradeForTest) throws Exception{
+		//given
+		//when
+		String urlResult = tradeController.validate(tradeForTest, resultTest, modelTest);
+		//then
+		String attributeKey = "msgAccount";
+		Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+
+		String errorMessageResult = null;
+		if(errorMessageReturned instanceof String) {
+			errorMessageResult = (String) errorMessageReturned;
+		}
+		else {
+			Assertions.fail("Bad type of errorMessageResult");
+		}
+
+		Assertions.assertEquals(0, urlResult.compareTo("trade/add"));
+		Assertions.assertEquals(0, errorMessageResult.compareTo("Your account is empty"));
+	}
+
+	private static Trade emptyTypeTradeForMock() {
+		Trade trade1 = new Trade();
+		trade1.setTradeId(1);
+		trade1.setAccount("Your account is empty");
+		trade1.setType("");
+		trade1.setBuyQuantity(1);
+
+		return trade1;
+	}
+	static class EmptyTypeTradeFormArgumentsProvider implements ArgumentsProvider{
+		@Override
+		public Stream<? extends Arguments> provideArguments(ExtensionContext context) throws Exception{
+			Trade trade1 = emptyTypeTradeForMock();
+			return Stream.of(Arguments.of(trade1));
+		}
+	}
+
+	//Functional Test ShouldValidateTradeEmptyType
+	@ParameterizedTest
+	@ArgumentsSource(EmptyTypeTradeFormArgumentsProvider.class)
+	void testShouldValidateTradeEmptyType(Trade tradeForTest) throws Exception{
+		//given
+		//when
+		String urlResult = tradeController.validate(tradeForTest, resultTest, modelTest);
+		//then
+		String attributeKey = "msgType";
+		Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+
+		String errorMessageResult = null;
+		if(errorMessageReturned instanceof String) {
+			errorMessageResult = (String) errorMessageReturned;
+		}
+		else {
+			Assertions.fail("Bad type of errorMessageResult");
+		}
+
+		Assertions.assertEquals(0, urlResult.compareTo("trade/add"));
+		Assertions.assertEquals(0, errorMessageResult.compareTo("Your type is empty"));
+	}
+
+	private static Trade emptyBuyQuantityTradeForMock() {
+		Trade trade1 = new Trade();
+		trade1.setTradeId(1);
+		trade1.setAccount("Your account is empty");
+		trade1.setType("Your type is empty");
+		trade1.setBuyQuantity(0);
+
+		return trade1;
+	}
+	static class EmptyBuyQuantityTradeFormArgumentsProvider implements ArgumentsProvider{
+		@Override
+		public Stream<? extends Arguments> provideArguments(ExtensionContext context) throws Exception{
+			Trade trade1 = emptyBuyQuantityTradeForMock();
+			return Stream.of(Arguments.of(trade1));
+		}
+	}
+
+	//Functional Test ShouldValidateTradeEmptyBuyQuantity
+	@ParameterizedTest
+	@ArgumentsSource(EmptyBuyQuantityTradeFormArgumentsProvider.class)
+	void testShouldValidateTradeEmptyBuyQuantity(Trade tradeForTest) throws Exception{
+		//given
+		//when
+		String urlResult = tradeController.validate(tradeForTest, resultTest, modelTest);
+		//then
+		String attributeKey = "msgQuantity";
+		Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+
+		String errorMessageResult = null;
+		if(errorMessageReturned instanceof String) {
+			errorMessageResult = (String) errorMessageReturned;
+		}
+		else {
+			Assertions.fail("Bad type of errorMessageResult");
+		}
+
+		Assertions.assertEquals(0, urlResult.compareTo("trade/add"));
+		Assertions.assertEquals(0, errorMessageResult.compareTo("Your buyQuantity is equal to 0"));
+	}
+	
 	//EndPoint Test
 	@Test
 	void testShouldValidateTradeForEndPoint() throws Exception{
@@ -453,6 +572,75 @@ class TradeControllerTest {
 		Assertions.assertEquals("Type5 Test for mock", capturedTrade.getType());
 		Assertions.assertEquals(5, capturedTrade.getBuyQuantity());
 	}
+	
+	//Functional Test ShouldUpdateTradeEmptyAccount
+			@ParameterizedTest
+			@ArgumentsSource(EmptyAccountTradeFormArgumentsProvider.class)
+			void testShouldUpdateTradeEmptyAccount(Trade tradeForTest) throws Exception{
+				//given
+				//when
+				String urlResult = tradeController.updateTrade(1, tradeForTest, resultTest, modelTest);
+				//then
+				String attributeKey = "msgAccount";
+				Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+
+				String errorMessageResult = null;
+				if(errorMessageReturned instanceof String) {
+					errorMessageResult = (String) errorMessageReturned;
+				}
+				else {
+					Assertions.fail("Bad type of errorMessageResult");
+				}
+
+				Assertions.assertEquals(0, urlResult.compareTo("trade/update"));
+				Assertions.assertEquals(0, errorMessageResult.compareTo("Your account is empty"));
+			}
+			
+			//Functional Test ShouldUpdateTradeEmptyType
+					@ParameterizedTest
+					@ArgumentsSource(EmptyTypeTradeFormArgumentsProvider.class)
+					void testShouldUpdateTradeEmptyType(Trade tradeForTest) throws Exception{
+						//given
+						//when
+						String urlResult = tradeController.updateTrade(1, tradeForTest, resultTest, modelTest);
+						//then
+						String attributeKey = "msgType";
+						Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+
+						String errorMessageResult = null;
+						if(errorMessageReturned instanceof String) {
+							errorMessageResult = (String) errorMessageReturned;
+						}
+						else {
+							Assertions.fail("Bad type of errorMessageResult");
+						}
+
+						Assertions.assertEquals(0, urlResult.compareTo("trade/update"));
+						Assertions.assertEquals(0, errorMessageResult.compareTo("Your type is empty"));
+					}
+
+					//Functional Test ShouldUpdateTradeEmptyBidQuantity
+					@ParameterizedTest
+					@ArgumentsSource(EmptyBuyQuantityTradeFormArgumentsProvider.class)
+					void testShouldUpdateTradeEmptyBuyQuantity(Trade tradeForTest) throws Exception{
+						//given
+						//when
+						String urlResult = tradeController.updateTrade(1, tradeForTest, resultTest, modelTest);
+						//then
+						String attributeKey = "msgQuantity";
+						Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+
+						String errorMessageResult = null;
+						if(errorMessageReturned instanceof String) {
+							errorMessageResult = (String) errorMessageReturned;
+						}
+						else {
+							Assertions.fail("Bad type of errorMessageResult");
+						}
+
+						Assertions.assertEquals(0, urlResult.compareTo("trade/update"));
+						Assertions.assertEquals(0, errorMessageResult.compareTo("Your buyQuantity is equal to 0"));
+					}
 	
 	//EndPoint Test
 	@Test

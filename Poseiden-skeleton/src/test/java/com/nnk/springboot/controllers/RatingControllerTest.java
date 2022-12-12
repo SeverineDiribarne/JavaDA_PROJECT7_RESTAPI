@@ -243,6 +243,174 @@ class RatingControllerTest {
 			Assertions.assertEquals(4, capturedRating.getOrderNumber());
 		}
 
+		private static Rating emptyMoodysRatingRatingForMock() {
+			Rating rating1 = new Rating();
+			rating1.setId(1);
+			rating1.setMoodysRating("");
+			rating1.setSandPRating("Your sandPRating is empty");
+			rating1.setFitchRating("Your fitchRating is empty");
+			rating1.setOrderNumber(1);
+
+			return rating1;
+		}
+		static class EmptyMoodysRatingRatingFormArgumentsProvider implements ArgumentsProvider{
+			@Override
+			public Stream<? extends Arguments> provideArguments(ExtensionContext context) throws Exception{
+				Rating rating1 = emptyMoodysRatingRatingForMock();
+				return Stream.of(Arguments.of(rating1));
+			}
+		}
+
+		//Functional Test ShouldValidateRatingEmptyMoodysRating
+		@ParameterizedTest
+		@ArgumentsSource(EmptyMoodysRatingRatingFormArgumentsProvider.class)
+		void testShouldValidateRatingEmptyMoodysRating(Rating emptyMoodysRatingRatingForTest) throws Exception{
+			//Given
+			//When
+			String urlResult = ratingController.validate(emptyMoodysRatingRatingForTest, resultTest, modelTest);
+			
+			//Then
+			String attributeKey = "msgMoodysRating";
+			Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+			
+			String errorMessageResult = null;
+			if(errorMessageReturned instanceof String) {
+				errorMessageResult = (String) errorMessageReturned;
+			}
+			else {
+				Assertions.fail("Bad type of errorMessageResult");
+			}
+
+			Assertions.assertEquals(0, urlResult.compareTo("rating/add"));
+			Assertions.assertEquals(0, errorMessageResult.compareTo("Your moodysRating is empty"));
+		}
+		
+		private static Rating emptySandPRatingRatingForMock() {
+			Rating rating1 = new Rating();
+			rating1.setId(1);
+			rating1.setMoodysRating("Your moodysRating  is empty");
+			rating1.setSandPRating("");
+			rating1.setFitchRating("Your fitchRating is empty");
+			rating1.setOrderNumber(1);
+
+			return rating1;
+		}
+		static class EmptySandPRatingRatingFormArgumentsProvider implements ArgumentsProvider{
+			@Override
+			public Stream<? extends Arguments> provideArguments(ExtensionContext context) throws Exception{
+				Rating rating1 = emptySandPRatingRatingForMock();
+				return Stream.of(Arguments.of(rating1));
+			}
+		}
+		
+		//Functional Test ShouldValidateRatingEmptySandPRating
+				@ParameterizedTest
+				@ArgumentsSource(EmptySandPRatingRatingFormArgumentsProvider.class)
+				void testShouldValidateRatingEmptySandPRating(Rating emptySandPRatingRatingForTest) throws Exception{
+					//Given
+					//When
+					String urlResult = ratingController.validate(emptySandPRatingRatingForTest, resultTest, modelTest);
+					
+					//Then
+					String attributeKey = "msgSandPRating";
+					Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+					
+					String errorMessageResult = null;
+					if(errorMessageReturned instanceof String) {
+						errorMessageResult = (String) errorMessageReturned;
+					}
+					else {
+						Assertions.fail("Bad type of errorMessageResult");
+					}
+
+					Assertions.assertEquals(0, urlResult.compareTo("rating/add"));
+					Assertions.assertEquals(0, errorMessageResult.compareTo("Your sandPRating is empty"));
+				}
+				
+				private static Rating emptyFitchRatingRatingForMock() {
+					Rating rating1 = new Rating();
+					rating1.setId(1);
+					rating1.setMoodysRating("Your moodysRating  is empty");
+					rating1.setSandPRating("Your sandPRating is empty");
+					rating1.setFitchRating("");
+					rating1.setOrderNumber(1);
+
+					return rating1;
+				}
+				static class EmptyFitchRatingRatingFormArgumentsProvider implements ArgumentsProvider{
+					@Override
+					public Stream<? extends Arguments> provideArguments(ExtensionContext context) throws Exception{
+						Rating rating1 = emptyFitchRatingRatingForMock();
+						return Stream.of(Arguments.of(rating1));
+					}
+				}
+				
+				//Functional Test ShouldValidateRatingEmptyFitchRating
+						@ParameterizedTest
+						@ArgumentsSource(EmptyFitchRatingRatingFormArgumentsProvider.class)
+						void testShouldValidateRatingEmptyFitchRating(Rating emptyFitchRatingRatingForTest) throws Exception{
+							//Given
+							//When
+							String urlResult = ratingController.validate(emptyFitchRatingRatingForTest, resultTest, modelTest);
+							
+							//Then
+							String attributeKey = "msgFitchRating";
+							Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+							
+							String errorMessageResult = null;
+							if(errorMessageReturned instanceof String) {
+								errorMessageResult = (String) errorMessageReturned;
+							}
+							else {
+								Assertions.fail("Bad type of errorMessageResult");
+							}
+
+							Assertions.assertEquals(0, urlResult.compareTo("rating/add"));
+							Assertions.assertEquals(0, errorMessageResult.compareTo("Your fitchRating is empty"));
+						}
+						
+						private static Rating emptyOrderNumberRatingForMock() {
+							Rating rating1 = new Rating();
+							rating1.setId(1);
+							rating1.setMoodysRating("Your moodysRating  is empty");
+							rating1.setSandPRating("Your sandPRating is empty");
+							rating1.setFitchRating("Your fitchRating is empty");
+							rating1.setOrderNumber(0);
+
+							return rating1;
+						}
+						static class EmptyOrderNumberRatingFormArgumentsProvider implements ArgumentsProvider{
+							@Override
+							public Stream<? extends Arguments> provideArguments(ExtensionContext context) throws Exception{
+								Rating rating1 = emptyOrderNumberRatingForMock();
+								return Stream.of(Arguments.of(rating1));
+							}
+						}
+						
+						//Functional Test ShouldValidateRatingEmptyOrderNumber
+								@ParameterizedTest
+								@ArgumentsSource(EmptyOrderNumberRatingFormArgumentsProvider.class)
+								void testShouldValidateRatingEmptyOrderNumber(Rating emptyOrderNumberRatingForTest) throws Exception{
+									//Given
+									//When
+									String urlResult = ratingController.validate(emptyOrderNumberRatingForTest, resultTest, modelTest);
+									
+									//Then
+									String attributeKey = "msgOrderNumber";
+									Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+									
+									String errorMessageResult = null;
+									if(errorMessageReturned instanceof String) {
+										errorMessageResult = (String) errorMessageReturned;
+									}
+									else {
+										Assertions.fail("Bad type of errorMessageResult");
+									}
+
+									Assertions.assertEquals(0, urlResult.compareTo("rating/add"));
+									Assertions.assertEquals(0, errorMessageResult.compareTo("Your orderNumber is equals to 0"));
+								}
+					
 		//EndPoint Test
 		@Test
 		void testShouldValidateRatingForEndPoint() throws Exception{
@@ -375,6 +543,102 @@ class RatingControllerTest {
 			Assertions.assertEquals(5, capturedRating.getOrderNumber());
 		}
 		
+		//Functional Test ShouldUpdateRatingEmptyMoodysRating
+				@ParameterizedTest
+				@ArgumentsSource(EmptyMoodysRatingRatingFormArgumentsProvider.class)
+				void testShouldUpdateRatingEmptyMoodysRating(Rating emptyMoodysRatingRatingForTest) throws Exception{
+					//Given
+					//When
+					String urlResult = ratingController.updateRating(1, emptyMoodysRatingRatingForTest, resultTest, modelTest);
+					
+					//Then
+					String attributeKey = "msgMoodysRating";
+					Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+					
+					String errorMessageResult = null;
+					if(errorMessageReturned instanceof String) {
+						errorMessageResult = (String) errorMessageReturned;
+					}
+					else {
+						Assertions.fail("Bad type of errorMessageResult");
+					}
+
+					Assertions.assertEquals(0, urlResult.compareTo("rating/update"));
+					Assertions.assertEquals(0, errorMessageResult.compareTo("Your moodysRating is empty"));
+				}
+				
+				//Functional Test ShouldUpdateRatingEmptySandPRating
+				@ParameterizedTest
+				@ArgumentsSource(EmptySandPRatingRatingFormArgumentsProvider.class)
+				void testShouldUpdateRatingEmptySandPRating(Rating emptySandPRatingRatingForTest) throws Exception{
+					//Given
+					//When
+					String urlResult = ratingController.updateRating(1, emptySandPRatingRatingForTest, resultTest, modelTest);
+					
+					//Then
+					String attributeKey = "msgSandPRating";
+					Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+					
+					String errorMessageResult = null;
+					if(errorMessageReturned instanceof String) {
+						errorMessageResult = (String) errorMessageReturned;
+					}
+					else {
+						Assertions.fail("Bad type of errorMessageResult");
+					}
+
+					Assertions.assertEquals(0, urlResult.compareTo("rating/update"));
+					Assertions.assertEquals(0, errorMessageResult.compareTo("Your sandPRating is empty"));
+				}
+				
+				//Functional Test ShouldUpdateRatingEmptyFitchRating
+				@ParameterizedTest
+				@ArgumentsSource(EmptyFitchRatingRatingFormArgumentsProvider.class)
+				void testShouldUpdateRatingEmptyFitchRating(Rating emptyFitchRatingRatingForTest) throws Exception{
+					//Given
+					//When
+					String urlResult = ratingController.updateRating(1, emptyFitchRatingRatingForTest, resultTest, modelTest);
+					
+					//Then
+					String attributeKey = "msgFitchRating";
+					Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+					
+					String errorMessageResult = null;
+					if(errorMessageReturned instanceof String) {
+						errorMessageResult = (String) errorMessageReturned;
+					}
+					else {
+						Assertions.fail("Bad type of errorMessageResult");
+					}
+
+					Assertions.assertEquals(0, urlResult.compareTo("rating/update"));
+					Assertions.assertEquals(0, errorMessageResult.compareTo("Your fitchRating is empty"));
+				}
+
+				//Functional Test ShouldUpdateRatingEmptyOrderNumber
+				@ParameterizedTest
+				@ArgumentsSource(EmptyOrderNumberRatingFormArgumentsProvider.class)
+				void testShouldUpdateRatingEmptyOrderNumber(Rating emptyOrderNumberRatingForTest) throws Exception{
+					//Given
+					//When
+					String urlResult = ratingController.updateRating(1, emptyOrderNumberRatingForTest, resultTest, modelTest);
+					
+					//Then
+					String attributeKey = "msgOrderNumber";
+					Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+					
+					String errorMessageResult = null;
+					if(errorMessageReturned instanceof String) {
+						errorMessageResult = (String) errorMessageReturned;
+					}
+					else {
+						Assertions.fail("Bad type of errorMessageResult");
+					}
+
+					Assertions.assertEquals(0, urlResult.compareTo("rating/update"));
+					Assertions.assertEquals(0, errorMessageResult.compareTo("Your orderNumber is equals to 0"));
+				}
+				
 		//EndPoint Test
 		@Test
 		void testShouldUpdateBidForEndPoint() throws Exception {

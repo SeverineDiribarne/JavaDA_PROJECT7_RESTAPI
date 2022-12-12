@@ -336,6 +336,126 @@ class BidListControllerTest {
 		Assertions.assertEquals(4, capturedBidList.getBidQuantity());
 	}
 
+	private static BidList emptyAccountBidListForMock() {
+		BidList bid1 = new BidList();
+		bid1.setBidListId(1);
+		bid1.setAccount("");
+		bid1.setType("Your type is empty");
+		bid1.setBidQuantity(1);
+
+		return bid1;
+	}
+	static class EmptyAccountBidListFormArgumentsProvider implements ArgumentsProvider{
+		@Override
+		public Stream<? extends Arguments> provideArguments(ExtensionContext context) throws Exception{
+			BidList bid1 = emptyAccountBidListForMock();
+			return Stream.of(Arguments.of(bid1));
+		}
+	}
+
+	//Functional Test ShouldValidateBidEmptyAccount
+	@ParameterizedTest
+	@ArgumentsSource(EmptyAccountBidListFormArgumentsProvider.class)
+	void testShouldValidateBidEmptyAccount(BidList bidForTest) throws Exception{
+		//given
+		//when
+		String urlResult = bidListController.validate(bidForTest, resultTest, modelTest);
+		//then
+		String attributeKey = "msgAccount";
+		Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+
+		String errorMessageResult = null;
+		if(errorMessageReturned instanceof String) {
+			errorMessageResult = (String) errorMessageReturned;
+		}
+		else {
+			Assertions.fail("Bad type of errorMessageResult");
+		}
+
+		Assertions.assertEquals(0, urlResult.compareTo("bidList/add"));
+		Assertions.assertEquals(0, errorMessageResult.compareTo("Your account is empty"));
+	}
+
+	private static BidList emptyTypeBidListForMock() {
+		BidList bid1 = new BidList();
+		bid1.setBidListId(1);
+		bid1.setAccount("Your account is empty");
+		bid1.setType("");
+		bid1.setBidQuantity(1);
+
+		return bid1;
+	}
+	static class EmptyTypeBidListFormArgumentsProvider implements ArgumentsProvider{
+		@Override
+		public Stream<? extends Arguments> provideArguments(ExtensionContext context) throws Exception{
+			BidList bid1 = emptyTypeBidListForMock();
+			return Stream.of(Arguments.of(bid1));
+		}
+	}
+
+	//Functional Test ShouldValidateBidEmptyType
+	@ParameterizedTest
+	@ArgumentsSource(EmptyTypeBidListFormArgumentsProvider.class)
+	void testShouldValidateBidEmptyType(BidList bidForTest) throws Exception{
+		//given
+		//when
+		String urlResult = bidListController.validate(bidForTest, resultTest, modelTest);
+		//then
+		String attributeKey = "msgType";
+		Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+
+		String errorMessageResult = null;
+		if(errorMessageReturned instanceof String) {
+			errorMessageResult = (String) errorMessageReturned;
+		}
+		else {
+			Assertions.fail("Bad type of errorMessageResult");
+		}
+
+		Assertions.assertEquals(0, urlResult.compareTo("bidList/add"));
+		Assertions.assertEquals(0, errorMessageResult.compareTo("Your type is empty"));
+	}
+
+	private static BidList emptyBidQuantityBidListForMock() {
+		BidList bid1 = new BidList();
+		bid1.setBidListId(1);
+		bid1.setAccount("Your account is empty");
+		bid1.setType("Your type is empty");
+		bid1.setBidQuantity(0);
+
+		return bid1;
+	}
+	static class EmptyBidQuantityBidListFormArgumentsProvider implements ArgumentsProvider{
+		@Override
+		public Stream<? extends Arguments> provideArguments(ExtensionContext context) throws Exception{
+			BidList bid1 = emptyBidQuantityBidListForMock();
+			return Stream.of(Arguments.of(bid1));
+		}
+	}
+
+	//Functional Test ShouldValidateBidEmptyBidQuantity
+	@ParameterizedTest
+	@ArgumentsSource(EmptyBidQuantityBidListFormArgumentsProvider.class)
+	void testShouldValidateBidEmptyAccountEmptyBidQuantity(BidList bidForTest) throws Exception{
+		//given
+		//when
+		String urlResult = bidListController.validate(bidForTest, resultTest, modelTest);
+		//then
+		String attributeKey = "msgQuantity";
+		Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+
+		String errorMessageResult = null;
+		if(errorMessageReturned instanceof String) {
+			errorMessageResult = (String) errorMessageReturned;
+		}
+		else {
+			Assertions.fail("Bad type of errorMessageResult");
+		}
+
+		Assertions.assertEquals(0, urlResult.compareTo("bidList/add"));
+		Assertions.assertEquals(0, errorMessageResult.compareTo("Your bidQuantity is equal to 0"));
+	}
+
 	//EndPoint Test
 	@Test
 	void testShouldValidateBidForEndPoint() throws Exception{
@@ -453,7 +573,7 @@ class BidListControllerTest {
 
 		ArgumentCaptor<BidList> capturedBidListWhenSaveMethodIsCalled = ArgumentCaptor.forClass(BidList.class);
 		when(bidListService.saveBidList(capturedBidListWhenSaveMethodIsCalled.capture())).thenReturn(new BidList());
-		
+
 		String urlResult = bidListController.updateBid(4, bidForTest, resultTest, modelTest);
 		Object attribute =  modelTest.getAttribute("bidList");
 		//then
@@ -473,7 +593,7 @@ class BidListControllerTest {
 		Assertions.assertEquals(0, bidResult.getSide().compareTo(bidForTest.getSide()));
 
 		Assertions.assertEquals(0, urlResult.compareTo("redirect:/bidList/list"));	
-		
+
 		BidList capturedBidList = capturedBidListWhenSaveMethodIsCalled.getValue();
 		Assertions.assertEquals(4, capturedBidList.getBidListId());
 		Assertions.assertEquals("Account5 Test for mock", capturedBidList.getAccount());
@@ -481,6 +601,75 @@ class BidListControllerTest {
 		Assertions.assertEquals(5, capturedBidList.getBidQuantity());
 	}
 	
+	//Functional Test ShouldUpdateBidEmptyAccount
+		@ParameterizedTest
+		@ArgumentsSource(EmptyAccountBidListFormArgumentsProvider.class)
+		void testShouldUpdateBidEmptyAccount(BidList bidForTest) throws Exception{
+			//given
+			//when
+			String urlResult = bidListController.updateBid(1, bidForTest, resultTest, modelTest);
+			//then
+			String attributeKey = "msgAccount";
+			Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+
+			String errorMessageResult = null;
+			if(errorMessageReturned instanceof String) {
+				errorMessageResult = (String) errorMessageReturned;
+			}
+			else {
+				Assertions.fail("Bad type of errorMessageResult");
+			}
+
+			Assertions.assertEquals(0, urlResult.compareTo("bidList/update"));
+			Assertions.assertEquals(0, errorMessageResult.compareTo("Your account is empty"));
+		}
+		
+		//Functional Test ShouldUpdateBidEmptyType
+				@ParameterizedTest
+				@ArgumentsSource(EmptyTypeBidListFormArgumentsProvider.class)
+				void testShouldUpdateBidEmptyType(BidList bidForTest) throws Exception{
+					//given
+					//when
+					String urlResult = bidListController.updateBid(1, bidForTest, resultTest, modelTest);
+					//then
+					String attributeKey = "msgType";
+					Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+
+					String errorMessageResult = null;
+					if(errorMessageReturned instanceof String) {
+						errorMessageResult = (String) errorMessageReturned;
+					}
+					else {
+						Assertions.fail("Bad type of errorMessageResult");
+					}
+
+					Assertions.assertEquals(0, urlResult.compareTo("bidList/update"));
+					Assertions.assertEquals(0, errorMessageResult.compareTo("Your type is empty"));
+				}
+
+				//Functional Test ShouldUpdateBidEmptyBidQuantity
+				@ParameterizedTest
+				@ArgumentsSource(EmptyBidQuantityBidListFormArgumentsProvider.class)
+				void testShouldUpdateBidEmptyBidQuantity(BidList bidForTest) throws Exception{
+					//given
+					//when
+					String urlResult = bidListController.updateBid(1, bidForTest, resultTest, modelTest);
+					//then
+					String attributeKey = "msgQuantity";
+					Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+
+					String errorMessageResult = null;
+					if(errorMessageReturned instanceof String) {
+						errorMessageResult = (String) errorMessageReturned;
+					}
+					else {
+						Assertions.fail("Bad type of errorMessageResult");
+					}
+
+					Assertions.assertEquals(0, urlResult.compareTo("bidList/update"));
+					Assertions.assertEquals(0, errorMessageResult.compareTo("Your bidQuantity is equal to 0"));
+				}
+
 	//EndPoint Test
 	@Test
 	void testShouldUpdateBidForEndPoint() throws Exception {
@@ -498,7 +687,7 @@ class BidListControllerTest {
 		.andExpect(status().is3xxRedirection())
 		.andExpect(view().name("redirect:/bidList/list"));
 	}
-	
+
 	private List<BidList> listForMockDeleted() {
 
 		BidList bid2 = new BidList();
@@ -557,7 +746,7 @@ class BidListControllerTest {
 		//when
 		ArgumentCaptor<BidList> capturedBidListWhenDeleteMethodIsCalled =ArgumentCaptor.forClass(BidList.class);
 		Mockito.doNothing().when(bidListService).deleteBidList(capturedBidListWhenDeleteMethodIsCalled.capture());
-		
+
 		when(bidListService.getBidListById(id)).thenReturn(Optional.of(listForMock().get(0)));
 		when(bidListService.getBidLists()).thenReturn(listForMockDeleted());
 		String urlResult = bidListController.deleteBid(id, modelTest);
@@ -612,9 +801,9 @@ class BidListControllerTest {
 		Assertions.assertEquals(0, bidListResult2.getDealType().compareTo(bidListExpected2.getDealType()));
 		Assertions.assertEquals(0, bidListResult2.getSourceListId().compareTo(bidListExpected2.getSourceListId()));
 		Assertions.assertEquals(0, bidListResult2.getSide().compareTo(bidListExpected2.getSide()));
-		
+
 		Assertions.assertEquals(0, urlResult.compareTo("redirect:/bidList/list"));	
-		
+
 		BidList capturedBidList = capturedBidListWhenDeleteMethodIsCalled.getValue();
 		Assertions.assertEquals("Account1 Test for mock", capturedBidList.getAccount());
 		Assertions.assertEquals("Type1 Test for mock", capturedBidList.getType());

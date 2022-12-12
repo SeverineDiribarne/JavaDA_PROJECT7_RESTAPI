@@ -97,7 +97,7 @@ public class RatingController {
 		}
 		if(rating.getSandPRating().isEmpty() ) {
 			log.error(LOG_ERROR);
-			model.addAttribute("msgSandPRating", "Your SandPRating is empty");
+			model.addAttribute("msgSandPRating", "Your sandPRating is empty");
 			return "rating/update";
 		}
 		if(rating.getFitchRating().isEmpty() ) {

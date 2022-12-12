@@ -261,7 +261,268 @@ class RuleNameControllerTest {
 			Assertions.assertEquals("SqlStr4 Test for mock", capturedRuleName.getSqlStr());
 			Assertions.assertEquals("SqlPart4 Test for mock", capturedRuleName.getSqlPart());
 		}
+		
+		private static RuleName emptyNameRuleNameForMock() {
+			RuleName ruleName1 = new RuleName();
+			ruleName1.setId(1);
+			ruleName1.setName("");
+			ruleName1.setDescription("Your description is empty");
+			ruleName1.setJson("Your Json is empty");
+			ruleName1.setTemplate("Your Template  is empty");
+			ruleName1.setSqlStr("Your SqlStr  is empty");
+			ruleName1.setSqlPart("Your SqlPart  is empty");
+			return ruleName1;
+		}
+		static class EmptyNameRuleNameFormArgumentsProvider implements ArgumentsProvider{
+			@Override
+			public Stream<? extends Arguments> provideArguments(ExtensionContext context) throws Exception{
+				RuleName ruleName1 = emptyNameRuleNameForMock();
+				return Stream.of(Arguments.of(ruleName1));
+			}
+		}
 
+		//Functional Test ShouldValidateRuleNameEmptyName
+		@ParameterizedTest
+		@ArgumentsSource(EmptyNameRuleNameFormArgumentsProvider.class)
+		void testShouldValidateRuleNameEmptyName(RuleName emptyNameRuleNameForTest) throws Exception{
+			//Given
+			//When
+			String urlResult = ruleNameController.validate(emptyNameRuleNameForTest, resultTest, modelTest);
+			
+			//Then
+			String attributeKey = "msgName";
+			Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+			
+			String errorMessageResult = null;
+			if(errorMessageReturned instanceof String) {
+				errorMessageResult = (String) errorMessageReturned;
+			}
+			else {
+				Assertions.fail("Bad type of errorMessageResult");
+			}
+
+			Assertions.assertEquals(0, urlResult.compareTo("rulename/add"));
+			Assertions.assertEquals(0, errorMessageResult.compareTo("Your name is empty"));
+		}
+		
+		private static RuleName emptyDescriptionRuleNameForMock() {
+			RuleName ruleName1 = new RuleName();
+			ruleName1.setId(1);
+			ruleName1.setName("Your name is empty");
+			ruleName1.setDescription("");
+			ruleName1.setJson("Your Json is empty");
+			ruleName1.setTemplate("Your Template is empty");
+			ruleName1.setSqlStr("Your SqlStr is empty");
+			ruleName1.setSqlPart("Your SqlPart is empty");
+			return ruleName1;
+		}
+		
+		static class EmptyDescriptionRuleNameFormArgumentsProvider implements ArgumentsProvider{
+			@Override
+			public Stream<? extends Arguments> provideArguments(ExtensionContext context) throws Exception{
+				RuleName ruleName1 = emptyDescriptionRuleNameForMock();
+				return Stream.of(Arguments.of(ruleName1));
+			}
+		}
+
+		//Functional Test ShouldValidateRuleNameEmptyDescription
+		@ParameterizedTest
+		@ArgumentsSource(EmptyDescriptionRuleNameFormArgumentsProvider.class)
+		void testShouldValidateRuleNameEmptyDescription(RuleName emptyDescriptionRuleNameForTest) throws Exception{
+			//Given
+			//When
+			String urlResult = ruleNameController.validate(emptyDescriptionRuleNameForTest, resultTest, modelTest);
+			
+			//Then
+			String attributeKey = "msgDescription";
+			Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+			
+			String errorMessageResult = null;
+			if(errorMessageReturned instanceof String) {
+				errorMessageResult = (String) errorMessageReturned;
+			}
+			else {
+				Assertions.fail("Bad type of errorMessageResult");
+			}
+
+			Assertions.assertEquals(0, urlResult.compareTo("rulename/add"));
+			Assertions.assertEquals(0, errorMessageResult.compareTo("Your description is empty"));
+		}
+		
+		private static RuleName emptyJsonRuleNameForMock() {
+			RuleName ruleName1 = new RuleName();
+			ruleName1.setId(1);
+			ruleName1.setName("Your name is empty");
+			ruleName1.setDescription("Your description is empty");
+			ruleName1.setJson("");
+			ruleName1.setTemplate("Your Template is empty");
+			ruleName1.setSqlStr("Your SqlStr is empty");
+			ruleName1.setSqlPart("Your SqlPart is empty");
+			return ruleName1;
+		}
+		
+		static class EmptyJsonRuleNameFormArgumentsProvider implements ArgumentsProvider{
+			@Override
+			public Stream<? extends Arguments> provideArguments(ExtensionContext context) throws Exception{
+				RuleName ruleName1 = emptyJsonRuleNameForMock();
+				return Stream.of(Arguments.of(ruleName1));
+			}
+		}
+
+		//Functional Test ShouldValidateRuleNameEmptyJson
+		@ParameterizedTest
+		@ArgumentsSource(EmptyJsonRuleNameFormArgumentsProvider.class)
+		void testShouldValidateRuleNameEmptyJson(RuleName emptyJsonRuleNameForTest) throws Exception{
+			//Given
+			//When
+			String urlResult = ruleNameController.validate(emptyJsonRuleNameForTest, resultTest, modelTest);
+			
+			//Then
+			String attributeKey = "msgJson";
+			Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+			
+			String errorMessageResult = null;
+			if(errorMessageReturned instanceof String) {
+				errorMessageResult = (String) errorMessageReturned;
+			}
+			else {
+				Assertions.fail("Bad type of errorMessageResult");
+			}
+
+			Assertions.assertEquals(0, urlResult.compareTo("rulename/add"));
+			Assertions.assertEquals(0, errorMessageResult.compareTo("Your Json is empty"));
+		}
+		
+		private static RuleName emptyTemplateRuleNameForMock() {
+			RuleName ruleName1 = new RuleName();
+			ruleName1.setId(1);
+			ruleName1.setName("Your name is empty");
+			ruleName1.setDescription("Your description is empty");
+			ruleName1.setJson("Your Json is empty");
+			ruleName1.setTemplate("");
+			ruleName1.setSqlStr("Your SqlStr is empty");
+			ruleName1.setSqlPart("Your SqlPart is empty");
+			return ruleName1;
+		}
+		
+		static class EmptyTemplateRuleNameFormArgumentsProvider implements ArgumentsProvider{
+			@Override
+			public Stream<? extends Arguments> provideArguments(ExtensionContext context) throws Exception{
+				RuleName ruleName1 = emptyTemplateRuleNameForMock();
+				return Stream.of(Arguments.of(ruleName1));
+			}
+		}
+
+		//Functional Test ShouldValidateRuleNameEmptyTemplate
+		@ParameterizedTest
+		@ArgumentsSource(EmptyTemplateRuleNameFormArgumentsProvider.class)
+		void testShouldValidateRuleNameEmptyTemplate(RuleName emptyTemplateRuleNameForTest) throws Exception{
+			//Given
+			//When
+			String urlResult = ruleNameController.validate(emptyTemplateRuleNameForTest, resultTest, modelTest);
+			
+			//Then
+			String attributeKey = "msgTemplate";
+			Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+			
+			String errorMessageResult = null;
+			if(errorMessageReturned instanceof String) {
+				errorMessageResult = (String) errorMessageReturned;
+			}
+			else {
+				Assertions.fail("Bad type of errorMessageResult");
+			}
+
+			Assertions.assertEquals(0, urlResult.compareTo("rulename/add"));
+			Assertions.assertEquals(0, errorMessageResult.compareTo("Your Template is empty"));
+		}
+		
+		private static RuleName emptySqlStrRuleNameForMock() {
+			RuleName ruleName1 = new RuleName();
+			ruleName1.setId(1);
+			ruleName1.setName("Your name is empty");
+			ruleName1.setDescription("Your description is empty");
+			ruleName1.setJson("Your Json is empty");
+			ruleName1.setTemplate("Your Template is empty");
+			ruleName1.setSqlStr("");
+			ruleName1.setSqlPart("Your SqlPart is empty");
+			return ruleName1;
+		}
+		static class EmptySqlStrRuleNameFormArgumentsProvider implements ArgumentsProvider{
+			@Override
+			public Stream<? extends Arguments> provideArguments(ExtensionContext context) throws Exception{
+				RuleName ruleName1 = emptySqlStrRuleNameForMock();
+				return Stream.of(Arguments.of(ruleName1));
+			}
+		}
+
+		//Functional Test ShouldValidateRuleNameEmptySqlStr
+		@ParameterizedTest
+		@ArgumentsSource(EmptySqlStrRuleNameFormArgumentsProvider.class)
+		void testShouldValidateRuleNameEmptySqlStr(RuleName emptySqlStrRuleNameForTest) throws Exception{
+			//Given
+			//When
+			String urlResult = ruleNameController.validate(emptySqlStrRuleNameForTest, resultTest, modelTest);
+			
+			//Then
+			String attributeKey = "msgSqlStr";
+			Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+			
+			String errorMessageResult = null;
+			if(errorMessageReturned instanceof String) {
+				errorMessageResult = (String) errorMessageReturned;
+			}
+			else {
+				Assertions.fail("Bad type of errorMessageResult");
+			}
+
+			Assertions.assertEquals(0, urlResult.compareTo("rulename/add"));
+			Assertions.assertEquals(0, errorMessageResult.compareTo("Your SqlStr is empty"));
+		}
+		
+		private static RuleName emptySqlPartRuleNameForMock() {
+			RuleName ruleName1 = new RuleName();
+			ruleName1.setId(1);
+			ruleName1.setName("Your name is empty");
+			ruleName1.setDescription("Your description is empty");
+			ruleName1.setJson("Your Json is empty");
+			ruleName1.setTemplate("Your Template is empty");
+			ruleName1.setSqlStr("Your SqlStr is empty");
+			ruleName1.setSqlPart("");
+			return ruleName1;
+		}
+		static class EmptySqlPartRuleNameFormArgumentsProvider implements ArgumentsProvider{
+			@Override
+			public Stream<? extends Arguments> provideArguments(ExtensionContext context) throws Exception{
+				RuleName ruleName1 = emptySqlPartRuleNameForMock();
+				return Stream.of(Arguments.of(ruleName1));
+			}
+		}
+
+		//Functional Test ShouldValidateRuleNameEmptySqlPart
+		@ParameterizedTest
+		@ArgumentsSource(EmptySqlPartRuleNameFormArgumentsProvider.class)
+		void testShouldValidateRuleNameEmptySqlPart(RuleName emptySqlPartRuleNameForTest) throws Exception{
+			//Given
+			//When
+			String urlResult = ruleNameController.validate(emptySqlPartRuleNameForTest, resultTest, modelTest);
+			
+			//Then
+			String attributeKey = "msgSqlPart";
+			Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+			
+			String errorMessageResult = null;
+			if(errorMessageReturned instanceof String) {
+				errorMessageResult = (String) errorMessageReturned;
+			}
+			else {
+				Assertions.fail("Bad type of errorMessageResult");
+			}
+
+			Assertions.assertEquals(0, urlResult.compareTo("rulename/add"));
+			Assertions.assertEquals(0, errorMessageResult.compareTo("Your SqlPart is empty"));
+		}
+		
 		//EndPoint Test
 	@Test
 	void testShouldValidateRuleName() throws Exception{
@@ -382,6 +643,150 @@ class RuleNameControllerTest {
 		Assertions.assertEquals("SqlPart5 Test for mock", capturedRuleName.getSqlPart());
 	}
 
+	//Functional Test ShouldUpdateRuleNameEmptyName
+			@ParameterizedTest
+			@ArgumentsSource(EmptyNameRuleNameFormArgumentsProvider.class)
+			void testShouldUpdateRuleNameEmptyName(RuleName emptyNameRuleNameForTest) throws Exception{
+				//Given
+				//When
+				String urlResult = ruleNameController.updateRuleName(1, emptyNameRuleNameForTest, resultTest, modelTest);
+				
+				//Then
+				String attributeKey = "msgName";
+				Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+				
+				String errorMessageResult = null;
+				if(errorMessageReturned instanceof String) {
+					errorMessageResult = (String) errorMessageReturned;
+				}
+				else {
+					Assertions.fail("Bad type of errorMessageResult");
+				}
+
+				Assertions.assertEquals(0, urlResult.compareTo("rulename/update"));
+				Assertions.assertEquals(0, errorMessageResult.compareTo("Your name is empty"));
+			}
+
+			//Functional Test ShouldUpdateRuleNameEmptyDescription
+			@ParameterizedTest
+			@ArgumentsSource(EmptyDescriptionRuleNameFormArgumentsProvider.class)
+			void testShouldUpdateRuleNameEmptyDescription(RuleName emptyDescriptionRuleNameForTest) throws Exception{
+				//Given
+				//When
+				String urlResult = ruleNameController.updateRuleName(1, emptyDescriptionRuleNameForTest, resultTest, modelTest);
+				
+				//Then
+				String attributeKey = "msgDescription";
+				Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+				
+				String errorMessageResult = null;
+				if(errorMessageReturned instanceof String) {
+					errorMessageResult = (String) errorMessageReturned;
+				}
+				else {
+					Assertions.fail("Bad type of errorMessageResult");
+				}
+
+				Assertions.assertEquals(0, urlResult.compareTo("rulename/update"));
+				Assertions.assertEquals(0, errorMessageResult.compareTo("Your description is empty"));
+			}
+
+			//Functional Test ShouldUpdateRuleNameEmptyJson
+			@ParameterizedTest
+			@ArgumentsSource(EmptyJsonRuleNameFormArgumentsProvider.class)
+			void testShouldUpdateRuleNameEmptyJson(RuleName emptyJsonRuleNameForTest) throws Exception{
+				//Given
+				//When
+				String urlResult = ruleNameController.updateRuleName(1, emptyJsonRuleNameForTest, resultTest, modelTest);
+				
+				//Then
+				String attributeKey = "msgJson";
+				Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+				
+				String errorMessageResult = null;
+				if(errorMessageReturned instanceof String) {
+					errorMessageResult = (String) errorMessageReturned;
+				}
+				else {
+					Assertions.fail("Bad type of errorMessageResult");
+				}
+
+				Assertions.assertEquals(0, urlResult.compareTo("rulename/update"));
+				Assertions.assertEquals(0, errorMessageResult.compareTo("Your Json is empty"));
+			}
+			
+			//Functional Test ShouldUpdateRuleNameEmptyTemplate
+			@ParameterizedTest
+			@ArgumentsSource(EmptyTemplateRuleNameFormArgumentsProvider.class)
+			void testShouldUpdateRuleNameEmptyTemplate(RuleName emptyTemplateRuleNameForTest) throws Exception{
+				//Given
+				//When
+				String urlResult = ruleNameController.updateRuleName(1, emptyTemplateRuleNameForTest, resultTest, modelTest);
+				
+				//Then
+				String attributeKey = "msgTemplate";
+				Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+				
+				String errorMessageResult = null;
+				if(errorMessageReturned instanceof String) {
+					errorMessageResult = (String) errorMessageReturned;
+				}
+				else {
+					Assertions.fail("Bad type of errorMessageResult");
+				}
+
+				Assertions.assertEquals(0, urlResult.compareTo("rulename/update"));
+				Assertions.assertEquals(0, errorMessageResult.compareTo("Your Template is empty"));
+			}
+			
+			//Functional Test ShouldUpdateRuleNameEmptySqlStr
+			@ParameterizedTest
+			@ArgumentsSource(EmptySqlStrRuleNameFormArgumentsProvider.class)
+			void testShouldUpdateRuleNameEmptySqlStr(RuleName emptySqlStrRuleNameForTest) throws Exception{
+				//Given
+				//When
+				String urlResult = ruleNameController.updateRuleName(1, emptySqlStrRuleNameForTest, resultTest, modelTest);
+				
+				//Then
+				String attributeKey = "msgSqlStr";
+				Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+				
+				String errorMessageResult = null;
+				if(errorMessageReturned instanceof String) {
+					errorMessageResult = (String) errorMessageReturned;
+				}
+				else {
+					Assertions.fail("Bad type of errorMessageResult");
+				}
+
+				Assertions.assertEquals(0, urlResult.compareTo("rulename/update"));
+				Assertions.assertEquals(0, errorMessageResult.compareTo("Your SqlStr is empty"));
+			}
+
+			//Functional Test ShouldUpdateRuleNameEmptySqlPart
+			@ParameterizedTest
+			@ArgumentsSource(EmptySqlPartRuleNameFormArgumentsProvider.class)
+			void testShouldUpdateRuleNameEmptySqlPart(RuleName emptySqlPartRuleNameForTest) throws Exception{
+				//Given
+				//When
+				String urlResult = ruleNameController.updateRuleName(1, emptySqlPartRuleNameForTest, resultTest, modelTest);
+				
+				//Then
+				String attributeKey = "msgSqlPart";
+				Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+				
+				String errorMessageResult = null;
+				if(errorMessageReturned instanceof String) {
+					errorMessageResult = (String) errorMessageReturned;
+				}
+				else {
+					Assertions.fail("Bad type of errorMessageResult");
+				}
+
+				Assertions.assertEquals(0, urlResult.compareTo("rulename/update"));
+				Assertions.assertEquals(0, errorMessageResult.compareTo("Your SqlPart is empty"));
+			}
+	
 	//EndPoint Test
 	@Test
 	void testShouldUpdateRuleName() throws Exception {

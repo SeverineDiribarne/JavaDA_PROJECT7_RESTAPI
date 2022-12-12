@@ -62,17 +62,17 @@ public class RuleNameController {
 		}
 		if(ruleName.getTemplate().isEmpty()) {
 			log.error(LOG_ERROR);
-			model.addAttribute("msgTemplate","Your Template  is empty");
+			model.addAttribute("msgTemplate","Your Template is empty");
 			return "rulename/add";
 		}
 		if(ruleName.getSqlStr().isEmpty()) {
 			log.error(LOG_ERROR);
-			model.addAttribute("msgSqlStr","Your SqlStr  is empty");
+			model.addAttribute("msgSqlStr","Your SqlStr is empty");
 			return "rulename/add";
 		}
 		if(ruleName.getSqlPart().isEmpty()) {
 			log.error(LOG_ERROR);
-			model.addAttribute("msgSqlPart","Your SqlPart  is empty");
+			model.addAttribute("msgSqlPart","Your SqlPart is empty");
 			return "rulename/add";
 		}
     	if(result.hasErrors()) {
@@ -116,17 +116,17 @@ public class RuleNameController {
 		}
 		if(ruleName.getTemplate().isEmpty()) {
 			log.error(LOG_ERROR);
-			model.addAttribute("msgTemplate","Your Template  is empty");
+			model.addAttribute("msgTemplate","Your Template is empty");
 			return "rulename/update";
 		}
 		if(ruleName.getSqlStr().isEmpty()) {
 			log.error(LOG_ERROR);
-			model.addAttribute("msgSqlStr","Your SqlStr  is empty");
+			model.addAttribute("msgSqlStr","Your SqlStr is empty");
 			return "rulename/update";
 		}
 		if(ruleName.getSqlPart().isEmpty()) {
 			log.error(LOG_ERROR);
-			model.addAttribute("msgSqlPart","Your SqlPart  is empty");
+			model.addAttribute("msgSqlPart","Your SqlPart is empty");
 			return "rulename/update";
 		}
     	if(result.hasErrors()) {
