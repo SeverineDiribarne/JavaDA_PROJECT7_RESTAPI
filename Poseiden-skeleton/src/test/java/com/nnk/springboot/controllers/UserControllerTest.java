@@ -32,6 +32,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.ConcurrentModel;
 import org.springframework.ui.Model;
+import org.springframework.validation.BeanPropertyBindingResult;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
@@ -61,6 +63,7 @@ class UserControllerTest {
 				.build();
 	}
 	
+	private BindingResult resultTest = new  BeanPropertyBindingResult(userController, "userForTest");
 	private Model modelTest = new ConcurrentModel();
 	
 	private static User userForMock() {
@@ -205,6 +208,129 @@ class UserControllerTest {
 		.andExpect(status().isFound())
 		.andExpect(view().name("redirect:/user/list"));
 	}
+	
+	private static User emptyUsernameUserForMock() {
+		User user1 = new User();
+		user1.setId(1);
+		user1.setUsername("");
+		user1.setFullname("fullname1");
+		user1.setPassword("password1");
+		user1.setRole("role1");
+
+		return user1;
+	}
+	static class EmptyUsernameUserFormArgumentsProvider implements ArgumentsProvider{
+		@Override
+		public Stream<? extends Arguments> provideArguments(ExtensionContext context) throws Exception{
+			User user1 = emptyUsernameUserForMock();
+			return Stream.of(Arguments.of(user1));
+		}
+	}
+
+	//Functional Test ShouldValidateUserEmptyUsername
+	@ParameterizedTest
+	@ArgumentsSource(EmptyUsernameUserFormArgumentsProvider.class)
+	void testShouldValidateUserEmptyUsername(User userForTest) throws Exception{
+		//given
+		//when
+		String urlResult = userController.validate(userForTest, resultTest, modelTest);
+		//then
+		String attributeKey = "msgUsername";
+		Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+
+		String errorMessageResult = null;
+		if(errorMessageReturned instanceof String) {
+			errorMessageResult = (String) errorMessageReturned;
+		}
+		else {
+			Assertions.fail("Bad type of errorMessageResult");
+		}
+
+		Assertions.assertEquals(0, urlResult.compareTo("/user/add"));
+		Assertions.assertEquals(0, errorMessageResult.compareTo("Your username is empty"));
+	}
+	
+	private static User emptyFullnameUserForMock() {
+		User user1 = new User();
+		user1.setId(1);
+		user1.setUsername("username1");
+		user1.setFullname("");
+		user1.setPassword("password1");
+		user1.setRole("role1");
+
+		return user1;
+	}
+	static class EmptyFullnameUserFormArgumentsProvider implements ArgumentsProvider{
+		@Override
+		public Stream<? extends Arguments> provideArguments(ExtensionContext context) throws Exception{
+			User user1 = emptyFullnameUserForMock();
+			return Stream.of(Arguments.of(user1));
+		}
+	}
+
+	//Functional Test ShouldValidateUserEmptyFullname
+		@ParameterizedTest
+		@ArgumentsSource(EmptyFullnameUserFormArgumentsProvider.class)
+		void testShouldValidateUserEmptyFullname(User userForTest) throws Exception{
+			//given
+			//when
+			String urlResult = userController.validate(userForTest, resultTest, modelTest);
+			//then
+			String attributeKey = "msgFullname";
+			Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+
+			String errorMessageResult = null;
+			if(errorMessageReturned instanceof String) {
+				errorMessageResult = (String) errorMessageReturned;
+			}
+			else {
+				Assertions.fail("Bad type of errorMessageResult");
+			}
+
+			Assertions.assertEquals(0, urlResult.compareTo("/user/add"));
+			Assertions.assertEquals(0, errorMessageResult.compareTo("Your fullname is empty"));
+		}
+		
+		private static User emptyRoleUserForMock() {
+			User user1 = new User();
+			user1.setId(1);
+			user1.setUsername("username1");
+			user1.setFullname("fullname1");
+			user1.setPassword("password1");
+			user1.setRole(null);
+
+			return user1;
+		}
+		static class EmptyRoleUserFormArgumentsProvider implements ArgumentsProvider{
+			@Override
+			public Stream<? extends Arguments> provideArguments(ExtensionContext context) throws Exception{
+				User user1 = emptyRoleUserForMock();
+				return Stream.of(Arguments.of(user1));
+			}
+		}
+
+		//Functional Test ShouldValidateUserEmptyRole
+			@ParameterizedTest
+			@ArgumentsSource(EmptyRoleUserFormArgumentsProvider.class)
+			void testShouldValidateUserEmptyRole(User userForTest) throws Exception{
+				//given
+				//when
+				String urlResult = userController.validate(userForTest, resultTest, modelTest);
+				//then
+				String attributeKey = "msgRole";
+				Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+
+				String errorMessageResult = null;
+				if(errorMessageReturned instanceof String) {
+					errorMessageResult = (String) errorMessageReturned;
+				}
+				else {
+					Assertions.fail("Bad type of errorMessageResult");
+				}
+
+				Assertions.assertEquals(0, urlResult.compareTo("/user/add"));
+				Assertions.assertEquals(0, errorMessageResult.compareTo("Your role is empty"));
+			}
 
 	@Test
 	void testShouldShowUpdateForm() throws Exception {
@@ -236,6 +362,76 @@ class UserControllerTest {
 		.andExpect(status().is3xxRedirection())
 		.andExpect(view().name("redirect:/user/list"));
 	}
+	
+	//Functional Test ShouldUpdateUserEmptyUsername
+	@ParameterizedTest
+	@ArgumentsSource(EmptyUsernameUserFormArgumentsProvider.class)
+	void testShouldUpdateUserEmptyUsername(User userForTest) throws Exception{
+		//given
+		//when
+		String urlResult = userController.updateUser(1, userForTest, resultTest, modelTest);
+		//then
+		String attributeKey = "msgUsername";
+		Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+
+		String errorMessageResult = null;
+		if(errorMessageReturned instanceof String) {
+			errorMessageResult = (String) errorMessageReturned;
+		}
+		else {
+			Assertions.fail("Bad type of errorMessageResult");
+		}
+
+		Assertions.assertEquals(0, urlResult.compareTo("/user/update"));
+		Assertions.assertEquals(0, errorMessageResult.compareTo("Your username is empty"));
+	}
+
+	//Functional Test ShouldUpdateUserEmptyFullname
+		@ParameterizedTest
+		@ArgumentsSource(EmptyFullnameUserFormArgumentsProvider.class)
+		void testShouldUpdateUserEmptyFullname(User userForTest) throws Exception{
+			//given
+			//when
+			String urlResult = userController.updateUser(1, userForTest, resultTest, modelTest);
+			//then
+			String attributeKey = "msgFullname";
+			Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+
+			String errorMessageResult = null;
+			if(errorMessageReturned instanceof String) {
+				errorMessageResult = (String) errorMessageReturned;
+			}
+			else {
+				Assertions.fail("Bad type of errorMessageResult");
+			}
+
+			Assertions.assertEquals(0, urlResult.compareTo("/user/update"));
+			Assertions.assertEquals(0, errorMessageResult.compareTo("Your fullname is empty"));
+		}
+
+		//Functional Test ShouldUpdateUserEmptyRole
+			@ParameterizedTest
+			@ArgumentsSource(EmptyRoleUserFormArgumentsProvider.class)
+			void testShouldUpdateUserEmptyRole(User userForTest) throws Exception{
+				//given
+				//when
+				String urlResult = userController.updateUser(1, userForTest, resultTest, modelTest);
+				//then
+				String attributeKey = "msgRole";
+				Object errorMessageReturned = modelTest.getAttribute(attributeKey);
+
+				String errorMessageResult = null;
+				if(errorMessageReturned instanceof String) {
+					errorMessageResult = (String) errorMessageReturned;
+				}
+				else {
+					Assertions.fail("Bad type of errorMessageResult");
+				}
+
+				Assertions.assertEquals(0, urlResult.compareTo("/user/update"));
+				Assertions.assertEquals(0, errorMessageResult.compareTo("Your role is empty"));
+			}
+
 
 	@Test
 	void testShouldDeleteUser() throws Exception {

@@ -70,7 +70,7 @@ class BidListControllerTest {
 
 	private BindingResult resultTest = new  BeanPropertyBindingResult(bidListController, "bidForTest");
 	private Model modelTest = new ConcurrentModel();
-
+	
 	//	private BindingResult bindingResult = new   ; 
 
 	private static BidList bidForMock() {

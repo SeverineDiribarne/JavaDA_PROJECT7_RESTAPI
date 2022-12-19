@@ -32,9 +32,9 @@ public class UserController {
 
 	private static final String USERS = "users";
 	private static final String REDIRECT_USER_LIST = "redirect:/user/list";
-	public static final String MESSAGE_FULLNAME = "messageFullName";
-	public static final String MESSAGE_USERNAME =  "messageUserName";
-	public static final String MESSAGE_ROLE = "messageRole";
+	public static final String MESSAGE_FULLNAME = "msgFullname";
+	public static final String MESSAGE_USERNAME =  "msgUsername";
+	public static final String MESSAGE_ROLE = "msgRole";
 	public static final String USER_ADD="/user/add";
 	public static final String USER_UPDATE = "/user/update";
 
@@ -68,7 +68,7 @@ public class UserController {
 		}
 		//Check that the radio box is checked
 		if(userToValidate.getRole()==null) {
-			model.addAttribute(MESSAGE_ROLE, "Your role is empty.");
+			model.addAttribute(MESSAGE_ROLE, "Your role is empty");
 			return USER_ADD;
 		}
 		// Check if the user does not exist in the database 
@@ -76,8 +76,8 @@ public class UserController {
 		if (!userToValidate.getFullname().isEmpty() && (!userToValidate.getUsername().isEmpty())) {
 			for(User userInDatabase : usersInDatabase) {
 				if ((userToValidate.getUsername().compareTo(userInDatabase.getUsername())==0) && (userToValidate.getFullname().compareTo(userInDatabase.getFullname())==0)) {
-					model.addAttribute(MESSAGE_USERNAME, "Your username already exists. ");
-					model.addAttribute(MESSAGE_FULLNAME, "Your fullname already exists.");
+					model.addAttribute(MESSAGE_USERNAME, "Your username already exists");
+					model.addAttribute(MESSAGE_FULLNAME, "Your fullname already exists");
 					return USER_ADD;
 				}
 			}
@@ -118,17 +118,17 @@ public class UserController {
 			BindingResult result, Model model) {
 		// Check if the last name or first name is not empty 
 		if(userToValidate.getFullname().isEmpty()) {
-			model.addAttribute(MESSAGE_FULLNAME, "Your fullname is empty.");
+			model.addAttribute(MESSAGE_FULLNAME, "Your fullname is empty");
 			return USER_UPDATE;
 		}
 		// Check if the last name or first name is not empty and 
 		if(userToValidate.getUsername().isEmpty()) {
-			model.addAttribute(MESSAGE_USERNAME, "Your username is empty.");
+			model.addAttribute(MESSAGE_USERNAME, "Your username is empty");
 			return USER_UPDATE;
 		} 
 		//Check that the radio box is checked
 		if(userToValidate.getRole()==null) {
-			model.addAttribute(MESSAGE_ROLE, "Your role is empty.");
+			model.addAttribute(MESSAGE_ROLE, "Your role is empty");
 			return USER_UPDATE;
 		}
 		// Verify password rules

@@ -19,7 +19,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
 	@Autowired
 	private DataSource dataSource;
-
+	@Autowired
+    private UserDetailsService userDetailsService;
 	/**
 	 * configure HTTP security
 	 * @param http
@@ -27,7 +28,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure (HttpSecurity http) throws Exception {
 		http
-
 		.csrf()
 		.and()
 		.authorizeRequests()
@@ -49,6 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		.defaultSuccessUrl("/bidList/list");
 	}
 
+	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth
