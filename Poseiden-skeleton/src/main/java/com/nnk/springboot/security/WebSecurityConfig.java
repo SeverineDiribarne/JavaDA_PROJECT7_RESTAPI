@@ -10,15 +10,14 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-//import javax.sql.DataSource;
+
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
-//	@Autowired
-//	private DataSource dataSource;
+
 	
 	@Autowired
     private MyUserDetailsService userDetailsService;
@@ -63,13 +62,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		auth
 		.userDetailsService(userDetailsService)
 		.passwordEncoder(passwordEncoder());
-		//.and()
-		//.jdbcAuthentication()
-		//.dataSource(dataSource)
-		//.usersByUsernameQuery(
-		//		"select username,password,'true' as enabled from users where username=?")
-		//.authoritiesByUsernameQuery(
-		//		"select username,role from users where username=?");
 	}
 
 	/**

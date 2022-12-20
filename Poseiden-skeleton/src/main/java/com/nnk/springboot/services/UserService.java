@@ -121,10 +121,6 @@ public class UserService {
 		if(!validityPasswordRules.containsAtLeastOneSymbol) {
 			errorMessages.add("- must contain at least one symbol.");
 		}
-	//	if(!errorMessage.isEmpty())
-		//{
-			//errorMessage = "Your password :\n" + errorMessage;
-		//}
 		return errorMessages;
 	}
 }
