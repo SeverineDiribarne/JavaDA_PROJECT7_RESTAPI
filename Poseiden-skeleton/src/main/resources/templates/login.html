@@ -13,7 +13,7 @@
 	<!-- Login via Username and password -->
 	<div class="container_form">
 		<div class="form">
-		<form  th:action="@{/login/validate}" method="post" class="form-signin">
+		<form  th:action="@{/login}" method="post" class="form-signin">
 			<h2 class= "title_login1">Login with Username and Password</h2>
 		<div class="form_content">
 			<div class="input-group1">
@@ -27,7 +27,7 @@
 					placeholder="Password" required />
 			</div>
 			
-			 <span th:style="'color: red;'" th:if="${message}"  th:text="${message}">Error</span>
+			 <span th:style="'color: red;'"th:if="${param.error}" >Invalid username and password</span>
  
 			<div>
 				<button type="submit" class="btn btn-lg btn-primary btn-block">Login</button>

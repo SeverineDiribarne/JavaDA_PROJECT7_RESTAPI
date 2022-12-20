@@ -2,6 +2,8 @@ package com.nnk.springboot.security;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -50,5 +52,13 @@ public class MyMainUser implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		return true;
+	}
+	
+	public Map<String,Object> attributes()
+	{
+		Map<String, Object> attributes = new HashMap<>();
+		attributes.put("name", user.getUsername());
+		
+		return attributes;
 	}
 }

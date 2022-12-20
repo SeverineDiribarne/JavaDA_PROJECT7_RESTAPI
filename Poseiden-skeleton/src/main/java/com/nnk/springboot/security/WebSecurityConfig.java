@@ -10,17 +10,18 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import javax.sql.DataSource;
+//import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
+//	@Autowired
+//	private DataSource dataSource;
+	
 	@Autowired
-	private DataSource dataSource;
-	@Autowired
-    private UserDetailsService userDetailsService;
+    private MyUserDetailsService userDetailsService;
 	/**
 	 * configure HTTP security
 	 * @param http
@@ -35,7 +36,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		.antMatchers("/bidList", "/curvePoint", "/rating", "/ruleName", "/trade", "/user").authenticated()
 
 		.and()
-	
+		
+		.formLogin()
+		.loginPage("/login")
+		.failureUrl("/login?error=true")
+		.defaultSuccessUrl("/bidList/list")
+		
+		.and()
+		
 		.logout()
 		.logoutUrl("/app-logout")
 		.logoutSuccessUrl("/home")
@@ -53,13 +61,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth
-		.jdbcAuthentication()
-		.dataSource(dataSource)
-		.passwordEncoder(passwordEncoder())
-		.usersByUsernameQuery(
-				"select username,password,'true' as enabled from users where username=?")
-		.authoritiesByUsernameQuery(
-				"select username,role from users where username=?");
+		.userDetailsService(userDetailsService)
+		.passwordEncoder(passwordEncoder());
+		//.and()
+		//.jdbcAuthentication()
+		//.dataSource(dataSource)
+		//.usersByUsernameQuery(
+		//		"select username,password,'true' as enabled from users where username=?")
+		//.authoritiesByUsernameQuery(
+		//		"select username,role from users where username=?");
 	}
 
 	/**
